@@ -31,6 +31,7 @@ _CM="*res://classes/Combat/CombatManager2D.gd"
 
 [display]
 
+window/size/always_on_top=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

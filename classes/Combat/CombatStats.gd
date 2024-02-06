@@ -152,10 +152,8 @@ func apply_status_effect(_id:String, _potency:int, _count:int = 0):
 	se.pawn = pawn.combat_stats;
 	
 	#Effect Stuff
-	se.potency = clamp(_potency, 0, se.max_potency);
-	se.count = clamp(_count, 0, se.max_count);
-	
-	if se.count <= 0: se.count = 1;
+	se.potency = clamp(_potency, 1, se.max_potency);
+	se.count = clamp(_count, 1, se.max_count);
 	
 	status_effects.push_back(se);
 
@@ -169,6 +167,9 @@ func get_offense_level(stat:=_Enums.AS.STR) -> int:
 	return pawn.char_sheet.level+get_stat_mod(stat);
 
 func get_defense_level(stat:=_Enums.AS.CON) -> int:
+	return pawn.char_sheet.level+get_stat_mod(stat);
+
+func get_speed_level(stat:=_Enums.AS.DEX) -> int:
 	return pawn.char_sheet.level+get_stat_mod(stat);
 
 func deep_copy() -> CombatStats:
