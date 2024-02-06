@@ -1,0 +1,321 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfagvw471k5iq"]
+
+[ext_resource type="Script" path="res://temp/watered_down_combat.gd" id="1_m4fma"]
+[ext_resource type="Script" path="res://temp/Setup Menu.gd" id="2_1tmtr"]
+[ext_resource type="AudioStream" uid="uid://emrmajklfqyb" path="res://assets/audio/music/early_battle/early_battle_1.wav" id="3_n614t"]
+[ext_resource type="Script" path="res://temp/Skills Menu.gd" id="3_x1gu5"]
+[ext_resource type="Script" path="res://temp/Math Menu.gd" id="4_pwcce"]
+
+[node name="Watered Down Combat" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m4fma")
+metadata/_edit_lock_ = true
+
+[node name="Team0Pawns" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 268.0
+grow_vertical = 2
+theme_override_constants/separation = 90
+metadata/_edit_lock_ = true
+
+[node name="Team1Pawns" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -561.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/separation = 90
+metadata/_edit_lock_ = true
+
+[node name="PhaseLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_right = 50.0
+offset_bottom = 26.0
+grow_horizontal = 2
+text = "Phase: Setup"
+horizontal_alignment = 1
+
+[node name="NextPhase" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -21.0
+offset_top = 29.0
+offset_right = 24.0
+offset_bottom = 60.0
+grow_horizontal = 2
+mouse_force_pass_scroll_events = false
+mouse_default_cursor_shape = 2
+text = "Next"
+
+[node name="Setup Menu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_1tmtr")
+metadata/_edit_lock_ = true
+
+[node name="Pawns" type="Control" parent="Setup Menu"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CharSheetList" type="OptionButton" parent="Setup Menu/Pawns"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -16.5
+offset_right = 170.0
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AddPlayer" type="Button" parent="Setup Menu/Pawns/CharSheetList"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 43.5
+offset_right = 152.0
+offset_bottom = 76.5
+text = "Add Player"
+
+[node name="AddEnemy" type="Button" parent="Setup Menu/Pawns"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 46.0
+offset_right = 155.0
+offset_bottom = 85.0
+text = "Add Enemy"
+
+[node name="Skills Menu" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_x1gu5")
+
+[node name="Type" type="OptionButton" parent="Skills Menu"]
+layout_mode = 0
+offset_left = -165.0
+offset_top = -37.0
+offset_right = 38.0
+offset_bottom = -15.0
+
+[node name="Min" type="LineEdit" parent="Skills Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.0
+offset_top = -18.0
+offset_right = -118.938
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Min"
+
+[node name="Max" type="LineEdit" parent="Skills Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -19.0
+offset_right = -24.9375
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+placeholder_text = "Max"
+
+[node name="Add" type="Button" parent="Skills Menu"]
+layout_mode = 0
+offset_left = -155.0
+offset_top = 44.0
+offset_right = -116.0
+offset_bottom = 75.0
+text = "Add"
+
+[node name="Delete" type="Button" parent="Skills Menu"]
+layout_mode = 0
+offset_left = -71.0
+offset_top = 43.0
+offset_right = -12.0
+offset_bottom = 74.0
+text = "Delete"
+
+[node name="Math Menu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_pwcce")
+
+[node name="CheckButton" type="CheckButton" parent="Math Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -12.0
+offset_right = 22.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Roll" type="Button" parent="Math Menu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.887
+anchor_right = 0.5
+anchor_bottom = 0.887
+offset_left = -18.0
+offset_top = 23.52
+offset_right = 19.0
+offset_bottom = 54.52
+grow_horizontal = 2
+grow_vertical = 2
+text = "Roll"
+
+[node name="D1Type" type="Label" parent="Math Menu"]
+layout_mode = 0
+offset_left = -131.0
+offset_top = 24.0
+offset_right = -46.0
+offset_bottom = 50.0
+text = "THPE HERE"
+
+[node name="D2Type" type="Label" parent="Math Menu"]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 28.0
+offset_right = 134.0
+offset_bottom = 51.0
+text = "TYPE HERE"
+
+[node name="D1Result" type="Label" parent="Math Menu"]
+layout_mode = 0
+offset_left = -113.0
+offset_top = 75.0
+offset_right = -73.0
+offset_bottom = 101.0
+text = "X"
+horizontal_alignment = 1
+
+[node name="D2Result" type="Label" parent="Math Menu"]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 74.0
+offset_right = 154.0
+offset_bottom = 100.0
+text = "X"
+horizontal_alignment = 1
+
+[node name="Remove" type="Button" parent="Math Menu"]
+layout_mode = 0
+offset_left = -18.0
+offset_top = 140.0
+offset_right = 61.0
+offset_bottom = 171.0
+text = "Remove"
+
+[node name="Next" type="Button" parent="Math Menu"]
+layout_mode = 0
+offset_left = -18.0
+offset_top = 174.0
+offset_right = 61.0
+offset_bottom = 205.0
+text = "Next
+"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_n614t")
+volume_db = -80.0
+autoplay = true
+
+[node name="music" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -185.0
+offset_top = -31.0
+offset_right = 138.0
+grow_horizontal = 2
+grow_vertical = 0
+placeholder_text = "music file path"
+
+[node name="volume" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 140.0
+offset_top = -30.0
+offset_right = 207.063
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+placeholder_text = "db"
+
+[connection signal="pressed" from="NextPhase" to="." method="_on_next_phase_pressed"]
+[connection signal="pressed" from="Setup Menu/Pawns/CharSheetList/AddPlayer" to="Setup Menu" method="_on_add_player_pressed"]
+[connection signal="pressed" from="Setup Menu/Pawns/AddEnemy" to="Setup Menu" method="_on_add_enemy_pressed"]
+[connection signal="pressed" from="Skills Menu/Add" to="Skills Menu" method="_on_add_pressed"]
+[connection signal="pressed" from="Skills Menu/Delete" to="Skills Menu" method="_on_delete_pressed"]
+[connection signal="pressed" from="Math Menu/Roll" to="Math Menu" method="_on_roll_pressed"]
+[connection signal="pressed" from="Math Menu/Remove" to="Math Menu" method="_on_remove_pressed"]
+[connection signal="pressed" from="Math Menu/Next" to="Math Menu" method="_on_next_pressed"]
+[connection signal="text_submitted" from="music" to="." method="_on_music_text_submitted"]
+[connection signal="text_submitted" from="volume" to="." method="_on_volume_text_submitted"]

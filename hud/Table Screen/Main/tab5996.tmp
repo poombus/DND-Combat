@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://ba1bg8k07bbbv"]
+
+[ext_resource type="PackedScene" uid="uid://c78xpjp8uncpx" path="res://hud/Table Screen/Main/Player Info/player_info.tscn" id="1_0ry70"]
+[ext_resource type="Script" path="res://hud/Table Screen/Main/table_screen.gd" id="1_ytk0f"]
+[ext_resource type="PackedScene" path="res://hud/Table Screen/Main/System Message/popup_message.tscn" id="2_1m6ov"]
+[ext_resource type="PackedScene" uid="uid://d4ilb5dx3jap7" path="res://hud/Table Screen/Main/Chat/chat_box.tscn" id="3_u6gxi"]
+[ext_resource type="PackedScene" uid="uid://d1l6353lkujhb" path="res://hud/Table Screen/Main/Tabs/tabs.tscn" id="4_mo3rf"]
+
+[node name="Table Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ytk0f")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Player Info" parent="." instance=ExtResource("1_0ry70")]
+offset_bottom = 294.0
+
+[node name="Popup Message" parent="." instance=ExtResource("2_1m6ov")]
+layout_mode = 1
+offset_top = -11.5
+offset_bottom = 11.5
+
+[node name="Chat Box" parent="." instance=ExtResource("3_u6gxi")]
+layout_mode = 1
+offset_top = -319.0
+offset_right = 373.0
+
+[node name="Tabs" parent="." instance=ExtResource("4_mo3rf")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Mini Window" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0

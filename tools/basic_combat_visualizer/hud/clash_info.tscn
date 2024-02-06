@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyi6m268p5frw"]
+
+[ext_resource type="Script" path="res://tools/basic_combat_visualizer/hud/clash_info.gd" id="1_a4tmb"]
+[ext_resource type="PackedScene" uid="uid://b8xdytppfd1f4" path="res://hud/Combat GUI/Skill Chain/mini_dice.tscn" id="1_j6qif"]
+
+[node name="ClashInfo" type="PanelContainer"]
+custom_minimum_size = Vector2(595, 76)
+offset_right = 595.0
+offset_bottom = 76.0
+script = ExtResource("1_a4tmb")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Pawn1" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="RichTextLabel" parent="HBoxContainer/Pawn1"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -12.5
+offset_right = 130.0
+offset_bottom = 12.5
+grow_vertical = 2
+bbcode_enabled = true
+text = "PAWN NAME"
+scroll_active = false
+
+[node name="Mini Dice" parent="HBoxContainer/Pawn1" instance=ExtResource("1_j6qif")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -205.0
+offset_right = 51.0
+grow_horizontal = 0
+
+[node name="Pawn2" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="RichTextLabel" parent="HBoxContainer/Pawn2"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -12.5
+offset_bottom = 12.5
+grow_horizontal = 0
+grow_vertical = 2
+bbcode_enabled = true
+text = "[right]PAWN NAME[/right]"
+scroll_active = false
+
+[node name="Mini Dice" parent="HBoxContainer/Pawn2" instance=ExtResource("1_j6qif")]
+layout_mode = 1
+anchors_preset = 4
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = -51.0
+offset_right = 205.0
+grow_horizontal = 1

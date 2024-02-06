@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=2 format=3 uid="uid://dr10gsbswuuet"]
+
+[ext_resource type="Script" path="res://classes/Resources/StatusEffect/StatusEffect.gd" id="1_1mvfa"]
+
+[resource]
+script = ExtResource("1_1mvfa")
+id = "burn"
+display_name = "Burn"
+max_potency = 99
+max_count = 99
+decrease_on_turn_end = 1
+events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])

@@ -1,0 +1,41 @@
+{
+	"IDLE": {
+		"frames": [0]
+	},
+	"MOVE": {
+		"frames": [1]
+	},
+	"SLASHING": {
+		"prep_frames":[],
+		"frames": [2]
+	},
+	"BLUDGEONING": {
+		"prep_frames":[],
+		"frames": [3]
+	},
+	"PIERCING": {
+		"prep_frames":[],
+		"frames": [4]
+	},
+	"spell_cast": {
+		"prep_frames": [],
+		"frames": [2]
+	},
+	"ranged": {
+		"prep_frames": [8],
+		"frames": [9]
+	},
+	"GUARD": {
+		"prep_frames":[],
+		"frames": [6]
+	},
+	"EVADE": {
+		"frames": [7]
+	},
+	"HURT": {
+		"frames": [5]
+	},
+	"group:skill_id": {
+		"animation": "animation_player_animation_name"
+	}
+}

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=5 format=3 uid="uid://wdbdrnc43dcu"]
+
+[ext_resource type="Script" path="res://classes/Resources/Skill/Skill.gd" id="1_cenjy"]
+[ext_resource type="Script" path="res://classes/Resources/Skill/Dice.gd" id="1_ea4bi"]
+
+[sub_resource type="Resource" id="Resource_kvw4s"]
+script = ExtResource("1_ea4bi")
+dice_type = 3
+low = 1
+high = 8
+events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
+
+[sub_resource type="Resource" id="Resource_qbmof"]
+script = ExtResource("1_ea4bi")
+dice_type = 3
+low = 1
+high = 8
+events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
+
+[resource]
+script = ExtResource("1_cenjy")
+id = "revenge_strike"
+display_name = "Revenge Strike"
+modifier = 0
+energy_cost = 5
+weight = 1
+type = 0
+damage_type = 1
+element_type = 0
+dice = Array[ExtResource("1_ea4bi")]([SubResource("Resource_kvw4s"), SubResource("Resource_qbmof")])

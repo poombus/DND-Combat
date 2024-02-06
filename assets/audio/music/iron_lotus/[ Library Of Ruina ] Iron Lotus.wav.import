@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cxl10ca1cdd5a"
+path="res://.godot/imported/[ Library Of Ruina ] Iron Lotus.wav-32ac23cf88221bae3341be38e462c62a.sample"
+
+[deps]
+
+source_file="res://assets/audio/music/iron_lotus/[ Library Of Ruina ] Iron Lotus.wav"
+dest_files=["res://.godot/imported/[ Library Of Ruina ] Iron Lotus.wav-32ac23cf88221bae3341be38e462c62a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=22400
+edit/loop_end=10456080
+compress/mode=0

@@ -1,0 +1,595 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5cb13hpewogu"]
+
+[ext_resource type="Script" path="res://tools/character sheet tool/Character Sheet Generator.gd" id="1_jk68v"]
+
+[node name="Character Sheet Generator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jk68v")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="ContainerLeft" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 410.0
+grow_vertical = 2
+
+[node name="PlayerBool" type="CheckButton" parent="ContainerLeft"]
+layout_mode = 2
+size_flags_horizontal = 0
+button_pressed = true
+text = "Is Player?"
+
+[node name="DisplayName" type="LineEdit" parent="ContainerLeft"]
+layout_mode = 2
+placeholder_text = "Display Name"
+
+[node name="Description" type="TextEdit" parent="ContainerLeft"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+placeholder_text = "Short description."
+wrap_mode = 1
+
+[node name="Level" type="LineEdit" parent="ContainerLeft"]
+layout_mode = 2
+placeholder_text = "Level"
+
+[node name="Race" type="Control" parent="ContainerLeft"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerLeft/Race"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Race:"
+
+[node name="Options" type="OptionButton" parent="ContainerLeft/Race"]
+layout_mode = 2
+offset_left = 61.0
+offset_top = 4.0
+offset_right = 410.0
+offset_bottom = 24.0
+
+[node name="Class" type="Control" parent="ContainerLeft"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerLeft/Class"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Class:"
+
+[node name="Options" type="OptionButton" parent="ContainerLeft/Class"]
+layout_mode = 2
+offset_left = 61.0
+offset_top = 4.0
+offset_right = 410.0
+offset_bottom = 24.0
+
+[node name="Type" type="Control" parent="ContainerLeft"]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerLeft/Type"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Type:"
+
+[node name="Options" type="OptionButton" parent="ContainerLeft/Type"]
+layout_mode = 2
+offset_left = 61.0
+offset_top = 4.0
+offset_right = 410.0
+offset_bottom = 24.0
+
+[node name="Ethics" type="Control" parent="ContainerLeft"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerLeft/Ethics"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Ethics:"
+
+[node name="Options" type="OptionButton" parent="ContainerLeft/Ethics"]
+layout_mode = 2
+offset_left = 61.0
+offset_top = 4.0
+offset_right = 410.0
+offset_bottom = 24.0
+
+[node name="Morals" type="Control" parent="ContainerLeft"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerLeft/Morals"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Morals:"
+
+[node name="Options" type="OptionButton" parent="ContainerLeft/Morals"]
+layout_mode = 2
+offset_left = 61.0
+offset_top = 4.0
+offset_right = 410.0
+offset_bottom = 24.0
+
+[node name="Languages" type="LineEdit" parent="ContainerLeft"]
+layout_mode = 2
+placeholder_text = "Languages. Comma seperated."
+
+[node name="Senses" type="LineEdit" parent="ContainerLeft"]
+layout_mode = 2
+placeholder_text = "Senses. Comma seperated."
+
+[node name="HSeparator" type="HSeparator" parent="ContainerLeft"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="HP" type="Control" parent="ContainerLeft"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerLeft/HP"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -13.0
+offset_right = 40.0
+offset_bottom = 13.0
+grow_vertical = 2
+text = "Health Points:"
+
+[node name="Value" type="LineEdit" parent="ContainerLeft/HP"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -15.0
+offset_right = 0.0625
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "20"
+placeholder_text = "INT"
+
+[node name="ST" type="Control" parent="ContainerLeft"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerLeft/ST"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -13.0
+offset_right = 40.0
+offset_bottom = 13.0
+grow_vertical = 2
+text = "Stagger Resist:"
+
+[node name="Value" type="LineEdit" parent="ContainerLeft/ST"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -15.0
+offset_right = 0.0625
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "20"
+placeholder_text = "INT"
+
+[node name="ProfBonus" type="Control" parent="ContainerLeft"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerLeft/ProfBonus"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -13.0
+offset_right = 40.0
+offset_bottom = 13.0
+grow_vertical = 2
+text = "Proficiency Bonus:"
+
+[node name="Value" type="LineEdit" parent="ContainerLeft/ProfBonus"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -15.0
+offset_right = 0.0625
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "2"
+placeholder_text = "INT"
+
+[node name="SkillProfs" type="LineEdit" parent="ContainerLeft"]
+layout_mode = 2
+placeholder_text = "Skill Proficiencies. Comma seperated."
+
+[node name="ContainerMiddle" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -205.0
+offset_right = 146.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="STR" type="Control" parent="ContainerMiddle"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerMiddle/STR"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -13.0
+offset_right = 87.0
+offset_bottom = 13.0
+grow_vertical = 2
+text = "STRENGTH:"
+
+[node name="CheckButton" type="CheckButton" parent="ContainerMiddle/STR"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -156.0
+offset_top = -15.0
+offset_right = -71.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Prof:"
+
+[node name="LineEdit" type="LineEdit" parent="ContainerMiddle/STR"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -67.0625
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "200"
+placeholder_text = "INT"
+
+[node name="DEX" type="Control" parent="ContainerMiddle"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerMiddle/DEX"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -13.0
+offset_right = 87.0
+offset_bottom = 13.0
+grow_vertical = 2
+text = "DEXTERITY:"
+
+[node name="CheckButton" type="CheckButton" parent="ContainerMiddle/DEX"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -156.0
+offset_top = -15.0
+offset_right = -71.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Prof:"
+
+[node name="LineEdit" type="LineEdit" parent="ContainerMiddle/DEX"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -67.0625
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "200"
+placeholder_text = "INT"
+
+[node name="CON" type="Control" parent="ContainerMiddle"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerMiddle/CON"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -13.0
+offset_right = 87.0
+offset_bottom = 13.0
+grow_vertical = 2
+text = "CONSTITUTION:"
+
+[node name="CheckButton" type="CheckButton" parent="ContainerMiddle/CON"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -156.0
+offset_top = -15.0
+offset_right = -71.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Prof:"
+
+[node name="LineEdit" type="LineEdit" parent="ContainerMiddle/CON"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -67.0625
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "200"
+placeholder_text = "INT"
+
+[node name="INT" type="Control" parent="ContainerMiddle"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerMiddle/INT"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -13.0
+offset_right = 87.0
+offset_bottom = 13.0
+grow_vertical = 2
+text = "INTELLIGENCE:"
+
+[node name="CheckButton" type="CheckButton" parent="ContainerMiddle/INT"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -156.0
+offset_top = -15.0
+offset_right = -71.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Prof:"
+
+[node name="LineEdit" type="LineEdit" parent="ContainerMiddle/INT"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -67.0625
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "200"
+placeholder_text = "INT"
+
+[node name="WIS" type="Control" parent="ContainerMiddle"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerMiddle/WIS"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -13.0
+offset_right = 87.0
+offset_bottom = 13.0
+grow_vertical = 2
+text = "WISDOM:"
+
+[node name="CheckButton" type="CheckButton" parent="ContainerMiddle/WIS"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -156.0
+offset_top = -15.0
+offset_right = -71.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Prof:"
+
+[node name="LineEdit" type="LineEdit" parent="ContainerMiddle/WIS"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -67.0625
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "200"
+placeholder_text = "INT"
+
+[node name="CHA" type="Control" parent="ContainerMiddle"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ContainerMiddle/CHA"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -13.0
+offset_right = 87.0
+offset_bottom = 13.0
+grow_vertical = 2
+text = "CHARISMA:"
+
+[node name="CheckButton" type="CheckButton" parent="ContainerMiddle/CHA"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -156.0
+offset_top = -15.0
+offset_right = -71.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "Prof:"
+
+[node name="LineEdit" type="LineEdit" parent="ContainerMiddle/CHA"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -67.0625
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "200"
+placeholder_text = "INT"
+
+[node name="HSeparator" type="HSeparator" parent="ContainerMiddle"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="Resistances" type="LineEdit" parent="ContainerMiddle"]
+layout_mode = 2
+placeholder_text = "DmgType:Multiplier, DmgType2:Multiplier"
+
+[node name="ContainerRight" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -429.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="SkillsDropdown" type="MenuButton" parent="ContainerRight"]
+layout_mode = 2
+text = "SKILLS"
+flat = false
+
+[node name="SkillsIDs" type="LineEdit" parent="ContainerRight"]
+layout_mode = 2
+placeholder_text = "Skill IDs. Edit at your own risk."
+
+[node name="HSeparator" type="HSeparator" parent="ContainerRight"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="SpellsDropdown" type="MenuButton" parent="ContainerRight"]
+layout_mode = 2
+text = "SPELLS"
+flat = false
+
+[node name="SpellsIDs" type="LineEdit" parent="ContainerRight"]
+layout_mode = 2
+placeholder_text = "Skill IDs. Edit at your own risk."
+
+[node name="HSeparator2" type="HSeparator" parent="ContainerRight"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="InventoryDropdown" type="MenuButton" parent="ContainerRight"]
+layout_mode = 2
+text = "ITEMS"
+flat = false
+
+[node name="InventoryIDs" type="LineEdit" parent="ContainerRight"]
+layout_mode = 2
+placeholder_text = "Skill IDs. Edit at your own risk."
+
+[node name="HSeparator3" type="HSeparator" parent="ContainerRight"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="TraitsDropdown" type="MenuButton" parent="ContainerRight"]
+layout_mode = 2
+text = "TRAITS"
+flat = false
+
+[node name="TraitsIDs" type="LineEdit" parent="ContainerRight"]
+layout_mode = 2
+placeholder_text = "Skill IDs. Edit at your own risk."
+
+[node name="HSeparator4" type="HSeparator" parent="ContainerRight"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="GENERATE" type="Button" parent="ContainerRight"]
+layout_mode = 2
+text = "GENERATE JSON"
+
+[connection signal="toggled" from="ContainerLeft/PlayerBool" to="." method="_on_player_bool_toggled"]
+[connection signal="pressed" from="ContainerRight/GENERATE" to="." method="_on_generate_pressed"]

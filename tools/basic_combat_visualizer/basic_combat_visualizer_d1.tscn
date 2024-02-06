@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://cff6mx4djmdbl"]
+
+[ext_resource type="Script" path="res://tools/basic_combat_visualizer/basic_combat_visualizer.gd" id="1_os4g8"]
+[ext_resource type="PackedScene" uid="uid://nljyb10vwo8g" path="res://hud/Combat GUI/combat_gui.tscn" id="2_3u7f5"]
+[ext_resource type="PackedScene" uid="uid://d4inxahltm4l4" path="res://tools/basic_combat_visualizer/hud/bcv_player_info.tscn" id="2_pnsbo"]
+[ext_resource type="PackedScene" uid="uid://cyi6m268p5frw" path="res://tools/basic_combat_visualizer/hud/clash_info.tscn" id="3_u6xsj"]
+[ext_resource type="PackedScene" uid="uid://drmpldifjxf23" path="res://classes/Pawn/pawn_2d_template.tscn" id="5_1bcyy"]
+
+[node name="Basic Combat Visualizer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_os4g8")
+
+[node name="Team1" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 396.0
+offset_bottom = 646.0
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="BCV Player Info" parent="Team1" instance=ExtResource("2_pnsbo")]
+layout_mode = 2
+
+[node name="Team2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -198.0
+offset_right = 198.0
+offset_bottom = 642.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+alignment = 2
+
+[node name="BCV Player Info" parent="Team2" instance=ExtResource("2_pnsbo")]
+layout_mode = 2
+
+[node name="BCV Player Info2" parent="Team2" instance=ExtResource("2_pnsbo")]
+layout_mode = 2
+
+[node name="ClashList" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ClashInfo" parent="ClashList" instance=ExtResource("3_u6xsj")]
+layout_mode = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Combat GUI" parent="CanvasLayer" instance=ExtResource("2_3u7f5")]
+
+[node name="HiddenPawns" type="Node2D" parent="."]
+visible = false
+
+[node name="Pawn2D" parent="HiddenPawns" instance=ExtResource("5_1bcyy")]
+
+[node name="Pawn2D2" parent="HiddenPawns" instance=ExtResource("5_1bcyy")]

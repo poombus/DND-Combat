@@ -1,0 +1,53 @@
+{
+	"is_player": true,
+	"display_name": "Cassie",
+	"description": "Abby is a test character.",
+	"level": 1,
+	"race": "HUMAN",
+	"ethics": "LAWFUL",
+	"morals": "GOOD",
+	"languages": [
+		"Common"
+	],
+	"senses": [],
+	"maxhp": 10,
+	"hp": 10,
+	"maxsr": 10,
+	"sr": 10,
+	"profBonus": 2,
+	"skillProfs": [],
+	"ability_scores": {
+		"STR": {
+			"value": 600,
+			"prof": true
+		},
+		"DEX": {
+			"value": 100,
+			"prof": false
+		},
+		"CON": {
+			"value": 500,
+			"prof": true
+		},
+		"INT": {
+			"value": 300,
+			"prof": false
+		},
+		"WIS": {
+			"value": 200,
+			"prof": false
+		},
+		"CHA": {
+			"value": 400,
+			"prof": false
+		}
+	},
+	"resistances": {
+		"SLASHING": 0.5
+	},
+	"skills": ["base:double_slash"],
+	"spells": [],
+	"inventory": [],
+	"traits": [],
+	"pclass": "PALADIN"
+}

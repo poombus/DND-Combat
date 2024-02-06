@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://dd6xyqoy28bvp"]
+
+[ext_resource type="Script" path="res://hud/Table Screen/Windows/window.gd" id="1_dg8p4"]
+[ext_resource type="Texture2D" uid="uid://dmnemlpj8i572" path="res://assets/textures/icons/x.png" id="1_hi0mr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dlb63"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 0)
+
+[node name="Window" type="Panel"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.5
+offset_top = -292.0
+offset_right = 540.5
+offset_bottom = 292.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+script = ExtResource("1_dg8p4")
+
+[node name="CloseButton" type="Button" parent="."]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -37.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 37.0
+grow_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_dlb63")
+icon = ExtResource("1_hi0mr")
+icon_alignment = 1
+
+[connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]

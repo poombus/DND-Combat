@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1l6353lkujhb"]
+
+[ext_resource type="Script" path="res://hud/Table Screen/Main/Tabs/tabs.gd" id="1_4oj16"]
+
+[node name="Tabs" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4oj16")
+
+[node name="TabBar" type="TabBar" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -654.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+tab_alignment = 2
+
+[connection signal="tab_clicked" from="TabBar" to="." method="_on_tab_bar_tab_clicked"]

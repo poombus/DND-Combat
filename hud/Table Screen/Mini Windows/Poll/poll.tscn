@@ -1,0 +1,93 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8rbow2cnduvb"]
+
+[ext_resource type="Script" path="res://hud/Table Screen/Mini Windows/Poll/poll.gd" id="1_f1n3l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8d2ka"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_534ev"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Poll" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_f1n3l")
+
+[node name="PanelContainer" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -276.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="TimerBar" type="ProgressBar" parent="PanelContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 5.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_8d2ka")
+theme_override_styles/fill = SubResource("StyleBoxFlat_534ev")
+value = 100.0
+show_percentage = false
+
+[node name="Header" type="Label" parent="PanelContainer"]
+self_modulate = Color(0.4, 0.4, 0.4, 1)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_top = 10.0
+offset_right = 128.0
+offset_bottom = 33.0
+grow_horizontal = 2
+text = "NAME called a poll..."
+horizontal_alignment = 1
+
+[node name="Question" type="Label" parent="PanelContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 40.0
+offset_bottom = 110.0
+grow_horizontal = 2
+text = "Question here..."
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Yes" type="Button" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "Yay"
+
+[node name="No" type="Button" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "Nay"
+
+[connection signal="pressed" from="PanelContainer/HBoxContainer/Yes" to="." method="_on_yes_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/No" to="." method="_on_no_pressed"]

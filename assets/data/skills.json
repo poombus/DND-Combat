@@ -1,0 +1,167 @@
+{
+	"double_slash":{
+		"name": "Double Slash",
+		"energy_cost":1,
+		"min_level":0,
+		"skill_type": "MELEE",
+		"dice": [
+			{
+				"minmax": [1,4],
+				"type": "SLASHING"
+			},
+			{
+				"minmax": [1,4],
+				"type": "SLASHING"
+			},
+			{
+				"minmax": [1,4],
+				"type": "SLASHING"
+			},
+			{
+				"minmax": [1,4],
+				"type": "SLASHING"
+			}
+		]
+	},
+	"stellar_slash":{
+		"name": "Stellar Slash",
+		"energy_cost":1,
+		"min_level":0,
+		"skill_type": "MELEE",
+		"dice": [
+			{
+				"minmax": [2,8],
+				"type": "SLASHING",
+				"element": "RADIANT"
+			}
+		]
+	},
+	"astral_projectile":{
+		"name": "Astral Projectile",
+		"energy_cost":1,
+		"min_level":0,
+		"skill_type": "MELEE",
+		"dice": [
+			{
+				"minmax": [1,4],
+				"type": "SLASHING",
+				"element": "RADIANT"
+			}
+		]
+	},
+	"parry_strike":{
+		"name": "Parry Strike",
+		"energy_cost":1,
+		"min_level":0,
+		"skill_type": "MELEE",
+		"dice": [
+			{
+				"minmax": [1,4],
+				"type": "GUARD"
+			},{
+				"minmax": [1,4],
+				"type": "SLASHING"
+			}
+		]
+	},
+	"evade":{
+		"name": "Evade",
+		"energy_cost":1,
+		"min_level":0,
+		"skill_type": "MELEE",
+		"dice": [
+			{
+				"minmax": [2,8],
+				"type": "EVADE"
+			}
+		]
+	},
+	"counter":{
+		"name": "Counter",
+		"energy_cost":1,
+		"min_level":0,
+		"skill_type": "MELEE",
+		"dice": [
+			{
+				"minmax": [1,4],
+				"type": "C_BLUNT"
+			}
+		]
+	},
+	"stnowc_strong_attack":{
+		"name": "So That No One Will Cry",
+		"energy_cost":1,
+		"min_level":0,
+		"skill_type": "MELEE",
+		"dice": [
+			{
+				"minmax": [12,18],
+				"type": "BLUNT"
+			},
+			{
+				"minmax": [12,18],
+				"type": "BLUNT"
+			},
+			{
+				"minmax": [12,18],
+				"type": "BLUNT"
+			},
+			{
+				"minmax": [12,18],
+				"type": "BLUNT"
+			},
+			{
+				"minmax": [12,18],
+				"type": "BLUNT"
+			}
+		]
+	},
+	"test_evade_good":{
+		"name": "Test Evade Good",
+		"energy_cost":1,
+		"min_level":0,
+		"skill_type": "MELEE",
+		"dice": [
+			{
+				"minmax": [99,99],
+				"type": "EVADE"
+			}
+		]
+	},
+	"test_evade_bad":{
+		"name": "Test Evade Bad",
+		"energy_cost":1,
+		"min_level":0,
+		"skill_type": "MELEE",
+		"dice": [
+			{
+				"minmax": [1,4],
+				"type": "EVADE"
+			}
+		]
+	},
+	"test_block_good":{
+		"name": "Test Block Good",
+		"energy_cost":1,
+		"min_level":0,
+		"skill_type": "MELEE",
+		"dice": [
+			{
+				"minmax": [99,99],
+				"type": "GUARD"
+			}
+		]
+	},
+	"test_block_bad":{
+		"name": "Test Block Bad",
+		"energy_cost":1,
+		"min_level":0,
+		"skill_type": "MELEE",
+		"dice": [
+			{
+				"minmax": [1,4],
+				"type": "GUARD"
+			}
+		]
+	}
+}

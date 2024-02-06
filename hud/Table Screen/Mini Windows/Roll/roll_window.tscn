@@ -1,0 +1,86 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjktdon4qfgpu"]
+
+[ext_resource type="Script" path="res://hud/Table Screen/Mini Windows/Roll/roll_window.gd" id="1_4yqjo"]
+[ext_resource type="Texture2D" uid="uid://dmnemlpj8i572" path="res://assets/textures/icons/x.png" id="2_dhjv6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkoqa"]
+bg_color = Color(0, 0, 0, 0.509804)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmxay"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 0)
+
+[node name="Mini Window" type="Panel"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -339.0
+offset_bottom = 240.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hkoqa")
+script = ExtResource("1_4yqjo")
+
+[node name="CloseButton" type="Button" parent="."]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -37.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 37.0
+grow_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_cmxay")
+icon = ExtResource("2_dhjv6")
+icon_alignment = 1
+
+[node name="RollName" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -151.5
+offset_top = 49.0
+offset_right = 151.5
+offset_bottom = 80.0
+grow_horizontal = 2
+placeholder_text = "Roll Name..."
+max_length = 20
+
+[node name="MinRoll" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 111.0
+offset_right = 85.0625
+offset_bottom = 142.0
+text = "1"
+placeholder_text = "Min"
+
+[node name="MaxRoll" type="LineEdit" parent="."]
+layout_mode = 1
+offset_left = 98.0
+offset_top = 111.0
+offset_right = 165.063
+offset_bottom = 142.0
+text = "20"
+placeholder_text = "Max"
+
+[node name="Modifier" type="LineEdit" parent="."]
+layout_mode = 1
+offset_left = 18.0
+offset_top = 163.0
+offset_right = 85.0625
+offset_bottom = 194.0
+text = "0"
+placeholder_text = "Modif"
+
+[node name="RollButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 163.0
+offset_right = 135.0
+offset_bottom = 194.0
+text = "Roll"
+
+[connection signal="pressed" from="CloseButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="RollButton" to="." method="_on_roll_button_pressed"]

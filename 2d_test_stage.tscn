@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://75qh06hl51ym"]
+
+[ext_resource type="PackedScene" uid="uid://drmpldifjxf23" path="res://classes/Pawn/pawn_2d_template.tscn" id="1_f57vx"]
+[ext_resource type="Script" path="res://classes/Combat/BattleCamera.gd" id="1_q4gbj"]
+[ext_resource type="PackedScene" uid="uid://nljyb10vwo8g" path="res://hud/Combat GUI/combat_gui.tscn" id="2_0b67m"]
+[ext_resource type="PackedScene" uid="uid://cyi6m268p5frw" path="res://tools/basic_combat_visualizer/hud/clash_info.tscn" id="4_axrav"]
+
+[node name="2D Test Stage" type="Node2D"]
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+position_smoothing_enabled = true
+script = ExtResource("1_q4gbj")
+
+[node name="P1" parent="." instance=ExtResource("1_f57vx")]
+position = Vector2(225, 318)
+charsheet_path = "res://tools/character sheet tool/generated_data/Klaus.json"
+
+[node name="P2" parent="." instance=ExtResource("1_f57vx")]
+position = Vector2(921, 328)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Combat GUI" parent="CanvasLayer" instance=ExtResource("2_0b67m")]
+
+[node name="ClashList" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="ClashInfo" parent="CanvasLayer/ClashList" instance=ExtResource("4_axrav")]
+layout_mode = 2

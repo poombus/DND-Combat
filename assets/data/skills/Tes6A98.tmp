@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=6 format=3 uid="uid://sktwemqvypmn"]
+
+[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="1_jeg2j"]
+[ext_resource type="Script" path="res://classes/Resources/Skill/Dice.gd" id="1_t5pxh"]
+[ext_resource type="Script" path="res://classes/Resources/Skill/Skill.gd" id="1_xbyn5"]
+
+[sub_resource type="Resource" id="Resource_ljjl3"]
+script = ExtResource("1_jeg2j")
+event_signal = "on_h"
+actions = Array[Resource("res://classes/Global/Events/EventAction.gd")]([])
+
+[sub_resource type="Resource" id="Resource_tuaoj"]
+script = ExtResource("1_t5pxh")
+low = 1
+high = 5
+events = Array[ExtResource("1_jeg2j")]([SubResource("Resource_ljjl3")])
+triggers = Array[Resource("res://classes/Resources/Skill/DiceTrigger.gd")]([])
+
+[resource]
+script = ExtResource("1_xbyn5")
+id = "test_skill"
+display_name = "Unnamed Skill"
+offense_level = 30
+type = 0
+damage_type = 0
+element_type = 10
+dice = Array[ExtResource("1_t5pxh")]([SubResource("Resource_tuaoj")])

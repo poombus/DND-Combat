@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2o5bhr1wutpi"]
+
+[ext_resource type="Script" path="res://hud/Table Screen/Mini Windows/Party/list_item.gd" id="1_bvala"]
+
+[node name="ListItem" type="HBoxContainer"]
+script = ExtResource("1_bvala")
+
+[node name="Name" type="Label" parent="."]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "PLAYER NAME"
+
+[node name="VSeparator" type="VSeparator" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+
+[node name="SetButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Set"
+
+[node name="ViewButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "View"
+
+[connection signal="pressed" from="SetButton" to="." method="_on_set_button_pressed"]
+[connection signal="pressed" from="ViewButton" to="." method="_on_view_button_pressed"]

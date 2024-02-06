@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=7 format=3 uid="uid://bkjy7jww4a2ak"]
+
+[ext_resource type="Script" path="res://classes/Resources/Skill/Dice.gd" id="1_biqsn"]
+[ext_resource type="Script" path="res://classes/Resources/Skill/Skill.gd" id="2_ixwuf"]
+
+[sub_resource type="Resource" id="Resource_qlesd"]
+script = ExtResource("1_biqsn")
+low = null
+high = 4
+events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
+
+[sub_resource type="Resource" id="Resource_cws4a"]
+script = ExtResource("1_biqsn")
+low = null
+high = 4
+events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
+
+[sub_resource type="Resource" id="Resource_e0u2l"]
+script = ExtResource("1_biqsn")
+low = null
+high = 4
+events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
+
+[sub_resource type="Resource" id="Resource_j554n"]
+script = ExtResource("1_biqsn")
+low = null
+high = 4
+events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
+
+[resource]
+script = ExtResource("2_ixwuf")
+id = "test_skill_2"
+display_name = "4 Blunt Dice"
+modifier = 0
+energy_cost = 5
+weight = 1
+type = 0
+damage_type = 1
+element_type = 0
+dice = Array[ExtResource("1_biqsn")]([SubResource("Resource_qlesd"), SubResource("Resource_cws4a"), SubResource("Resource_e0u2l"), SubResource("Resource_j554n")])

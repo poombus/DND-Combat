@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://35ocvdufqxas"]
+
+[ext_resource type="Script" path="res://hud/Pawn/hitpoint_bar.gd" id="1_nbpnt"]
+
+[node name="HitpointBar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 339.0
+offset_bottom = 28.0
+script = ExtResource("1_nbpnt")
+
+[node name="Container" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 338.0
+offset_bottom = 28.0
+theme_override_constants/separation = 0
+
+[node name="Null" type="ColorRect" parent="Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 20.0
+color = Color(0.34902, 0.211765, 0.211765, 1)
+
+[node name="Shield" type="ColorRect" parent="Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 50.0
+color = Color(0, 0, 1, 1)
+
+[node name="Stagger" type="ColorRect" parent="Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 100.0
+color = Color(1, 1, 0, 1)
+
+[node name="Health" type="ColorRect" parent="Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 100.0
+color = Color(1, 0, 0, 1)

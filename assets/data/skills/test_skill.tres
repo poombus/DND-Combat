@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=8 format=3 uid="uid://sktwemqvypmn"]
+
+[ext_resource type="Script" path="res://classes/Global/Events/EventAction.gd" id="1_d4vno"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="2_xhjdt"]
+[ext_resource type="Script" path="res://classes/Resources/Skill/Dice.gd" id="3_0yj8v"]
+[ext_resource type="Script" path="res://classes/Resources/Skill/Skill.gd" id="4_ekpkq"]
+
+[sub_resource type="Resource" id="Resource_eun8c"]
+script = ExtResource("1_d4vno")
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = 3
+params = {
+"count": 99,
+"id": "base:bleed",
+"potency": 10
+}
+
+[sub_resource type="Resource" id="Resource_ljjl3"]
+script = ExtResource("2_xhjdt")
+event_signal = "on_hit"
+is_global = false
+actions = Array[ExtResource("1_d4vno")]([SubResource("Resource_eun8c")])
+
+[sub_resource type="Resource" id="Resource_tuaoj"]
+script = ExtResource("3_0yj8v")
+low = 1
+high = 5
+events = Array[ExtResource("2_xhjdt")]([SubResource("Resource_ljjl3")])
+
+[resource]
+script = ExtResource("4_ekpkq")
+id = "test_skill"
+display_name = "Bleed Test"
+modifier = 0
+energy_cost = 5
+weight = 1
+type = 0
+damage_type = 0
+element_type = 10
+dice = Array[ExtResource("3_0yj8v")]([SubResource("Resource_tuaoj")])

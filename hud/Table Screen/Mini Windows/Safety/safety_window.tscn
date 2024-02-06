@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://c47mwiqkpixsm"]
+
+[node name="Safety Window" type="Panel"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -374.0
+offset_bottom = 185.0
+grow_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -162.5
+offset_top = 20.0
+offset_right = 163.5
+offset_bottom = 120.0
+grow_horizontal = 2
+
+[node name="Header" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Select what's bothering you. (Anonymous)"
+horizontal_alignment = 1
+
+[node name="Uncomfortable" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "I am not comfortable with current topics."
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="AnonMessage" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Send the DM an anonymous message."

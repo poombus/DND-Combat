@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=4 format=3 uid="uid://b8d0ehdvu2i3n"]
+
+[ext_resource type="Script" path="res://classes/Resources/Skill/Dice.gd" id="1_8soix"]
+[ext_resource type="Script" path="res://classes/Resources/Skill/Skill.gd" id="1_rwayv"]
+
+[sub_resource type="Resource" id="Resource_etw8v"]
+script = ExtResource("1_8soix")
+dice_type = 1
+low = 3
+high = 6
+events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
+
+[resource]
+script = ExtResource("1_rwayv")
+id = "test_guard"
+display_name = "Test Guard"
+modifier = 0
+energy_cost = 5
+weight = 1
+type = 0
+damage_type = 0
+element_type = 10
+dice = Array[ExtResource("1_8soix")]([SubResource("Resource_etw8v")])

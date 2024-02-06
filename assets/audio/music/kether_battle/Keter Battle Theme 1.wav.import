@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b3daxot1bkda5"
+path="res://.godot/imported/Keter Battle Theme 1.wav-43df5c7018ee4e300c27c478809cb5d6.sample"
+
+[deps]
+
+source_file="res://assets/audio/music/kether_battle/Keter Battle Theme 1.wav"
+dest_files=["res://.godot/imported/Keter Battle Theme 1.wav-43df5c7018ee4e300c27c478809cb5d6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

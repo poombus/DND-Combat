@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://7h2v1fd242y7"]
+
+[ext_resource type="Script" path="res://hud/Classes/NumberInput/NumberInput.gd" id="1_g0fvn"]
+
+[node name="NumberInput" type="TextEdit"]
+offset_right = 182.0
+offset_bottom = 43.0
+scroll_fit_content_height = true
+script = ExtResource("1_g0fvn")

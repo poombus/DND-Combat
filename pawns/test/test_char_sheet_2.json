@@ -1,0 +1,73 @@
+{
+	"race": -1,
+	
+	"display_name": "Evil",
+	"desc": "Awesome.",
+	"ethics": 0,
+	"morals": 0,
+	"languages": [],
+	"senses": [],
+	
+	"type": -1,
+	"ability_scores": {
+		"0": {
+			"base": 1,
+			"racial_bonus": 0,
+			"asi": 0,
+			"misc_bonus": 0,
+			"other_bonus": 0
+		},
+		"1": {
+			"base": 1,
+			"racial_bonus": 0,
+			"asi": 0,
+			"misc_bonus": 0,
+			"other_bonus": 0
+		},
+		"2": {
+			"base": 1,
+			"racial_bonus": 0,
+			"asi": 0,
+			"misc_bonus": 0,
+			"other_bonus": 0
+		},
+		"3": {
+			"base": 1,
+			"racial_bonus": 0,
+			"asi": 0,
+			"misc_bonus": 0,
+			"other_bonus": 0
+		},
+		"4": {
+			"base": 1,
+			"racial_bonus": 0,
+			"asi": 0,
+			"misc_bonus": 0,
+			"other_bonus": 0
+		},
+		"5": {
+			"base": 1,
+			"racial_bonus": 0,
+			"asi": 0,
+			"misc_bonus": 0,
+			"other_bonus": 0
+		}
+	},
+	"profBonus": 2,
+	"skillProfs": [],
+	"saveThrowProfs": [],
+	
+	"maxhp": 20,
+	"hp": 20,
+	"maxsr": 20,
+	"sr": 20,
+	"conditions": [],
+	
+	"type_resist": {},
+	"element_resist": {},
+	
+	"skills": ["base:double_slash", "base:parry_strike", "base:counter"],
+	"spells": [],
+	"inventory": [],
+	"traits": []
+}

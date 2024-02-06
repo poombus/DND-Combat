@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4inxahltm4l4"]
+
+[ext_resource type="PackedScene" uid="uid://35ocvdufqxas" path="res://hud/Pawn/hitpoint_bar.tscn" id="1_66j4s"]
+[ext_resource type="Script" path="res://tools/basic_combat_visualizer/hud/bcv_player_info.gd" id="1_vylw3"]
+[ext_resource type="PackedScene" uid="uid://i8l87fbarclc" path="res://hud/speed_dice_container.tscn" id="2_y8bxn"]
+
+[node name="BCV Player Info" type="PanelContainer"]
+custom_minimum_size = Vector2(396, 118)
+offset_right = 396.0
+offset_bottom = 118.0
+size_flags_horizontal = 0
+size_flags_vertical = 6
+script = ExtResource("1_vylw3")
+
+[node name="Player Name" type="RichTextLabel" parent="."]
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]NAME HERE[/b] (SP)"
+
+[node name="HP" type="Control" parent="."]
+layout_mode = 2
+
+[node name="Label" type="RichTextLabel" parent="HP"]
+layout_mode = 2
+offset_top = 30.0
+offset_right = 33.0
+offset_bottom = 57.0
+text = "HP:"
+
+[node name="HitpointBar" parent="HP" instance=ExtResource("1_66j4s")]
+layout_mode = 2
+offset_left = 33.0
+offset_top = 30.0
+offset_right = 371.0
+offset_bottom = 58.0
+
+[node name="SDC" type="Control" parent="."]
+layout_mode = 2
+
+[node name="Speed Dice Container" parent="SDC" instance=ExtResource("2_y8bxn")]
+layout_mode = 1
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 62.0
+offset_bottom = 62.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.4, 0.4)

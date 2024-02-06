@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bo5ih3gsn6hf"]
+
+[node name="AudioTracks" type="Node"]
+
+[node name="Master" type="AudioStreamPlayer" parent="."]
+
+[node name="Ambience" type="AudioStreamPlayer" parent="."]
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]

@@ -1,0 +1,53 @@
+{
+	"is_player": true,
+	"display_name": "Barry",
+	"description": "Barry is a test character.",
+	"level": 1,
+	"race": "ELF",
+	"ethics": "NEUTRAL",
+	"morals": "GOOD",
+	"languages": [
+		"Common"
+	],
+	"senses": [],
+	"maxhp": 60,
+	"hp": 60,
+	"maxsr": 20,
+	"sr": 20,
+	"profBonus": 2,
+	"skillProfs": [],
+	"ability_scores": {
+		"STR": {
+			"value": 20,
+			"prof": false
+		},
+		"DEX": {
+			"value": 10,
+			"prof": true
+		},
+		"CON": {
+			"value": 20,
+			"prof": false
+		},
+		"INT": {
+			"value": 10,
+			"prof": true
+		},
+		"WIS": {
+			"value": 10,
+			"prof": false
+		},
+		"CHA": {
+			"value": 10,
+			"prof": false
+		}
+	},
+	"resistances": {
+		"PIERCE": 2
+	},
+	"skills": ["base:test_skill", "base:test_skill_2", "base:test_guard"],
+	"spells": [],
+	"inventory": [],
+	"feats": ["base:test_feat"],
+	"pclass": "RANGER"
+}

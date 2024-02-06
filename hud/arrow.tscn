@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://exwcybfi1tvm"]
+
+[ext_resource type="Script" path="res://hud/Arrow.gd" id="1_pibmk"]
+[ext_resource type="Texture2D" uid="uid://cyt4gijfmv5k" path="res://assets/textures/hud/arrowhead.png" id="2_fqeim"]
+
+[sub_resource type="Curve" id="Curve_yj0yq"]
+min_value = 0.2
+_data = [Vector2(0, 0.2), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_8cwvi"]
+offsets = PackedFloat32Array(0, 0.466667, 0.893333)
+colors = PackedColorArray(1, 1, 0.470588, 1, 1, 1, 0.470588, 1, 1, 0.466667, 0.470588, 1)
+
+[node name="Arrow" type="Control"]
+visible = false
+z_index = 5
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_pibmk")
+metadata/_edit_lock_ = true
+
+[node name="Arrow Body" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 0, 0)
+width = 15.0
+width_curve = SubResource("Curve_yj0yq")
+gradient = SubResource("Gradient_8cwvi")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="Arrow Head" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(1, 1, 0.470588, 1)
+position = Vector2(526, 268)
+rotation = 1.08734
+scale = Vector2(0.138471, 0.138471)
+texture = ExtResource("2_fqeim")
+metadata/_edit_lock_ = true
+
+[node name="Point1" type="Node2D" parent="."]
+position = Vector2(392, 406)
+
+[node name="Point2" type="Node2D" parent="."]
+position = Vector2(828, 440)

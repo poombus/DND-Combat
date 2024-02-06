@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqkcnwyymsg6c"]
+
+[ext_resource type="Texture2D" uid="uid://x6h7qnb57vml" path="res://assets/textures/icons/speed_dice.png" id="1_1t4u8"]
+[ext_resource type="Script" path="res://hud/speed_dice.gd" id="2_6sbna"]
+[ext_resource type="PackedScene" uid="uid://exwcybfi1tvm" path="res://hud/arrow.tscn" id="3_kue86"]
+
+[sub_resource type="Theme" id="Theme_frcvf"]
+
+[node name="Speed Dice" type="TextureRect"]
+show_behind_parent = true
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.5
+offset_top = -64.0
+offset_right = 64.5
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+texture = ExtResource("1_1t4u8")
+script = ExtResource("2_6sbna")
+
+[node name="Number" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.5
+offset_top = -27.5
+offset_right = 48.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_frcvf")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 11
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "[center]--[/center]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Arrow" parent="." instance=ExtResource("3_kue86")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=8 format=3 uid="uid://k1q8dhacy6xb"]
+
+[ext_resource type="Script" path="res://classes/Resources/Skill/Skill.gd" id="1_1jax3"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventAction.gd" id="1_wb3vk"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="2_1gr8b"]
+[ext_resource type="Script" path="res://classes/Resources/Skill/Dice.gd" id="3_qi1rp"]
+
+[sub_resource type="Resource" id="Resource_8h8w7"]
+script = ExtResource("1_wb3vk")
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = 3
+params = {
+"amount": 5,
+"hp": false,
+"sr": true
+}
+
+[sub_resource type="Resource" id="Resource_qxmqp"]
+script = ExtResource("2_1gr8b")
+event_signal = "on_hit"
+is_global = false
+actions = Array[ExtResource("1_wb3vk")]([SubResource("Resource_8h8w7")])
+
+[sub_resource type="Resource" id="Resource_fay0a"]
+script = ExtResource("3_qi1rp")
+dice_type = 0
+low = 2
+high = 4
+events = Array[ExtResource("2_1gr8b")]([SubResource("Resource_qxmqp")])
+
+[resource]
+script = ExtResource("1_1jax3")
+id = "shove"
+display_name = "Shove"
+modifier = 0
+energy_cost = 5
+weight = 1
+type = 0
+damage_type = 2
+element_type = 10
+dice = Array[ExtResource("3_qi1rp")]([SubResource("Resource_fay0a")])

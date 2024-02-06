@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cm5ruuehcsu6a"]
+
+[ext_resource type="Script" path="res://hud/Table Screen/Mini Windows/mini_window.gd" id="1_7uovy"]
+[ext_resource type="Texture2D" uid="uid://dmnemlpj8i572" path="res://assets/textures/icons/x.png" id="1_hx1gi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkoqa"]
+bg_color = Color(0, 0, 0, 0.509804)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmxay"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 0)
+
+[node name="Mini Window" type="Panel"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -339.0
+offset_bottom = 398.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hkoqa")
+script = ExtResource("1_7uovy")
+
+[node name="CloseButton" type="Button" parent="."]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -37.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 37.0
+grow_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_cmxay")
+icon = ExtResource("1_hx1gi")
+icon_alignment = 1
+
+[connection signal="pressed" from="CloseButton" to="." method="_on_button_pressed"]

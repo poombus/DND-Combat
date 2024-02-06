@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=6 format=3 uid="uid://bewrs5wjkbu5q"]
+
+[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="1_2lvay"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventAction.gd" id="1_8hgya"]
+[ext_resource type="Script" path="res://classes/Resources/StatusEffect/StatusEffect.gd" id="1_m623s"]
+
+[sub_resource type="Resource" id="Resource_t4pcu"]
+script = ExtResource("1_8hgya")
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = 2
+params = {
+"amount": "{potency}"
+}
+
+[sub_resource type="Resource" id="Resource_lmb2t"]
+script = ExtResource("1_2lvay")
+event_signal = "on_dice_rolled"
+actions = Array[ExtResource("1_8hgya")]([SubResource("Resource_t4pcu")])
+
+[resource]
+script = ExtResource("1_m623s")
+id = "bleed"
+display_name = "Bleed"
+max_potency = 99
+max_count = 99
+decrease_on_turn_end = 0
+events = Array[ExtResource("1_2lvay")]([SubResource("Resource_lmb2t")])

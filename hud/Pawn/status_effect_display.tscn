@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddw1s4iadv7nc"]
+
+[ext_resource type="Script" path="res://hud/Pawn/status_effect_display.gd" id="1_c7ph0"]
+[ext_resource type="PackedScene" uid="uid://ck8f2cnwmgi1q" path="res://hud/Pawn/status_effect_indicator.tscn" id="1_d1myg"]
+
+[node name="StatusEffectDisplay" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -735.0
+offset_bottom = -499.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c7ph0")
+
+[node name="Row1" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="StatusEffectIndicator" parent="Row1" instance=ExtResource("1_d1myg")]
+layout_mode = 2
+
+[node name="StatusEffectIndicator2" parent="Row1" instance=ExtResource("1_d1myg")]
+layout_mode = 2
+
+[node name="StatusEffectIndicator3" parent="Row1" instance=ExtResource("1_d1myg")]
+layout_mode = 2
+
+[node name="StatusEffectIndicator4" parent="Row1" instance=ExtResource("1_d1myg")]
+layout_mode = 2
+
+[node name="StatusEffectIndicator5" parent="Row1" instance=ExtResource("1_d1myg")]
+layout_mode = 2
+
+[node name="Row2" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="StatusEffectIndicator" parent="Row2" instance=ExtResource("1_d1myg")]
+layout_mode = 2
+
+[node name="StatusEffectIndicator2" parent="Row2" instance=ExtResource("1_d1myg")]
+layout_mode = 2
+
+[node name="StatusEffectIndicator3" parent="Row2" instance=ExtResource("1_d1myg")]
+layout_mode = 2
+
+[node name="StatusEffectIndicator4" parent="Row2" instance=ExtResource("1_d1myg")]
+layout_mode = 2
+
+[node name="StatusEffectIndicator5" parent="Row2" instance=ExtResource("1_d1myg")]
+layout_mode = 2

@@ -1,0 +1,223 @@
+[gd_scene load_steps=8 format=3 uid="uid://nljyb10vwo8g"]
+
+[ext_resource type="Script" path="res://hud/Combat GUI/combat_gui.gd" id="1_p52v8"]
+[ext_resource type="Script" path="res://hud/Combat GUI/BattleButton.gd" id="2_mlgfo"]
+[ext_resource type="PackedScene" uid="uid://cexg0teehseic" path="res://hud/Combat GUI/Skill Chain/skill_chain.tscn" id="3_xjtal"]
+[ext_resource type="Texture2D" uid="uid://bhxierrpf534k" path="res://assets/textures/hud/paint_banner.png" id="4_vbyyq"]
+
+[sub_resource type="Animation" id="Animation_g86fi"]
+resource_name = "New Turn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurnBanner:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TurnBanner:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qgp7i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurnBanner:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TurnBanner:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hwno6"]
+_data = {
+"New Turn": SubResource("Animation_g86fi"),
+"RESET": SubResource("Animation_qgp7i")
+}
+
+[node name="Combat GUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_p52v8")
+metadata/_edit_lock_ = true
+
+[node name="BattleButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -73.0
+offset_right = 73.0
+offset_bottom = 31.0
+grow_horizontal = 2
+text = "Commence Battle"
+script = ExtResource("2_mlgfo")
+
+[node name="Skill Chain" parent="." instance=ExtResource("3_xjtal")]
+layout_mode = 1
+anchors_preset = 5
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_top = 60.0
+offset_bottom = 60.0
+grow_vertical = 1
+scale = Vector2(0.15, 0.15)
+
+[node name="Action Menus" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Skills Menu" type="MenuButton" parent="Action Menus"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 288.0
+grow_vertical = 0
+text = "Skills"
+item_count = 2
+popup/item_0/text = "item 1"
+popup/item_0/id = 0
+popup/item_1/text = "item 2"
+popup/item_1/id = 1
+
+[node name="Spells Menu" type="MenuButton" parent="Action Menus"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 288.0
+offset_top = -31.0
+offset_right = 576.0
+grow_vertical = 0
+text = "Spells
+"
+item_count = 2
+popup/item_0/text = "item 1"
+popup/item_0/id = 0
+popup/item_1/text = "item 2"
+popup/item_1/id = 1
+
+[node name="Item Menu" type="MenuButton" parent="Action Menus"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 288.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Items"
+item_count = 2
+popup/item_0/text = "item 1"
+popup/item_0/id = 0
+popup/item_1/text = "item 2"
+popup/item_1/id = 1
+
+[node name="Misc Menu" type="MenuButton" parent="Action Menus"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Misc."
+item_count = 2
+popup/item_0/text = "item 1"
+popup/item_0/id = 0
+popup/item_1/text = "item 2"
+popup/item_1/id = 1
+
+[node name="TurnBanner" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -125.0
+offset_right = 500.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(500, 125)
+texture = ExtResource("4_vbyyq")
+
+[node name="TurnCount" type="RichTextLabel" parent="TurnBanner"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -257.0
+offset_top = -64.5
+offset_right = 257.0
+offset_bottom = 64.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 80
+bbcode_enabled = true
+text = "[center]Turn X"
+scroll_active = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hwno6")
+}
+
+[connection signal="pressed" from="BattleButton" to="BattleButton" method="_on_pressed"]
