@@ -17,9 +17,11 @@ class_name Skill
 @export var damage_type:_Enums.DMG_TYPES = _Enums.DMG_TYPES.FLAT;
 @export var element_type:_Enums.DMG_ELEMENTS = _Enums.DMG_ELEMENTS.TRUE;
 @export var dice:Array[Dice];
+var counter_dice:Array[Dice];
 
 func impose_self():
 	for d in dice: d.impose_skill(self);
+	for d in counter_dice: d.impose_skill(self);
 
 func get_dice_data(ind:int) -> Dictionary:
 	if ind > dice.size(): return dice[0].get_data();
@@ -41,6 +43,12 @@ func deep_copy_dice() -> Array[Dice]:
 		new_dice.push_back(d.deep_copy());
 		#print(new_dice[-1].dice_type);
 	return new_dice;
+
+func seperate_counter_dice():
+	for i in range(dice.size()-1, -1, -1):
+		if dice[i].dice_type != _Enums.DICE_TYPES.COUNTER: continue;
+		counter_dice.push_front(dice[i].deep_copy());
+		dice.remove_at(i);
 
 func get_modifier(pawn:Pawn2D, stat:=_Enums.AS.STR) -> int:
 	var final = modifier+pawn.get_cs().get_offense_level(stat);

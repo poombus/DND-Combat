@@ -7,6 +7,7 @@ class_name CombatManager2D
 var battle_cam:BattleCamera;
 var combat_gui:CombatGUI;
 var script_maker:ScriptMaker = ScriptMaker.new();
+var combat_script:Array;
 var clash_list;
 
 enum PHASES {SPEED = 0, SKILLS, TARGET, COMBAT}
@@ -72,43 +73,43 @@ func next_phase():
 			sd_list.append_array(p.get_speed_dice());
 			p.virtual = true;
 			p.virtual_cs = p.combat_stats.deep_copy();
-		var script = script_maker.create_script(sd_list);
+		combat_script = script_maker.create_script(sd_list);
 		
 		phase = PHASES.COMBAT;
 		clash_list.visible = true;
-		combat_phase(script);
+		combat_phase();
 		
 	else:
 		phase = PHASES.SPEED;
 		clash_list.visible = false;
 		new_turn();
 
-func combat_phase(script) -> void:
+func combat_phase() -> void:
 	for c in clash_list.get_children(): c.queue_free();
-	if script.is_empty(): return;
-	for sc in script:
+	if combat_script.is_empty(): return;
+	for sc in combat_script:
 		var not_yet = false;
 		for c in clash_list.get_children(): if c.pawns.has(sc.a.pawn) || c.pawns.has(sc.t.pawn): not_yet = true;
 		if not_yet: continue;
-		
-		for x in [sc.a, sc.t]:
-			x.pawn.virtual = false;
-			x.stats = x.pawn.get_cs();
-			x.dice_chain = x.sd_ref.get_skill_dice();
-			script_maker.add_counter_dice(x.sd_ref);
 		play_skirmish(sc);
 
-func play_skirmish(script):
-	script.playback = true;
-	script.onesided = false;
+func play_skirmish(sc):
+	sc.playback = true;
+	sc.onesided = false;
 	
-	var a = script.a;
-	var t = script.t;
+	var a = sc.a;
+	var t = sc.t;
+	
+	for x in [a, t]:
+		x.pawn.virtual = false;
+		x.stats = x.pawn.get_cs();
+		x.dice_chain = x.sd_ref.get_skill_dice();
+		script_maker.add_counter_dice(x.sd_ref);
 	
 	var ci = clash_info_res.instantiate();
 	clash_list.add_child(ci);
 	ci.setup(a.pawn, t.pawn);
-	script.clash_info = ci;
+	sc.clash_info = ci;
 	
 	ci.toggle_dice(true, true);
 	ci.toggle_dice(false, true);
@@ -123,10 +124,10 @@ func play_skirmish(script):
 			x.counter = true;
 		if x.stats.staggered: x.dice_chain = [];
 	
-	while not script.onesided: 
-		script_maker.calc_clash(script);
+	while not sc.onesided: 
+		script_maker.calc_clash(sc);
 		await get_tree().create_timer(1.0).timeout;
-	if script.onesided: for x in [[a,t], [t,a]]:
+	if sc.onesided: for x in [[a,t], [t,a]]:
 		if not x[0].clashwinner or x[0].dice_chain.is_empty() or x[0].counter: continue;
 		x[0].dice = 0;
 		x[1].cur_dice = null;
@@ -135,7 +136,7 @@ func play_skirmish(script):
 		ci.toggle_dice(true, x[0] == a);
 		ci.toggle_dice(false, x[0] == t);
 		while not x[0].dice_chain.is_empty(): 
-			script_maker.calc_onesided(script, x[0], x[1]);
+			script_maker.calc_onesided(sc, x[0], x[1]);
 			await get_tree().create_timer(1.0).timeout;
 	for x in [[a,t], [t,a]]:
 		if not x[0].counter or x[0].stats.staggered: continue;
@@ -147,10 +148,12 @@ func play_skirmish(script):
 		ci.toggle_dice(true, x[0] == a);
 		ci.toggle_dice(false, x[0] == t);
 		while not x[0].dice_chain.is_empty(): 
-			script_maker.calc_onesided(script, x[0], x[1]);
+			script_maker.calc_onesided(sc, x[0], x[1]);
 			await get_tree().create_timer(1.0).timeout;
 	
-	ci.queue_free();
+	ci.free();
+	combat_script.pop_at(combat_script.find(sc));
+	combat_phase();
 
 func pawn_died(p:Pawn2D):
 	var ind = pawns.find(p);

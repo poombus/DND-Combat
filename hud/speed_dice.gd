@@ -4,7 +4,6 @@ class_name SpeedDice
 @onready var arrow:Arrow = $Arrow;
 
 var skill:Skill;
-var counter_dice:Array[Dice] = [];
 var target:SpeedDice;
 
 @onready var pawn:Pawn2D = get_parent().get_parent() if get_parent().get_parent() is Pawn2D else null;

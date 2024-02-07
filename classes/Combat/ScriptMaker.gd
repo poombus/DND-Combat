@@ -103,15 +103,14 @@ func calculate_skirmish(sk):
 	var a = sk.a;
 	var t = sk.t;
 	
-	for x in [a, t]:
-		x.dice = 0;
-		x.counter = false;
-		if x.dice_chain.is_empty():
-			x.dice_chain = x.stats.reserve_dice;
-			x.counter = true;
-		if x.stats.staggered: x.dice_chain = [];
+	for x in [a, t]: prepare_skirmish(x);
+	
+	if a.dice_chain.is_empty() and t.dice_chain.is_empty(): return;
 	
 	while not sk.onesided: calc_clash(sk);
+	
+	if a.dice_chain.is_empty() and t.dice_chain.is_empty(): return;
+	
 	if sk.onesided: for x in [[a,t], [t,a]]:
 		if not x[0].clashwinner or x[0].dice_chain.is_empty() or x[0].counter: continue;
 		x[0].dice = 0;
@@ -119,7 +118,7 @@ func calculate_skirmish(sk):
 	
 	for x in [[a,t], [t,a]]:
 		if not x[0].counter or x[0].stats.staggered: continue;
-		x[0].dice_chain = x[0].stats.counter_dice;
+		for d in x[0].stats.counter_dice: x[0].dice_chain.push_back(d.deep_copy());
 		x[0].dice = 0;
 		while not x[0].dice_chain.is_empty(): calc_onesided(sk, x[0], x[1]);
 
@@ -241,19 +240,21 @@ func transfer_defensive_dice(x):
 			x.dice_chain.pop_at(d);
 		d += 1;
 
+func prepare_skirmish(x:Dictionary):
+	x.dice = 0;
+	x.counter = false;
+	if x.dice_chain.is_empty() and not x.stats.staggered:
+		x.dice_chain = x.stats.reserve_dice;
+		x.counter = true;
+	if !playback: return;
+	x.pawn.virtual = false;
+	x.stats = x.pawn.get_cs();
+	x.dice_chain = x.sd_ref.get_skill_dice();
+	script_maker.add_counter_dice(x.sd_ref);
+
 func add_counter_dice(dice:SpeedDice):
-	var pawn = dice.pawn;
-	var skill = dice.skill;
-	if !skill: return;
-	if not dice.counter_dice.is_empty():
-		for d in dice.counter_dice: pawn.get_cs().counter_dice.push_back(d.deep_copy());
-		return;
-	for i in range(skill.dice.size()-1, -1, -1):
-		if skill.dice[i].dice_type != _Enums.DICE_TYPES.COUNTER: continue;
-		dice.counter_dice.push_back(skill.dice[i].deep_copy());
-		skill.dice.remove_at(i);
-	for d in dice.counter_dice: pawn.get_cs().counter_dice.push_back(d.deep_copy());
-	if skill.dice.is_empty(): dice.skill = null;
+	dice.skill.seperate_counter_dice();
+	dice.pawn.get_cs().counter_dice.append_array(dice.skill.counter_dice);
 
 func roll_dice(x:Dictionary, playback:bool):
 	if !playback:

@@ -112,7 +112,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 17
 theme_override_font_sizes/normal_font_size = 80
 bbcode_enabled = true
-text = "[center]5.5[/center]"
+text = "[center]--[/center]"
 
 [node name="Header" type="RichTextLabel" parent="."]
 visible = false
