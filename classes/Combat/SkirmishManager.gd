@@ -186,8 +186,8 @@ func calc_one_sided(a, t) -> bool: #this is where you do the cool animations
 		a.stats.msc.change_dice_value(a.dice, a.val);
 		await get_tree().create_timer(0.5).timeout;
 		
-		t.stats.deal_damage(a.val);
-		t.stats.deal_stagger(a.val);
+		t.stats.dmg_hp(a.val);
+		t.stats.dmg_sr(a.val);
 		animation_logic(a,t);
 		t.pawn.apply_knockback(a.pawn.global_position,8);
 		await get_tree().create_timer(1).timeout;
@@ -223,31 +223,31 @@ func win_logic(W, L):
 	L.pawn.apply_knockback(W.pawn.global_position,5);
 	if L.cur_dice.is_offensive(): #offensive loss
 		if W.cur_dice.is_offensive():
-			L.stats.deal_damage(W.val-L.val);
-			if W.cur_dice.is_counter(): L.stats.deal_stagger(W.val-L.val);
+			L.stats.dmg_hp(W.val-L.val);
+			if W.cur_dice.is_counter(): L.stats.dmg_sr(W.val-L.val);
 			if !W.cur_dice.is_counter(): next_dice(W);
 		elif W.cur_dice.is_guard():
-			L.stats.deal_stagger(W.val-L.val);
+			L.stats.dmg_sr(W.val-L.val);
 			if !W.cur_dice.is_counter(): remove_current_dice(W);
 		elif W.cur_dice.is_evade():
-			W.stats.deal_stagger(-W.val);
+			W.stats.dmg_sr(-W.val);
 		
 	elif L.cur_dice.is_guard(): #guard loss
 		if W.cur_dice.is_offensive():
-			L.stats.deal_stagger(W.val-L.val);
+			L.stats.dmg_sr(W.val-L.val);
 		elif W.cur_dice.is_guard():
-			L.stats.deal_stagger(W.val);
+			L.stats.dmg_sr(W.val);
 		elif W.cur_dice.is_evade():
-			W.stats.deal_stagger(-W.val);
+			W.stats.dmg_sr(-W.val);
 		
 		if !W.cur_dice.is_counter() || W.cur_dice.is_defensive(): remove_current_dice(W);
 		
 	elif L.cur_dice.is_evade(): #evade loss
 		if W.cur_dice.is_offensive():
-			L.stats.deal_damage(W.val);
+			L.stats.dmg_hp(W.val);
 			if !W.cur_dice.is_counter(): next_dice(W);
 		elif W.cur_dice.is_guard():
-			L.stats.deal_stagger(-W.val);
+			L.stats.dmg_sr(-W.val);
 			remove_current_dice(W);
 		elif W.cur_dice.is_evade():
 			remove_current_dice(W);

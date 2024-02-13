@@ -170,13 +170,19 @@ func calc_clash(sk):
 			transfer_defensive_dice(x);
 			x.clashwinner = !x.dice_chain.is_empty();
 			if sk.clash_count > 0:
-				if x.clashwinner: event_call("on_clash_win", x.stats, {"source": x.stats, "target": t.stats if x == a else a.stats});
-				else: event_call("on_clash_lose", x.stats, {"source": x.stats, "target": a.stats if x == a else t.stats});
+				if x.clashwinner: 
+					event_call("on_clash_win", x.stats, {"source": x.stats, "target": t.stats if x == a else a.stats});
+					#x.stats.heal_sp(int(10+(sk.clash_count*1.2)));
+					x.stats.heal_sp(200);
+				else: 
+					event_call("on_clash_lose", x.stats, {"source": x.stats, "target": a.stats if x == a else t.stats});
+					#x.stats.dmg_sp(int(sk.clash_count*3));
+					x.stats.dmg_sp(200);
 		return;
 	
 	for x in [a,t]: #SIMULATE THE SIMULATION WITH PRE-EXISTING ROLLS
 		roll_dice(x, sk.playback);
-		if !sk.playback: sk.clash_count += 1;
+	if !sk.playback: sk.clash_count += 1;
 	
 	if sk.playback: sk.clash_info.set_clash(a.cur_dice, a.val, t.cur_dice, t.val);
 	else: print(a.cur_dice.get_type_string(), " ", a.val, " // ", t.cur_dice.get_type_string(), " ", t.val);
@@ -231,19 +237,19 @@ func dice_interaction(a, t, calculating:bool = true):
 	elif L.is_guard():
 		loser.stats.give_shield(loser.val); #loser gains shield regardless
 		if W.is_offensive(): 
-			loser.stats.deal_stagger(winner.val-loser.val); #deal stagger = difference
+			loser.stats.dmg_sr(winner.val-loser.val); #deal stagger = difference
 			next_dice(winner);
 		elif W.is_guard(): 
 			winner.stats.give_shield(winner.val); #winner gains shield
-			loser.stats.deal_stagger(winner.val); #deal stagger = winner roll
+			loser.stats.dmg_sr(winner.val); #deal stagger = winner roll
 		elif W.is_evade(): winner.stats.heal_sr(winner.val); #heal winner stagger
 	elif L.is_evade():
 		if W.is_offensive() and not W.is_counter(): 
-			loser.stats.deal_stagger(winner.val*2); #deal double stagger damage
+			loser.stats.dmg_sr(winner.val*2); #deal double stagger damage
 			next_dice(winner);
 		elif W.is_guard():
 			winner.stats.give_shield(winner.val); #give shield. 
-			loser.stats.deal_stagger(winner.val); #deal stagger damage = winner roll
+			loser.stats.dmg_sr(winner.val); #deal stagger damage = winner roll
 	
 	if calculating:
 		if W.is_defensive() && L.is_defensive(): remove_current_dice(winner);
@@ -303,7 +309,9 @@ func add_counter_dice(dice:SpeedDice):
 func roll_dice(x:Dictionary, playback:bool):
 	if !playback:
 		x.cur_dice = current_dice(x);
-		x.val = x.cur_dice.roll();
+		var adv:int = int(x.stats.sp/40);
+		if randi_range(0,39) < x.stats.sp%40: adv += 1;
+		x.val = x.cur_dice.roll(adv);
 		x.rolls.push_back(x.val);
 		event_call("on_dice_rolled", x.stats);
 	else:

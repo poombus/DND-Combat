@@ -78,16 +78,16 @@ func remove_shield(amount:int = -1) -> int:
 func apply_damage(inst:DamageInstance) -> int:
 	var final_damage = inst.get_final_damage();
 	var after_shield = remove_shield(final_damage);
-	if inst.affect_hp: deal_damage(after_shield); #make it so shield reduction is done here
-	if inst.affect_sr: deal_stagger(after_shield);
+	if inst.affect_hp: dmg_hp(after_shield); #make it so shield reduction is done here
+	if inst.affect_sr: dmg_sr(after_shield);
 	return final_damage;
 
-func heal(amount:int):
+func heal_hp(amount:int):
 	if amount < 0: return;
 	
 	hp = min(hp+amount, maxhp);
 
-func deal_damage(amount:int) -> bool:
+func dmg_hp(amount:int) -> bool:
 	if amount <= 0: return false;
 	if is_dead(): return true;
 	hp = max(0,hp-amount);
@@ -96,12 +96,12 @@ func deal_damage(amount:int) -> bool:
 	if hp <= 0: return die();
 	return false;
 
-func heal_sr(amount):
+func heal_sr(amount:int):
 	if amount < 0 || staggered: return;
 	
 	sr = min(sr+amount, maxsr);
 
-func deal_stagger(amount) -> bool:
+func dmg_sr(amount:int) -> bool:
 	if amount <= 0: return false;
 	
 	sr = max(0,sr-amount);
@@ -110,6 +110,16 @@ func deal_stagger(amount) -> bool:
 	if pawn: pawn.update_nameplate();
 	if sr <= 0 && !staggered: return stagger();
 	return false;
+
+func heal_sp(amount:int):
+	if amount < 0: return;
+	print("healed ", pawn.char_sheet.display_name, " ", amount, " SP");
+	sp = min(sp+amount, 100);
+
+func dmg_sp(amount:int):
+	if amount <= 0: return false;
+	print("damaged ", pawn.char_sheet.display_name, " ", amount, " SP");
+	sp = max(-200,sp-amount);
 
 func die() -> bool:
 	_CM.pawn_died(pawn);

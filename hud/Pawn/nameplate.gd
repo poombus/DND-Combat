@@ -26,5 +26,6 @@ func update_display():
 	hpbar.health = combat_stats.hp;
 	hpbar.stagger = combat_stats.sr;
 	hpbar.shield = combat_stats.shield;
+	sanity_value.text = str("[center]", pawn.combat_stats.sp);
 	hpbar.update_bar();
 	status_effect_display.update_display(combat_stats.status_effects);

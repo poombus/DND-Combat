@@ -12,38 +12,38 @@ var char_sheet;
 @onready var dice_chain := $"Dice Chain";
 
 func _ready():
-	deal_damage(-30, 30);
-	deal_stagger(-15, 15);
+	dmg_hp(-30, 30);
+	dmg_sr(-15, 15);
 
 func setup_char_sheet(path):
 	char_sheet = GlobalBuilder.json_parser(path);
-	deal_damage(-char_sheet.maxhp,char_sheet.maxhp);
-	deal_stagger(-char_sheet.maxsr,char_sheet.maxsr);
+	dmg_hp(-char_sheet.maxhp,char_sheet.maxhp);
+	dmg_sr(-char_sheet.maxsr,char_sheet.maxsr);
 	$Name.text = char_sheet.display_name;
 	dice_chain.scale = Vector2(0.2,0.2);
 
 func set_combat_screen(c): combat_screen = c;
 
-func deal_damage(amount:int, max:int = -1):
+func dmg_hp(amount:int, max:int = -1):
 	if max > -1: hp_bar.max_value = max;
 	hp_bar.value -= amount;
 	hp_label.text = str(hp_bar.value,"/",hp_bar.max_value);
 
-func deal_stagger(amount:int, max:int = -1):
+func dmg_sr(amount:int, max:int = -1):
 	if max > -1: sr_bar.max_value = max;
 	sr_bar.value -= amount;
 	sr_label.text = str(sr_bar.value,"/",sr_bar.max_value);
 
 func _on_deal_hp_pressed():
-	deal_damage(int(dmg_line.text));
+	dmg_hp(int(dmg_line.text));
 
 
 func _on_deal_sr_pressed():
-	deal_stagger(int(dmg_line.text));
+	dmg_sr(int(dmg_line.text));
 
 func _on_deal_both_pressed():
-	deal_damage(int(dmg_line.text));
-	deal_stagger(int(dmg_line.text));
+	dmg_hp(int(dmg_line.text));
+	dmg_sr(int(dmg_line.text));
 
 func roll_initiative():
 	var dex_mod = int(char_sheet.ability_scores.DEX.value/20)-10;

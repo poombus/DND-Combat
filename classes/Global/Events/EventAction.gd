@@ -39,7 +39,7 @@ func test(): print(params.text);
 func self_heal():
 	var p = convert_params({"amount": 0, "hp": true, "sr": false});
 	if !p: return;
-	data.source.heal(p.amount);
+	data.source.heal_hp(p.amount);
 	#if p.amount != 0: print("healed for ",p.amount);
 
 func self_damage():

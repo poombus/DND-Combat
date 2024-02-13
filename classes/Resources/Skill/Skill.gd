@@ -6,6 +6,7 @@ class_name Skill
 @export_category("Registry")
 @export var id:String;
 @export var display_name:String = "Unnamed Skill";
+@export var description:String = "";
 
 @export_category("Stats")
 @export var modifier:int = 0;
