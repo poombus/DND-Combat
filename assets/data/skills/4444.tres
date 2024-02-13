@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=10 format=3 uid="uid://r6kaxj27gqy4"]
+
+[ext_resource type="Script" path="res://classes/Resources/Skill/Skill.gd" id="1_00e70"]
+[ext_resource type="Script" path="res://classes/Resources/Skill/Dice.gd" id="1_26xai"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventAction.gd" id="2_q8mst"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="3_toptu"]
+
+[sub_resource type="Resource" id="Resource_84xtf"]
+script = ExtResource("1_26xai")
+dice_type = 2
+low = 2
+high = 6
+events = Array[ExtResource("3_toptu")]([])
+
+[sub_resource type="Resource" id="Resource_lh70x"]
+script = ExtResource("1_26xai")
+dice_type = 1
+low = 3
+high = 5
+events = Array[ExtResource("3_toptu")]([])
+
+[sub_resource type="Resource" id="Resource_6tj72"]
+script = ExtResource("2_q8mst")
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = 1
+params = {}
+
+[sub_resource type="Resource" id="Resource_1x3a2"]
+script = ExtResource("3_toptu")
+event_signal = "on_hit"
+is_global = false
+actions = Array[ExtResource("2_q8mst")]([SubResource("Resource_6tj72")])
+
+[sub_resource type="Resource" id="Resource_telml"]
+script = ExtResource("1_26xai")
+dice_type = 0
+low = 3
+high = 4
+events = Array[ExtResource("3_toptu")]([SubResource("Resource_1x3a2")])
+
+[resource]
+script = ExtResource("1_00e70")
+id = "4444"
+display_name = "4444"
+modifier = 0
+energy_cost = 5
+weight = 1
+type = 0
+damage_type = 2
+element_type = 5
+dice = Array[ExtResource("1_26xai")]([SubResource("Resource_84xtf"), SubResource("Resource_lh70x"), SubResource("Resource_telml")])

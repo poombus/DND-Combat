@@ -57,6 +57,8 @@ func add_skirmish(sd:SpeedDice):
 			"skill": sd.skill,
 			"counter": false,
 			"dice": 0,
+			"cur_dice": null,
+			"val": 0,
 			"clashwinner": false,
 			"rolls": [],
 			"current_roll": 0,
@@ -71,6 +73,8 @@ func add_skirmish(sd:SpeedDice):
 			"skill": sd.target.skill,
 			"counter": false,
 			"dice": 0,
+			"cur_dice": null,
+			"val": 0,
 			"clashwinner": false,
 			"rolls": [],
 			"current_roll": 0,
@@ -97,30 +101,65 @@ func order_sd_list(sd_list:Array[SpeedDice]) -> Array[SpeedDice]:
 	return new_list;
 
 func calculate_skirmish(sk):
-	print("\nSKIRMISH START");
+	if !sk.playback: print("\nSKIRMISH START");
 	sk.onesided = false;
 	
 	var a = sk.a;
 	var t = sk.t;
 	
-	for x in [a, t]: prepare_skirmish(x);
+	for x in [a, t]: prepare_skirmish(x, sk.playback);
+	
+	if sk.playback:
+		var ci = _CM.clash_info_res.instantiate();
+		_CM.clash_list.add_child(ci);
+		ci.setup(a.pawn, t.pawn);
+		sk.clash_info = ci;
+		
+		ci.toggle_dice(true, true);
+		ci.toggle_dice(false, true);
 	
 	if a.dice_chain.is_empty() and t.dice_chain.is_empty(): return;
 	
-	while not sk.onesided: calc_clash(sk);
+	while not sk.onesided: 
+		calc_clash(sk);
+		if sk.playback: await _CM.get_tree().create_timer(1.0).timeout;
 	
 	if a.dice_chain.is_empty() and t.dice_chain.is_empty(): return;
 	
 	if sk.onesided: for x in [[a,t], [t,a]]:
 		if not x[0].clashwinner or x[0].dice_chain.is_empty() or x[0].counter: continue;
 		x[0].dice = 0;
-		while not x[0].dice_chain.is_empty(): calc_onesided(sk, x[0], x[1]);
+		if sk.playback:
+			sk.clash_info.toggle_dice(true, x[0] == a);
+			sk.clash_info.toggle_dice(false, x[0] == t);
+			while x[0].current_roll < x[0].rolls.size(): 
+				calc_onesided(sk, x[0], x[1]);
+				if sk.playback: await _CM.get_tree().create_timer(1.0).timeout;
+		else:
+			while x[0].dice < x[0].dice_chain.size(): 
+				calc_onesided(sk, x[0], x[1]);
+				if sk.playback: await _CM.get_tree().create_timer(1.0).timeout;
 	
 	for x in [[a,t], [t,a]]:
 		if not x[0].counter or x[0].stats.staggered: continue;
 		for d in x[0].stats.counter_dice: x[0].dice_chain.push_back(d.deep_copy());
 		x[0].dice = 0;
-		while not x[0].dice_chain.is_empty(): calc_onesided(sk, x[0], x[1]);
+		if sk.playback:
+			sk.clash_info.toggle_dice(true, x[0] == a);
+			sk.clash_info.toggle_dice(false, x[0] == t);
+			while x[0].current_roll < x[0].rolls.size(): 
+				calc_onesided(sk, x[0], x[1]);
+				if sk.playback: await _CM.get_tree().create_timer(1.0).timeout;
+		else:
+			while x[0].dice < x[0].dice_chain.size(): 
+				calc_onesided(sk, x[0], x[1]);
+				if sk.playback: await _CM.get_tree().create_timer(1.0).timeout;
+	
+	if sk.playback:
+		await _CM.get_tree().create_timer(1.0).timeout;
+		sk.clash_info.free();
+		_CM.combat_script.pop_at(_CM.combat_script.find(sk));
+		_CM.combat_phase();
 
 func calc_clash(sk):
 	var a = sk.a; var t = sk.t;
@@ -161,11 +200,12 @@ func calc_onesided(sk, winner, loser):
 	
 	di.value = winner.roll_sum;
 	var total = loser.stats.apply_damage(di);
+	#print(di.value, " * ", di.multiplier, " = ", di.get_final_damage());
 	event_call("on_hit", winner.cur_dice, {"target":loser.stats, "source":winner.stats});
 
 	if !sk.playback:
 		winner.final_damage += total;
-		print("Winner dealt ", total, "(", winner.final_damage,") damage! ", loser.stats.hp, "(+", loser.stats.shield,")//", loser.stats.sr);
+		print(winner.pawn.char_sheet.display_name, " dealt ", total, "(", winner.final_damage,") damage! ", loser.stats.hp, "(+", loser.stats.shield,")//", loser.stats.sr);
 	else:
 		sk.clash_info.set_clash(sk.a.cur_dice, sk.a.val, sk.t.cur_dice, sk.t.val);
 	
@@ -240,19 +280,23 @@ func transfer_defensive_dice(x):
 			x.dice_chain.pop_at(d);
 		d += 1;
 
-func prepare_skirmish(x:Dictionary):
-	x.dice = 0;
-	x.counter = false;
-	if x.dice_chain.is_empty() and not x.stats.staggered:
-		x.dice_chain = x.stats.reserve_dice;
-		x.counter = true;
-	if !playback: return;
-	x.pawn.virtual = false;
-	x.stats = x.pawn.get_cs();
-	x.dice_chain = x.sd_ref.get_skill_dice();
-	script_maker.add_counter_dice(x.sd_ref);
+func prepare_skirmish(x:Dictionary, playback:=false):
+	if not playback:
+		x.dice = 0;
+		x.counter = false;
+		#x.dice_chain = x.skill.deep_copy_dice();
+		if x.dice_chain.is_empty() and not x.stats.staggered:
+			x.dice_chain = x.stats.reserve_dice;
+			x.counter = true;
+	else:
+		x.pawn.virtual = false;
+		x.stats = x.pawn.get_cs();
+		x.dice_chain = x.sd_ref.get_skill_dice();
+		x.roll_sum = 0;
+		add_counter_dice(x.sd_ref);
 
 func add_counter_dice(dice:SpeedDice):
+	if !dice.skill: return;
 	dice.skill.seperate_counter_dice();
 	dice.pawn.get_cs().counter_dice.append_array(dice.skill.counter_dice);
 

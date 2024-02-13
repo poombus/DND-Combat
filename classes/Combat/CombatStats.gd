@@ -90,7 +90,6 @@ func heal(amount:int):
 func deal_damage(amount:int) -> bool:
 	if amount <= 0: return false;
 	if is_dead(): return true;
-	
 	hp = max(0,hp-amount);
 	
 	if pawn: pawn.update_nameplate();

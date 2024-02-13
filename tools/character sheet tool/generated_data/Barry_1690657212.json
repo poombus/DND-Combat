@@ -45,7 +45,7 @@
 	"resistances": {
 		"PIERCE": 2
 	},
-	"skills": ["base:test_skill", "base:test_skill_2", "base:test_guard"],
+	"skills": ["base:test_skill", "base:test_skill_2", "base:test_skill_3"],
 	"spells": [],
 	"inventory": [],
 	"feats": ["base:test_feat"],

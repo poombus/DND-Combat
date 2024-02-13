@@ -5,24 +5,28 @@
 
 [sub_resource type="Resource" id="Resource_qlesd"]
 script = ExtResource("1_biqsn")
+dice_type = 0
 low = null
 high = 4
 events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
 
 [sub_resource type="Resource" id="Resource_cws4a"]
 script = ExtResource("1_biqsn")
+dice_type = 0
 low = null
 high = 4
 events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
 
 [sub_resource type="Resource" id="Resource_e0u2l"]
 script = ExtResource("1_biqsn")
+dice_type = 0
 low = null
 high = 4
 events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
 
 [sub_resource type="Resource" id="Resource_j554n"]
 script = ExtResource("1_biqsn")
+dice_type = 0
 low = null
 high = 4
 events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])

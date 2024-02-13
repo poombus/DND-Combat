@@ -1,9 +1,11 @@
 extends PanelContainer
 
 var pawns:Array[Pawn2D];
+var finished:bool = false;
 
 func setup(pawn1:Pawn2D, pawn2:Pawn2D):
 	pawns = [pawn1, pawn2];
+	finished = false;
 	$HBoxContainer/Pawn1/Name.text = str("[left]", pawn1.char_sheet.display_name, "[/left]");
 	$HBoxContainer/Pawn2/Name.text = str("[right]", pawn2.char_sheet.display_name, "[/right]");
 
