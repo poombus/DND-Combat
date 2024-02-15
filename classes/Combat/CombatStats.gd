@@ -113,12 +113,10 @@ func dmg_sr(amount:int) -> bool:
 
 func heal_sp(amount:int):
 	if amount < 0: return;
-	print("healed ", pawn.char_sheet.display_name, " ", amount, " SP");
 	sp = min(sp+amount, 100);
 
 func dmg_sp(amount:int):
 	if amount <= 0: return false;
-	print("damaged ", pawn.char_sheet.display_name, " ", amount, " SP");
 	sp = max(-200,sp-amount);
 
 func die() -> bool:

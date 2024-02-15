@@ -1,9 +1,11 @@
 extends Resource
 class_name EventAction
 
+@export var description:String;
 @export var conditions:Array[EventConditional];
 @export var action:ACTS;
-@export var params:Dictionary;
+@export var params:String;
+var parsed_params:Dictionary;
 var listener:EventListener;
 var data:Dictionary;
 
@@ -19,7 +21,7 @@ enum ACTS { #list of actions
 func event_action(_listener:EventListener, _data := {}):
 	data = _data;
 	listener = _listener;
-	params = Utils.interp_params(params, data, listener);
+	parsed_params = Utils.parse_params(params, data, listener);
 	for c in conditions:
 		if c.check_conditional(true, true) == false: return;
 	
@@ -28,18 +30,19 @@ func event_action(_listener:EventListener, _data := {}):
 	#print(listener.event_signal, ": ", listener.listener.pawn.pawn.char_sheet.display_name);
 
 func convert_params(p:Dictionary):
-	for param in params:
+	for param in parsed_params:
 		if !p.has(param): return null;
 		var type = typeof(p[param]);
-		p[param] = type_convert(params[param], type);
+		p[param] = type_convert(parsed_params[param], type);
 	return p;
 
-func test(): print(params.text);
+func test(): print("test");
 
 func self_heal():
 	var p = convert_params({"amount": 0, "hp": true, "sr": false});
 	if !p: return;
 	data.source.heal_hp(p.amount);
+	print(parsed_params);
 	#if p.amount != 0: print("healed for ",p.amount);
 
 func self_damage():

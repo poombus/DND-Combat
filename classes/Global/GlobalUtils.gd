@@ -34,7 +34,8 @@ func interp_params(params:Dictionary, data:Dictionary, _listener:EventListener):
 				if code == "potency": params[p] = listener.potency;
 				elif code == "count": params[p] = listener.count;
 			else:
-				params[p] = subcode_parser(code, data);
+				pass;
+				#params[p] = special_parse(code, data);
 			
 			if val is String:
 				pos = val.find("{", end+1);
@@ -42,17 +43,38 @@ func interp_params(params:Dictionary, data:Dictionary, _listener:EventListener):
 			else: break;
 	return params;
 
-func subcode_parser(code:String, data:Dictionary):
-	var subcodes:PackedStringArray = code.split("/", false);
-	var ind := -1;
-	var value;
-	for s in subcodes:
-		ind += 1;
-		if !value: value = data[s];
-		if s == "se":
-			var se = value.get_status_effect(subcodes[ind+1]);
-			if !se: return 0;
-			if subcodes.size() >= ind+3: value = se[subcodes[ind+2]];
-	return value;
+func parse_params(params:String, data:Dictionary, _listener:EventListener) -> Dictionary:
+	if params == "" or params == null: return {};
+	
+	var json = JSON.parse_string(params);
+	if json == null: return {};
+	else: json = Dictionary(json);
+	for k in json.keys(): 
+		if not (json[k] is String): continue;
+		json[k] = json[k].format(data);
+		json[k] = special_parse(json[k], data);
+		var expr = Expression.new();
+		var err = expr.parse(json[k]);
+		if err != OK: print(expr.get_error_text()); continue;
+		var result = expr.execute();
+		if not expr.has_execute_failed(): json[k] = result;
+	return json;
+
+func special_parse(str:String, data:Dictionary) -> String:
+	var pos:int = str.find("{", 0);
+	var end:int = str.find("}", pos+1);
+	while pos != -1 && end != -1:
+		var code:String = str.substr(pos+1, end-pos-1);
+		var path:PackedStringArray = code.split(".", false);
+		var ind := -1;
+		var value;
+		for s in path:
+			ind += 1;
+			if !value: value = data[s];
+			if s == "status_effects":
+				var se = value.get_status_effect(path[ind+1]);
+				if !se: return str(str);
+				if path.size() >= ind+3: value = se[path[ind+2]];
+	return str(str);
 
 func round_to(num:float, digit:int = 0) -> float: return round(num*pow(10, digit)) / pow(10, digit);

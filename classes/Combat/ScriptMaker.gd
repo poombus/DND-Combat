@@ -164,20 +164,25 @@ func calculate_skirmish(sk):
 func calc_clash(sk):
 	var a = sk.a; var t = sk.t;
 	
-	if a.dice_chain.is_empty() || t.dice_chain.is_empty():
+	for x in [[a,t],[t,a]]:
+		if not x[1].dice_chain.is_empty() and not x[1].stats.is_staggered(): continue;
+		x[1].dice_chain = [];
 		sk.onesided = true;
-		for x in [a, t]:
-			transfer_defensive_dice(x);
-			x.clashwinner = !x.dice_chain.is_empty();
-			if sk.clash_count > 0:
-				if x.clashwinner: 
-					event_call("on_clash_win", x.stats, {"source": x.stats, "target": t.stats if x == a else a.stats});
-					#x.stats.heal_sp(int(10+(sk.clash_count*1.2)));
-					x.stats.heal_sp(200);
-				else: 
-					event_call("on_clash_lose", x.stats, {"source": x.stats, "target": a.stats if x == a else t.stats});
-					#x.stats.dmg_sp(int(sk.clash_count*3));
-					x.stats.dmg_sp(200);
+		transfer_defensive_dice(x[0]);
+		x[0].clashwinner = true;
+		if sk.clash_count <= 0: return;
+		event_call("on_clash_win", x[0].stats, {
+			"source": x[0].stats, 
+			"target": x[1].stats, 
+			"clash_count": sk.clash_count
+		});
+		event_call("on_clash_lose", x[1].stats, {
+			"source": x[1].stats, 
+			"target": x[0].stats, 
+			"clash_count": sk.clash_count
+		});
+		x[0].stats.heal_sp(int(10+(sk.clash_count*1.2)));
+		x[1].stats.dmg_sp(int(sk.clash_count*3));
 		return;
 	
 	for x in [a,t]: #SIMULATE THE SIMULATION WITH PRE-EXISTING ROLLS
@@ -206,7 +211,7 @@ func calc_onesided(sk, winner, loser):
 	
 	di.value = winner.roll_sum;
 	var total = loser.stats.apply_damage(di);
-	#print(di.value, " * ", di.multiplier, " = ", di.get_final_damage());
+	loser.stats.dmg_sp(int(total*0.1)+1);
 	event_call("on_hit", winner.cur_dice, {"target":loser.stats, "source":winner.stats});
 
 	if !sk.playback:

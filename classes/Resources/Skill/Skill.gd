@@ -7,6 +7,7 @@ class_name Skill
 @export var id:String;
 @export var display_name:String = "Unnamed Skill";
 @export var description:String = "";
+@export var flavor_text:String = "";
 
 @export_category("Stats")
 @export var modifier:int = 0;
