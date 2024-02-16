@@ -2,6 +2,7 @@ extends Camera2D
 class_name BattleCamera
 
 var cam_control:bool = true;
+var can_zoom:bool = false;
 
 @onready var combat_gui = get_parent().get_child(-1);
 @onready var nameplate = preload("res://hud/Pawn/nameplate.tscn");
@@ -28,8 +29,8 @@ func _input(event):
 
 func mouse_button_events(event):
 	#Scroll to Zoom
-	if event.is_action_pressed("scroll_up"): change_zoom(0.3);
-	elif event.is_action_pressed("scroll_down"): change_zoom(-0.3);
+	if event.is_action_pressed("scroll_up") && can_zoom: change_zoom(0.3);
+	elif event.is_action_pressed("scroll_down") && can_zoom: change_zoom(-0.3);
 	
 	if event.is_action_pressed("scroll_click"): 
 		dragging = true;

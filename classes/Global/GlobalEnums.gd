@@ -52,6 +52,27 @@ enum RESPONSE {
 	APPLY_STATUS_TARGET
 }
 
+var element_colors = {
+	"NORMAL": "#8a8a8a", 
+	"COLD": "#29ffea", 
+	"FIRE": "#ff9900", 
+	"FORCE": "#ff0000",
+	"LIGHTNING": "#eeff52", 
+	"NECROTIC": "#299634",
+	"POISON": "#00ff44",
+	"PSYCHIC": "#ff00ea", 
+	"RADIANT": "#fffbb5", 
+	"NOISE": "#cd7dff",
+	"TRUE": "#ffffff"
+}
+
+var dice_colors = {
+	"OFFENSE": "#ff3d24",
+	"GUARD": "#1ba5fa",
+	"EVADE": "#1ba5fa",
+	"COUNTER": "#bb00ff"
+}
+
 var expertise = {
 	"str": ["athletics"],
 	"dex": ["acrobatics", "sleight of hand", "stealth"],

@@ -55,3 +55,8 @@ func seperate_counter_dice():
 func get_modifier(pawn:Pawn2D, stat:=_Enums.AS.STR) -> int:
 	var final = modifier+pawn.get_cs().get_offense_level(stat);
 	return final;
+
+func has_offensive_dice() -> bool:
+	for d in dice: if d.is_offensive(): return true;
+	for d in counter_dice: if d.is_offensive(): return true;
+	return false;

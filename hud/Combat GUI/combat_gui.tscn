@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://nljyb10vwo8g"]
+[gd_scene load_steps=10 format=3 uid="uid://nljyb10vwo8g"]
 
 [ext_resource type="Script" path="res://hud/Combat GUI/combat_gui.gd" id="1_p52v8"]
+[ext_resource type="Theme" uid="uid://bh6kpftky8ee" path="res://hud/Themes/DefaultGUI.tres" id="1_rsq5k"]
 [ext_resource type="Script" path="res://hud/Combat GUI/BattleButton.gd" id="2_mlgfo"]
 [ext_resource type="PackedScene" uid="uid://cexg0teehseic" path="res://hud/Combat GUI/Skill Chain/skill_chain.tscn" id="3_xjtal"]
 [ext_resource type="Texture2D" uid="uid://bhxierrpf534k" path="res://assets/textures/hud/paint_banner.png" id="4_vbyyq"]
+[ext_resource type="PackedScene" uid="uid://m26tpthpec7a" path="res://hud/Combat GUI/Actions Menu/actions_menu.tscn" id="5_ina7n"]
 
 [sub_resource type="Animation" id="Animation_g86fi"]
 resource_name = "New Turn"
@@ -73,6 +75,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("1_rsq5k")
 script = ExtResource("1_p52v8")
 metadata/_edit_lock_ = true
 
@@ -98,86 +101,8 @@ offset_bottom = 60.0
 grow_vertical = 1
 scale = Vector2(0.15, 0.15)
 
-[node name="Action Menus" type="Control" parent="."]
-visible = false
+[node name="Actions Menu" parent="." instance=ExtResource("5_ina7n")]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Skills Menu" type="MenuButton" parent="Action Menus"]
-layout_direction = 2
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -31.0
-offset_right = 288.0
-grow_vertical = 0
-text = "Skills"
-item_count = 2
-popup/item_0/text = "item 1"
-popup/item_0/id = 0
-popup/item_1/text = "item 2"
-popup/item_1/id = 1
-
-[node name="Spells Menu" type="MenuButton" parent="Action Menus"]
-layout_direction = 2
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 288.0
-offset_top = -31.0
-offset_right = 576.0
-grow_vertical = 0
-text = "Spells
-"
-item_count = 2
-popup/item_0/text = "item 1"
-popup/item_0/id = 0
-popup/item_1/text = "item 2"
-popup/item_1/id = 1
-
-[node name="Item Menu" type="MenuButton" parent="Action Menus"]
-layout_direction = 2
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_top = -31.0
-offset_right = 288.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Items"
-item_count = 2
-popup/item_0/text = "item 1"
-popup/item_0/id = 0
-popup/item_1/text = "item 2"
-popup/item_1/id = 1
-
-[node name="Misc Menu" type="MenuButton" parent="Action Menus"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -288.0
-offset_top = -31.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "Misc."
-item_count = 2
-popup/item_0/text = "item 1"
-popup/item_0/id = 0
-popup/item_1/text = "item 2"
-popup/item_1/id = 1
 
 [node name="TurnBanner" type="TextureRect" parent="."]
 visible = false

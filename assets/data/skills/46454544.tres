@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=10 format=3 uid="uid://r6kaxj27gqy4"]
+
+[ext_resource type="Script" path="res://classes/Resources/Skill/Dice.gd" id="1_l7dnc"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventAction.gd" id="2_edgc7"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="3_4fxyl"]
+[ext_resource type="Script" path="res://classes/Resources/Skill/Skill.gd" id="4_gwja7"]
+
+[sub_resource type="Resource" id="Resource_84xtf"]
+script = ExtResource("1_l7dnc")
+dice_type = 2
+low = 2
+high = 6
+events = Array[ExtResource("3_4fxyl")]([])
+
+[sub_resource type="Resource" id="Resource_lh70x"]
+script = ExtResource("1_l7dnc")
+dice_type = 1
+low = 3
+high = 5
+events = Array[ExtResource("3_4fxyl")]([])
+
+[sub_resource type="Resource" id="Resource_6tj72"]
+script = ExtResource("2_edgc7")
+description = ""
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = 1
+params = ""
+
+[sub_resource type="Resource" id="Resource_1x3a2"]
+script = ExtResource("3_4fxyl")
+event_signal = "on_hit"
+is_global = false
+actions = Array[ExtResource("2_edgc7")]([SubResource("Resource_6tj72")])
+
+[sub_resource type="Resource" id="Resource_telml"]
+script = ExtResource("1_l7dnc")
+dice_type = 0
+low = 3
+high = 4
+events = Array[ExtResource("3_4fxyl")]([SubResource("Resource_1x3a2")])
+
+[resource]
+script = ExtResource("4_gwja7")
+id = "46454544"
+display_name = "46454544"
+description = ""
+flavor_text = "When the Sweepers come out at night, the streets will look as they did the previous morn."
+modifier = 5
+energy_cost = 45
+weight = 1
+type = 0
+damage_type = 2
+element_type = 5
+dice = Array[ExtResource("1_l7dnc")]([SubResource("Resource_84xtf"), SubResource("Resource_lh70x"), SubResource("Resource_telml")])

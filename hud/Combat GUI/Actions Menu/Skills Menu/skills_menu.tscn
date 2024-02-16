@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv53im8wyqxnb"]
+
+[ext_resource type="Script" path="res://hud/Combat GUI/Actions Menu/Skills Menu/skills_menu.gd" id="1_eak8i"]
+[ext_resource type="PackedScene" uid="uid://fuecnhbbudn5" path="res://hud/Combat GUI/Actions Menu/Skills Menu/skill_display.tscn" id="2_4l0km"]
+
+[node name="Skills Menu" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eak8i")
+
+[node name="Skill List" type="ItemList" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 10
+allow_reselect = true
+
+[node name="C" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Skill Display" parent="C" instance=ExtResource("2_4l0km")]
+layout_mode = 2
+
+[connection signal="item_selected" from="Skill List" to="." method="_on_skill_list_item_selected"]

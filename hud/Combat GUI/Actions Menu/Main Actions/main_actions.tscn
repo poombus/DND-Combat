@@ -1,0 +1,138 @@
+[gd_scene load_steps=12 format=3 uid="uid://bk773ddk2yqo1"]
+
+[ext_resource type="Script" path="res://hud/Combat GUI/Actions Menu/Main Actions/main_actions.gd" id="1_1qr5a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mnor8"]
+bg_color = Color(1, 0.298039, 0.239216, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vmk3e"]
+bg_color = Color(1, 0.486275, 0.419608, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2me00"]
+bg_color = Color(1, 1, 0.27451, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5dkll"]
+bg_color = Color(1, 1, 0.588235, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uvvoo"]
+bg_color = Color(1, 1, 0.27451, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wkupn"]
+bg_color = Color(0.615686, 0, 0.745098, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfvlr"]
+bg_color = Color(0.721569, 0, 0.87451, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lefiw"]
+bg_color = Color(0.615686, 0, 0.745098, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f258h"]
+bg_color = Color(0.239216, 0.196078, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ic4pl"]
+bg_color = Color(0.298039, 0.352941, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Main Actions" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1qr5a")
+
+[node name="Left Side" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Skills" type="Button" parent="Left Side"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_mnor8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vmk3e")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mnor8")
+text = "Skills"
+
+[node name="Items" type="Button" parent="Left Side"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_2me00")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5dkll")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_uvvoo")
+text = "Items"
+
+[node name="Right Side" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spells" type="Button" parent="Right Side"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_wkupn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_gfvlr")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lefiw")
+text = "Spells"
+
+[node name="Misc" type="Button" parent="Right Side"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 35
+theme_override_styles/normal = SubResource("StyleBoxFlat_f258h")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ic4pl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_f258h")
+text = "Misc."
+
+[connection signal="pressed" from="Left Side/Skills" to="." method="_on_skills_pressed"]
+[connection signal="pressed" from="Left Side/Items" to="." method="_on_items_pressed"]
+[connection signal="pressed" from="Right Side/Spells" to="." method="_on_spells_pressed"]
+[connection signal="pressed" from="Right Side/Misc" to="." method="_on_misc_pressed"]
