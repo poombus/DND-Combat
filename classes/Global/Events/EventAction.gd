@@ -15,7 +15,10 @@ enum ACTS { #list of actions
 	SELF_DAMAGE,
 	DEAL_DAMAGE,
 	INFLICT_STATUS,
-	STAT_CHANGE
+	STAT_CHANGE,
+	APPLY_HIDDEN_STAT,
+	GAIN_DICE_POWER_SELF,
+	LOSE_DICE_POWER_SELF
 }
 
 func event_action(_listener:EventListener, _data := {}):
@@ -70,3 +73,19 @@ func inflict_status():
 func stat_change():
 	var p = convert_params({"stat": "", "amount": 0});
 	if !p: return;
+
+func apply_hidden_stat():
+	var p = convert_params({"name": "hidden_stat", "amount": 0, "target": 0});
+	if !p: return;
+	if p.target == 0: data.source.apply_hidden_stat(p.name, p.amount);
+	else: data.target.apply_hidden_stat(p.name, p.amount);
+	
+func gain_dice_power_self():
+	var p = convert_params({"amount": 0});
+	if !p: return;
+	data.source.apply_hidden_stat("dice_power", p.amount);
+
+func lose_dice_power_self():
+	var p = convert_params({"amount": 0});
+	if !p: return;
+	data.source.apply_hidden_stat("dice_power", -p.amount);

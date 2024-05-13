@@ -2,7 +2,7 @@ extends Camera2D
 class_name BattleCamera
 
 var cam_control:bool = true;
-var can_zoom:bool = false;
+var can_zoom:bool = true;
 
 @onready var combat_gui = get_parent().get_child(-1);
 @onready var nameplate = preload("res://hud/Pawn/nameplate.tscn");

@@ -29,17 +29,27 @@ func impose_skill(_skill:Skill):
 	damage_type = skill.damage_type;
 	element_type = skill.element_type;
 
-func roll(advantage:int = 0) -> int:
-	var val = randi_range(0,high-low);
+func roll(advantage:int = 0, pawn:CombatStats = null) -> int:
+	var r = apply_dice_power();
+	
+	if pawn: r = apply_dice_power(
+		pawn.get_stat_modi("dice_power"),
+		pawn.get_stat_modi("min_power"),
+		pawn.get_stat_modi("max_power"),
+	);
+	r[0] = max(0, r[0]);
+	r[1] = max(0, r[1]);
+	
+	var val = randi_range(0,r[1]-r[0]);
 	var disadvantage = advantage < 0;
 	for i in absi(advantage):
-		var new_val = randi_range(0,high-low);
+		var new_val = randi_range(0,r[1]-r[0]);
 		if disadvantage: val = mini(val, new_val);
 		else: val = maxi(val, new_val);
-		if val == high-low: break;
+		if val == r[1]-r[0]: break;
 	
-	if low > high: return high-val;
-	return val+low;
+	if r[0] > r[1]: return r[1]-val;
+	return val+r[0];
 
 func custom_roll(low:int = 1, high:int = 20, advantage:int = 0) -> int: 
 	var val = randi_range(0,high-low);
@@ -54,6 +64,10 @@ func custom_roll(low:int = 1, high:int = 20, advantage:int = 0) -> int:
 	
 	if low > high: return high-val;
 	return val+low;
+
+func skewed_roll(low:int = 1, high:int = 20, skew:float = 0) -> int:
+	return roundi(custom_roll(low, high)*(1+randf()*skew));
+	#More controlled advantage. (For combat perhaps?)
 
 func get_average() -> float: return (float(low)+float(high))/2;
 
@@ -95,3 +109,13 @@ func get_element_type() -> _Enums.DMG_ELEMENTS: return skill.element_type;
 
 func event_triggered(_signal:String, source, data = {}):
 	for e in events: if e.event_signal == _signal: e.event(self, self, data);
+
+func is_minus_dice() -> bool: return true if low > high else false;
+
+func apply_dice_power(dice_power:int = 0, floor_power:int = 0, ceil_power:int = 0) -> PackedInt32Array:
+	var floor := high if is_minus_dice() else low;
+	var ceil := low if is_minus_dice() else high;
+	floor += dice_power + floor_power;
+	ceil += dice_power + ceil_power;
+	
+	return [ceil, floor] if is_minus_dice() else [floor, ceil];

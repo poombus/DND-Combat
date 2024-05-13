@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ArmorItem" load_steps=2 format=3 uid="uid://bec0e2dqdga0v"]
+
+[ext_resource type="Script" path="res://classes/Resources/Item/ArmorItem.gd" id="1_v488n"]
+
+[resource]
+script = ExtResource("1_v488n")
+equip_slot = 0
+id = "perception_warping_mask"
+display_name = "Perception-Warping Mask"
+display_color = Color(0.121569, 0.121569, 0.121569, 1)
+use_display_color = true
+description = "A mask that allows the wearer to blend into the background of any eyes looking in their direction."
+rarity = 5
+value = 5000.0
+size = 2.0

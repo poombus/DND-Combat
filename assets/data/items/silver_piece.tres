@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://bny063ufg7luu"]
+
+[ext_resource type="Script" path="res://classes/Resources/Item/Item.gd" id="1_tndq1"]
+
+[resource]
+script = ExtResource("1_tndq1")
+id = "silver_piece"
+display_name = "Silver Piece"
+display_color = Color(0.890196, 0.890196, 0.992157, 1)
+use_display_color = true
+description = "The second highest denomination of currency recognized by almost all civilizations."
+rarity = 1
+value = 0.1
+size = 0.1

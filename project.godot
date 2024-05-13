@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="DND Combat"
-run/main_scene="res://2d_test_stage.tscn"
+run/main_scene="res://hud/Table Screen/Main/table_screen.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 

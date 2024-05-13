@@ -1,5 +1,7 @@
 extends Control
 
+var cgui:CombatGUI;
+
 var viewing:int = 0;
 var menu_resources := {
 	"main_actions_res": preload("res://hud/Combat GUI/Actions Menu/Main Actions/main_actions.tscn"),
@@ -7,6 +9,7 @@ var menu_resources := {
 }
 
 func view_menu(ind:int = viewing):
+	if viewing == ind: return;
 	viewing = ind;
 	self.get_child(0).queue_free();
 	var inst = menu_resources[menu_resources.keys()[viewing]].instantiate();

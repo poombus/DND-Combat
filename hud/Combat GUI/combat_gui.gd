@@ -12,11 +12,15 @@ var cur_pawn:Pawn2D;
 
 @onready var anim := $AnimationPlayer;
 
+func _ready(): 
+	hide_actions();
+	action_menu.cgui = self;
+
 func display_actions(pawn:Pawn2D):
 	cur_pawn = pawn;
-	action_menu.list_skills(pawn.combat_stats.skills);
-	
 	action_menu.visible = true;
+	action_menu.view_menu(0);
+	#action_menu.get_child(0).list_skills(cur_pawn);
 
 func hide_actions(): action_menu.visible = false;
 

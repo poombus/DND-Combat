@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=2 format=3 uid="uid://cmwtgnc0er0tf"]
+
+[ext_resource type="Script" path="res://classes/Resources/Item/WeaponItem.gd" id="1_fet1s"]
+
+[resource]
+script = ExtResource("1_fet1s")
+weapon_types = Array[int]([])
+whitelist = false
+equip_slot = 5
+id = "black_silence_gloves"
+display_name = "Gloves of Black Silence"
+display_color = Color(0.52549, 0.52549, 0.52549, 1)
+use_display_color = true
+description = "Acts as a weapon storage device for every weapon one could possibly need. Muffles all surrounding sound except the sound of its weapons clashing."
+rarity = 5
+value = 5000.0
+size = 1.0

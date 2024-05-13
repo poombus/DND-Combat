@@ -23,6 +23,7 @@ func add_feat(i, group:String):
 func add_item(i, group:String):
 	if !items.has(group): items[group] = {};
 	items[group][i.id] = i;
+	print("[Item] Added ",group,":",i.id);
 
 func add_skill(i, group:String):
 	if !skills.has(group): skills[group] = {};
@@ -37,11 +38,13 @@ func add_effect(i, group:String):
 
 func get_skill(id:String) -> Skill:
 	var params = id.split(":");
+	if params.size() == 1: params.insert(0, "base");
 	var skill = skills[params[0]][params[1]];
 	return skill;
 
 func get_status_effect(id:String) -> StatusEffect:
 	var params = id.split(":");
+	if params.length == 1: params.insert(0, "base");
 	var se = effects[params[0]][params[1]];
 	if effects[params[0]].has(params[1]): se = effects[params[0]][params[1]];
 	else: 
@@ -54,6 +57,7 @@ func get_status_effect(id:String) -> StatusEffect:
 
 func get_feat(id:String) -> Feat:
 	var params = id.split(":");
+	if params.size() == 1: params.insert(0, "base");
 	var feat;
 	if feats[params[0]].has(params[1]): feat = feats[params[0]][params[1]];
 	else: 
@@ -62,6 +66,17 @@ func get_feat(id:String) -> Feat:
 		feat.display_name = "Unknown";
 		feat.tooltip = "If you have this, then that means one of your features doesn't exist!";
 	return feat;
+
+func get_item(id:String) -> Item:
+	var params = id.split(":");
+	if params.size() == 1: params.insert(0, "base");
+	var item:Item;
+	if items[params[0]].has(params[1]): item = items[params[0]][params[1]];
+	else:
+		item = Item.new();
+		item.id = "unknown404";
+		item.display_name = "Unknown";
+	return item;
 
 func manual_registration():
 	pass; #register(OBJ, "base");

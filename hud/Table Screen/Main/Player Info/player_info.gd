@@ -16,8 +16,9 @@ extends Control
 var is_open:bool = false;
 
 func _ready():
-	var char = GlobalBuilder.json_parser("res://localdata/player_sheets/Abby_1690657127_2.json");
-	update_display(char);
+	#var char = GlobalBuilder.json_parser("res://localdata/player_sheets/Abby_1690657127_2.json");
+	#update_display(char);
+	pass;
 
 func open(): 
 	anim.play("Show");

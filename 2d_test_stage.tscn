@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://75qh06hl51ym"]
+[gd_scene load_steps=7 format=3 uid="uid://75qh06hl51ym"]
 
 [ext_resource type="PackedScene" uid="uid://drmpldifjxf23" path="res://classes/Pawn/pawn_2d_template.tscn" id="1_f57vx"]
 [ext_resource type="Script" path="res://classes/Combat/BattleCamera.gd" id="1_q4gbj"]
 [ext_resource type="PackedScene" uid="uid://nljyb10vwo8g" path="res://hud/Combat GUI/combat_gui.tscn" id="2_0b67m"]
+[ext_resource type="Resource" uid="uid://cqsiexf0wnxei" path="res://tools/character sheet tool/generated_data/Klaus.res" id="3_acv3g"]
 [ext_resource type="PackedScene" uid="uid://cyi6m268p5frw" path="res://tools/basic_combat_visualizer/hud/clash_info.tscn" id="4_axrav"]
+[ext_resource type="Resource" path="res://tools/character sheet tool/generated_data/Test_NPC.res" id="4_nom8m"]
 
 [node name="2D Test Stage" type="Node2D"]
 metadata/_edit_lock_ = true
@@ -15,10 +17,11 @@ script = ExtResource("1_q4gbj")
 
 [node name="P1" parent="." instance=ExtResource("1_f57vx")]
 position = Vector2(225, 318)
-charsheet_path = "res://tools/character sheet tool/generated_data/Klaus.json"
+char_sheet = ExtResource("3_acv3g")
 
 [node name="P2" parent="." instance=ExtResource("1_f57vx")]
 position = Vector2(921, 328)
+char_sheet = ExtResource("4_nom8m")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -4,6 +4,7 @@ func _ready():
 	skillBuilder("res://assets/data/skills/");
 	effectBuilder("res://assets/data/status_effects/");
 	featBuilder("res://assets/data/feats/");
+	itemBuilder("res://assets/data/items/")
 	print("Builder is finished.")
 
 func skillBuilder(path:String):
@@ -46,8 +47,17 @@ func diceBuilder(dice, skill_name:String = ""):
 	
 	return d;
 
-func itemBuilder():
-	pass
+func itemBuilder(path:String):
+	var dir = DirAccess.open(path);
+	if not dir: print("[ITEMBUILDER] Directory \"", path, "\" does not exist..."); return;
+	dir.list_dir_begin();
+	var file_name = dir.get_next();
+	while file_name != "": 
+		if dir.current_is_dir(): file_name = dir.get_next(); continue;
+		if file_name.split(".")[-1] != "tres": file_name = dir.get_next(); continue;
+		var tres := ResourceLoader.load(path+file_name) as Item;
+		Registry.register(tres);
+		file_name = dir.get_next();
 
 func effectBuilder(path:String):
 	var dir = DirAccess.open(path);

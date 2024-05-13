@@ -1,0 +1,104 @@
+[gd_scene load_steps=4 format=3 uid="uid://8ena1x7v36v8"]
+
+[ext_resource type="Script" path="res://hud/Table Screen/Windows/Inventory/inventory_context.gd" id="1_n0ail"]
+[ext_resource type="Texture2D" uid="uid://b110pso62o0jb" path="res://assets/textures/icons/question_mark.png" id="2_py6sb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spmb1"]
+bg_color = Color(0.176471, 0.176471, 0.176471, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_blend = true
+
+[node name="InventoryContextMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_n0ail")
+
+[node name="Container" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 1
+offset_right = 400.0
+offset_bottom = 300.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_spmb1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Equip" type="Button" parent="Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_constants/icon_max_width = 30
+text = "Equip"
+icon = ExtResource("2_py6sb")
+alignment = 0
+
+[node name="Unequip" type="Button" parent="Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_constants/icon_max_width = 30
+text = "Unequip"
+icon = ExtResource("2_py6sb")
+alignment = 0
+
+[node name="Give" type="Button" parent="Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_constants/icon_max_width = 30
+text = "Give to Party Member"
+icon = ExtResource("2_py6sb")
+alignment = 0
+
+[node name="Take" type="Button" parent="Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_constants/icon_max_width = 30
+text = "Add to Inventory"
+icon = ExtResource("2_py6sb")
+alignment = 0
+
+[node name="Drop" type="Button" parent="Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_constants/icon_max_width = 30
+text = "Drop"
+icon = ExtResource("2_py6sb")
+alignment = 0
+
+[node name="Buy" type="Button" parent="Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_constants/icon_max_width = 30
+text = "Buy"
+icon = ExtResource("2_py6sb")
+alignment = 0
+
+[node name="Sell" type="Button" parent="Container/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_constants/icon_max_width = 30
+text = "Sell"
+icon = ExtResource("2_py6sb")
+alignment = 0
+
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="Container/VBoxContainer/Equip" to="." method="_on_equip_pressed"]
+[connection signal="pressed" from="Container/VBoxContainer/Unequip" to="." method="_on_unequip_pressed"]
+[connection signal="pressed" from="Container/VBoxContainer/Give" to="." method="_on_give_pressed"]
+[connection signal="pressed" from="Container/VBoxContainer/Take" to="." method="_on_take_pressed"]
+[connection signal="pressed" from="Container/VBoxContainer/Drop" to="." method="_on_drop_pressed"]
+[connection signal="pressed" from="Container/VBoxContainer/Buy" to="." method="_on_buy_pressed"]
+[connection signal="pressed" from="Container/VBoxContainer/Sell" to="." method="_on_sell_pressed"]

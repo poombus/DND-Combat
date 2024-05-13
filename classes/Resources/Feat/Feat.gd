@@ -10,6 +10,9 @@ var tooltip:String; #Shorter description.
 @export_category("Events")
 @export var events:Array[EventListener];
 
+@export_category("Stat Modifiers")
+@export var stat_mods:StatModifiers;
+
 var pawn:CombatStats;
 
 func deep_copy() -> Feat:

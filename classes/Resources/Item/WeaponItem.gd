@@ -1,14 +1,13 @@
-extends Item
+extends EquippableItem
 class_name WeaponItem
 
-var hp_boost:int = 0;
-var sr_boost:int = 0;
+enum WEAPON_TYPES {SHORTSWORD = 0, GREATSWORD, DAGGER, CLUB, AXE, SPEAR, MACE, STAFF, SICKLE, SCYTHE, BOW, CROSSBOW, GLAIVE, RAPIER, LANCE}
+@export var weapon_types:Array[WEAPON_TYPES] = [];
+@export var whitelist:bool = true; #true = is listed weapon types, false = is everything except weapon types
 
-var str_boost:int = 0;
-var dex_boost:int = 0;
-var con_boost:int = 0;
-var int_boost:int = 0;
-var wis_boost:int = 0;
-var cha_boost:int = 0;
+var unique_skills:Array[Skill] = [];
 
-var unique_skills:Array[String] = [];
+func is_type(type:WEAPON_TYPES) -> bool:
+	if whitelist and weapon_types.has(type): return true;
+	elif not whitelist and weapon_types.has(type): return false;
+	return true;

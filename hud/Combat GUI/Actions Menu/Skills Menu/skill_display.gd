@@ -6,6 +6,10 @@ extends VBoxContainer
 @onready var desc = $Description;
 @onready var dice = $Dice;
 
+var dragging:bool = false;
+var drag_start:int;
+var scroll_start:int;
+
 func _ready():
 	self.visible = false;
 	n.text = "";
@@ -53,3 +57,19 @@ func display(skill:Skill):
 			d.low, d.high, 
 			_Enums.get_key("DICE_TYPES", d.dice_type).to_pascal_case()
 		]);
+
+func _input(event):
+	if event is InputEventMouseButton: mouse_button_events(event);
+	elif event is InputEventMouseMotion: mouse_motion_events(event);
+	else: return;
+
+func mouse_button_events(event):
+	if event.is_action_pressed("scroll_click"): 
+		dragging = true;
+		drag_start = get_viewport().get_mouse_position().y;
+		scroll_start = get_parent().get_v_scroll();
+	else: dragging = false;
+
+func mouse_motion_events(event):
+	if !dragging: return;
+	get_parent().set_v_scroll(scroll_start+(get_viewport().get_mouse_position().y-drag_start));

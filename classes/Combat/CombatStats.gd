@@ -1,7 +1,11 @@
 extends Node
 class_name CombatStats
 
+var virtual:bool = false;
+var virtual_stats:CombatStats;
+
 var pawn:Pawn2D; #removed typing for Pawn so i can use Pawn2D
+var char_sheet:CharacterSheet;
 var team:int = 0;
 var can_control:Array[int] = [0];
 var nameplate:Nameplate;
@@ -17,7 +21,7 @@ var stagger_level:int = 0;
 var staggered_this_turn:bool = false;
 var actionable:bool = true;
 var sp:int = 0; #sanity
-var resistances:Dictionary;
+var resistances:Resistances;
 
 var reserve_dice:Array[Dice] = [];
 var counter_dice:Array[Dice] = [];
@@ -33,30 +37,34 @@ var invActions; #only show items that can be used in combat
 var feats:Array[Feat] = [];
 var status_effects:Array[StatusEffect] = [];
 
+var temp_stat_mods:Array[StatModifiers] = [];
+
 func _init(i_parent): pawn = i_parent;
 
-func setup(charsheet:CharacterSheet):	
-	maxhp = charsheet.maxhp;
-	hp = charsheet.hp;
+func setup(_char_sheet:CharacterSheet):	
+	char_sheet = _char_sheet;
+	
+	maxhp = char_sheet.maxhp;
+	hp = char_sheet.hp;
 	shield = 0;
-	maxsr = charsheet.maxsr;
-	sr = charsheet.sr;
+	maxsr = char_sheet.maxsr;
+	sr = char_sheet.sr;
 	staggered = false;
 	stagger_level = 0;
 	actionable = true;
+	sp = clamp(char_sheet.sp, -100, 100);
 	
-	resistances = charsheet.resistances;
+	resistances = char_sheet.resistances;
 	
-	skills = []; #create a function that returns skill data given the skill id
-	for s in charsheet.skills: add_skill(s);
-	feats = [];
-	for feat in charsheet.feats: add_feat(feat);
+	skills = char_sheet.skills; #create a function that returns skill data given the skill id
+	feats = char_sheet.feats;
+	for feat in feats: feat.pawn = self;
+	
 	spells = []; #same as above
 	invActions = []; #check items in inventory and check which can be used in combat
 	othActions = []; #predefined (usually)
 	
 	energy = 3;
-	sp = 0;
 
 func add_skill(skill) -> void:
 	skills.push_back(Registry.get_skill(skill));
@@ -80,6 +88,7 @@ func apply_damage(inst:DamageInstance) -> int:
 	var after_shield = remove_shield(final_damage);
 	if inst.affect_hp: dmg_hp(after_shield); #make it so shield reduction is done here
 	if inst.affect_sr: dmg_sr(after_shield);
+	
 	return final_damage;
 
 func heal_hp(amount:int):
@@ -168,7 +177,8 @@ func get_status_effect(_id:String) -> StatusEffect:
 	for s in status_effects: if s.fullid == _id: return s;
 	return null;
 
-func get_stat_mod(stat:_Enums.AS) -> int: return pawn.char_sheet.get_as_mod(stat);
+func get_stat_mod(stat:_Enums.AS) -> int:
+	return pawn.char_sheet[_Enums.ability_scores[stat]];
 
 func get_offense_level(stat:=_Enums.AS.STR) -> int:
 	return pawn.char_sheet.level+get_stat_mod(stat);
@@ -195,8 +205,15 @@ func deep_copy() -> CombatStats:
 	
 	for se in status_effects: 
 		var se_copy = se.deep_copy();
-		se_copy.pawn = pawn.virtual_cs;
+		#se_copy.pawn = pawn.virtual_cs;
+		se_copy.pawn = pawn;
 		cs.status_effects.push_back(se_copy);
+	
+	for f in feats: 
+		var f_copy = f.deep_copy();
+		#se_copy.pawn = pawn.virtual_cs;
+		f_copy.pawn = pawn;
+		cs.feats.push_back(f_copy);
 	
 	cs.counter_dice = counter_dice;
 	cs.reserve_dice = reserve_dice;
@@ -206,3 +223,35 @@ func deep_copy() -> CombatStats:
 func event_triggered(_signal:String, source:Variant, data:Dictionary = {}):
 	for s in status_effects: s.event_triggered(_signal, source, data);
 	for f in feats: f.event_triggered(_signal, source, data);
+
+func setup_virtual_cs(): 
+	virtual_stats = deep_copy();
+	#print(virtual_stats, " // ", self);
+
+func get_cs() -> CombatStats:
+	if virtual: return virtual_stats;
+	else: return self;
+
+func get_stat_modi(mod:String) -> float:
+	var result:float = 0;
+	
+	#Temp Modifiers
+	for t in temp_stat_mods: result += t[mod];
+	
+	#Status Effect Modifiers
+	for s in status_effects: result += s.stat_mods[mod];
+	
+	#Feat Modifiers
+	for f in feats:
+		if f.stat_mods: result += f.stat_mods[mod];
+	
+	#Equipped Item Modifiers
+	var sheet = pawn.char_sheet;
+	var eq_i = [sheet.inventory.head, sheet.inventory.chest, sheet.inventory.legs, sheet.inventory.feet];
+	eq_i.append_array(sheet.inventory.hands);
+	eq_i.append_array(sheet.inventory.trinkets);
+	for i in eq_i: 
+		if not i is EquippableItem: continue;
+		if "stats" in i: result += i.stats[mod];
+	
+	return result;

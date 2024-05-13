@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=3 uid="uid://0inoaxac2yd8"]
+
+[ext_resource type="Script" path="res://hud/Table Screen/Windows/Inventory/inventory_tooltip.gd" id="1_kbt60"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spmb1"]
+bg_color = Color(0.176471, 0.176471, 0.176471, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_blend = true
+
+[node name="InventoryTooltip" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 366.0
+mouse_filter = 2
+script = ExtResource("1_kbt60")
+
+[node name="Container" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 366.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_spmb1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Container/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+text = "<Name Here>
+[color=gray][i]\"Description\"[/i]
+[color=white]Rarity: [color=white]<Rarity>
+[color=white]Size: [color=red]<Stack Size> [color=gray](Individual Size)
+[color=white]Value: [color=yellow]<Stack Value>gp [color=gray](Individual Value)"
+fit_content = true
+scroll_active = false

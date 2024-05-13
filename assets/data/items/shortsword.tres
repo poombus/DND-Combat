@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="WeaponItem" load_steps=4 format=3 uid="uid://tjy7d2gr48au"]
+
+[ext_resource type="Script" path="res://classes/Resources/Item/WeaponItem.gd" id="1_m7qmo"]
+[ext_resource type="Script" path="res://classes/Combat/StatModifiers.gd" id="2_24t25"]
+
+[sub_resource type="Resource" id="Resource_xtsj7"]
+script = ExtResource("2_24t25")
+dice_power = 0
+min_power = 0
+max_power = 0
+clash_power = 0
+strength = 3
+dexterity = 0
+constitution = 0
+intelligence = 0
+wisdom = 0
+charisma = 0
+offense_level = 0
+defense_level = 0
+
+[resource]
+script = ExtResource("1_m7qmo")
+weapon_types = Array[int]([0])
+whitelist = true
+equip_slot = 4
+stats = SubResource("Resource_xtsj7")
+id = "shortsword"
+display_name = "Shortsword"
+display_color = Color(0, 0, 0, 1)
+use_display_color = false
+description = "A basic, iron shortsword."
+rarity = 1
+value = 10.0
+size = 10.0

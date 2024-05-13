@@ -28,6 +28,9 @@ var show_count:bool = true;
 @export var events:Array[EventListener];
 func update_desc(): pass;
 
+@export_category("Stat Modifiers")
+@export var stat_mods:StatModifiers;
+
 #effects code
 func on_turn_start(turn:int): 
 	update_desc();

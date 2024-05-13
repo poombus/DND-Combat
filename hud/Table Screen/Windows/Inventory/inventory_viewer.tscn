@@ -1,0 +1,163 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1l2y7iw73j21"]
+
+[ext_resource type="Script" path="res://hud/Table Screen/Windows/Inventory/inventory_viewer.gd" id="1_jkx2s"]
+[ext_resource type="Resource" uid="uid://cqsiexf0wnxei" path="res://tools/character sheet tool/generated_data/Klaus.res" id="2_4vd7c"]
+[ext_resource type="PackedScene" uid="uid://0inoaxac2yd8" path="res://hud/Table Screen/Windows/Inventory/inventory_tooltip.tscn" id="3_phtky"]
+[ext_resource type="PackedScene" uid="uid://8ena1x7v36v8" path="res://hud/Table Screen/Windows/Inventory/inventory_context.tscn" id="4_oh6ce"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_egcyv"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+bg_color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cepgk"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+
+[node name="InventoryViewer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_jkx2s")
+char = ExtResource("2_4vd7c")
+
+[node name="Container" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_egcyv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container"]
+layout_mode = 2
+
+[node name="PlayerStats" type="VBoxContainer" parent="Container/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Name" type="RichTextLabel" parent="Container/HBoxContainer/PlayerStats"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+bbcode_enabled = true
+text = "<NAME HERE>"
+scroll_active = false
+
+[node name="HSeparator" type="HSeparator" parent="Container/HBoxContainer/PlayerStats"]
+layout_mode = 2
+
+[node name="StatContainer" type="GridContainer" parent="Container/HBoxContainer/PlayerStats"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+columns = 2
+
+[node name="Strength" type="RichTextLabel" parent="Container/HBoxContainer/PlayerStats/StatContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "STR:
+NUM"
+fit_content = true
+
+[node name="Intelligence" type="RichTextLabel" parent="Container/HBoxContainer/PlayerStats/StatContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "INT:
+NUM"
+fit_content = true
+
+[node name="Dexterity" type="RichTextLabel" parent="Container/HBoxContainer/PlayerStats/StatContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "DEX:
+NUM"
+fit_content = true
+
+[node name="Wisdom" type="RichTextLabel" parent="Container/HBoxContainer/PlayerStats/StatContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "WIS:
+NUM"
+fit_content = true
+
+[node name="Constitution" type="RichTextLabel" parent="Container/HBoxContainer/PlayerStats/StatContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "CON:
+NUM"
+fit_content = true
+
+[node name="Charisma" type="RichTextLabel" parent="Container/HBoxContainer/PlayerStats/StatContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "CHA:
+NUM"
+fit_content = true
+
+[node name="HSeparator2" type="HSeparator" parent="Container/HBoxContainer/PlayerStats"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Container/HBoxContainer/PlayerStats"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "FEAT"
+fit_content = true
+scroll_active = false
+
+[node name="Inventory" type="VBoxContainer" parent="Container/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Bag" type="ScrollContainer" parent="Container/HBoxContainer/Inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="List" type="VBoxContainer" parent="Container/HBoxContainer/Inventory/Bag"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Equiped" type="ScrollContainer" parent="Container/HBoxContainer/Inventory"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.4
+theme_override_styles/panel = SubResource("StyleBoxFlat_cepgk")
+
+[node name="List" type="VBoxContainer" parent="Container/HBoxContainer/Inventory/Equiped"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InventoryTooltip" parent="." instance=ExtResource("3_phtky")]
+visible = false
+layout_mode = 2
+offset_right = 0.0
+offset_bottom = 0.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="InventoryContextMenu" parent="." instance=ExtResource("4_oh6ce")]
+visible = false
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="equip" from="InventoryContextMenu" to="." method="_on_inventory_context_menu_equip"]
+[connection signal="unequip" from="InventoryContextMenu" to="." method="_on_inventory_context_menu_unequip"]
+[connection signal="timeout" from="Timer" to="." method="show_tooltip"]

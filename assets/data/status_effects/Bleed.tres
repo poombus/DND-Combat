@@ -6,15 +6,15 @@
 
 [sub_resource type="Resource" id="Resource_t4pcu"]
 script = ExtResource("1_8hgya")
+description = ""
 conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
 action = 2
-params = {
-"amount": "{potency}"
-}
+params = ""
 
 [sub_resource type="Resource" id="Resource_lmb2t"]
 script = ExtResource("1_2lvay")
 event_signal = "on_dice_rolled"
+is_global = false
 actions = Array[ExtResource("1_8hgya")]([SubResource("Resource_t4pcu")])
 
 [resource]

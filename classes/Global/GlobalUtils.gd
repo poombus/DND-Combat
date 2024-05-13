@@ -78,3 +78,14 @@ func special_parse(str:String, data:Dictionary) -> String:
 	return str(str);
 
 func round_to(num:float, digit:int = 0) -> float: return round(num*pow(10, digit)) / pow(10, digit);
+
+func schedule(function:Callable, delay:int):
+	var timer = Timer.new();
+	timer.connect("timeout", function);
+	timer.connect("timeout", Callable(timer, "queue_free"));
+	timer.wait_time = delay;
+	get_tree().root.add_child(timer);
+	timer.start();
+
+func get_enum_key(_enum, ind:int) -> String:
+	return _enum.keys()[ind];

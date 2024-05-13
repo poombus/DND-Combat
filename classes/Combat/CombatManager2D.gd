@@ -29,8 +29,8 @@ func setup(pawns0:Array[Pawn2D], pawns1:Array[Pawn2D], battle_camera:BattleCamer
 	pawns = pawns0;
 	pawns.append_array(pawns1);
 	
-	for p in pawns0: p.combat_stats.team = 0;
-	for p in pawns1: p.combat_stats.team = 1;
+	for p in pawns0: p.stats.team = 0;
+	for p in pawns1: p.stats.team = 1;
 	for p in pawns: p.starting_pos = p.global_position;
 	
 	phase = PHASES.SPEED;
@@ -47,9 +47,9 @@ func new_turn(set_turn:int = -1):
 	
 	for pawn in pawns:
 		#pawn.verify_parity(); #CONSOLE CHECK
-		pawn.combat_stats.counter_dice = [];
-		pawn.combat_stats.shield = 0;
-		pawn.combat_stats.unstagger();
+		pawn.stats.counter_dice = [];
+		pawn.stats.shield = 0;
+		pawn.stats.unstagger();
 		pawn.global_position = pawn.starting_pos;
 		pawn.update_nameplate();
 		if pawn.get_sdc(): pawn.get_sdc().regenerate_container();
@@ -58,7 +58,9 @@ func new_turn(set_turn:int = -1):
 
 func next_phase():
 	if phase == PHASES.SPEED: #ROLL SPEED DICE
-		for pawn in pawns: pawn.sdc.roll_all_speed_dice();
+		for pawn in pawns: 
+			pawn.sdc.roll_all_speed_dice();
+			pawn.stats.virtual = false;
 		phase = PHASES.SKILLS;
 		
 	elif phase == PHASES.SKILLS: #REGISTER SKILLS
@@ -71,8 +73,8 @@ func next_phase():
 		var sd_list:Array[SpeedDice] = [];
 		for p in pawns: 
 			sd_list.append_array(p.get_speed_dice());
-			p.virtual = true;
-			p.virtual_cs = p.combat_stats.deep_copy();
+			#p.combat_stats.virtual = true;
+			#p.setup_virtual_cs();
 		combat_script = script_maker.create_script(sd_list);
 		
 		phase = PHASES.COMBAT;
@@ -92,6 +94,7 @@ func combat_phase() -> void:
 		for c in clash_list.get_children(): if c.pawns.has(sc.a.pawn) || c.pawns.has(sc.t.pawn) || sc.playback: skip = true;
 		if skip: continue;
 		sc.playback = true;
+		for x in [sc.a,sc.t]: x.stats = x.sd_ref.pawn.stats;
 		script_maker.calculate_skirmish(sc);
 
 func pawn_died(p:Pawn2D):
@@ -103,7 +106,7 @@ func pawn_died(p:Pawn2D):
 
 func check_win() -> int:
 	if pawns.is_empty(): return 0;
-	var winning = pawns[0].combat_stats.team;
-	for p in pawns: if p.combat_stats.team != winning: return -1;
+	var winning = pawns[0].stats.team;
+	for p in pawns: if p.stats.team != winning: return -1;
 	
 	return winning;

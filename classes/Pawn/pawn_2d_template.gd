@@ -3,9 +3,8 @@ class_name Pawn2D
 
 var starting_pos:Vector2;
 
-@export var charsheet_path:String = "res://tools/character sheet tool/generated_data/Barry_1690657212.json";
-var char_sheet:CharacterSheet;
-var combat_stats := CombatStats.new(self);
+@export var char_sheet:CharacterSheet;
+var stats := CombatStats.new(self);
 var virtual_cs:CombatStats; #used during script making to predict outcomes
 var virtual:bool = false;
 
@@ -18,8 +17,9 @@ var virtual:bool = false;
 
 func _ready():
 	#await get_tree().create_timer(1).timeout;
-	unpack_charsheet();
-	combat_stats.setup(char_sheet);
+	char_sheet = char_sheet.duplicate();
+	char_sheet.setup();
+	stats.setup(char_sheet);
 	nameplate.init(self);
 	sdc.init(self);
 
@@ -31,12 +31,6 @@ func apply_knockback(source:Vector2, amount:int):
 
 func move_to():
 	pass
-
-func unpack_charsheet(path:String = ""): 
-	#save prev char_sheet to its assigned path (if applicable)
-	if path != "": charsheet_path = path;
-	char_sheet = CharacterSheet.new();
-	char_sheet.unpack_json(charsheet_path);
 
 func update_nameplate(): 
 	if nameplate: nameplate.update_display();
@@ -54,11 +48,11 @@ func get_speed_dice() -> Array[SpeedDice]:
 func get_sdc() -> SpeedDiceContainer: return sdc;
 
 func get_cs() -> CombatStats:
-	if virtual: return virtual_cs;
-	else: return combat_stats;
+	return stats;
 
 func setup_virtual_cs(): 
-	virtual_cs = combat_stats.deep_copy();
+	#virtual_cs = combat_stats.deep_copy();
+	stats.setup_virtual_cs();
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1: pass;

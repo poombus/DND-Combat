@@ -1,23 +1,11 @@
 extends Node
 
-#General
+#Player
 enum AS{STR = 0, DEX, CON, INT, WIS, CHA}
+const ability_scores = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"];
 
 enum RACES{UNKNOWN = 0, DRAGONBORN, DWARF, ELF, GNOME, HALF_ELF, HALFLING, HALF_ORC, HUMAN, TIEFLING}
 
-enum ETHICS {LAWFUL = 0, NEUTRAL, CHAOTIC}
-enum MORALS {GOOD = 0, NEUTRAL, EVIL}
-
-enum TYPES {UNKNOWN = 0, RANDOM, ABERRATION, BEAST, CELESTIAL, CONSTRUCT, DRAGON, ELEMENTAL, FEY, FIEND, GIANT, HUMANOID, MONSTROSITY, OOZE, PLANT, UNDEAD}
-
-enum DMG_TYPES {FLAT, BLUNT, PIERCE, SLASH, ENERGY}
-enum DMG_ELEMENTS {NORMAL, COLD, FIRE, FORCE, LIGHTNING, NECROTIC, POISON, PSYCHIC, RADIANT, NOISE, TRUE}
-
-enum SKILL_TYPES {MELEE, RANGED, MASS, INSTANT}
-
-enum DICE_TYPES {OFFENSE = 0, GUARD, EVADE, COUNTER};
-
-#Player
 enum CLASSES {
 	BARBARIAN = 0, 
 	BARD, 
@@ -32,6 +20,46 @@ enum CLASSES {
 	WARLOCK, 
 	WIZARD
 }
+
+enum ETHICS {LAWFUL = 0, NEUTRAL, CHAOTIC}
+enum MORALS {GOOD = 0, NEUTRAL, EVIL}
+
+enum NPC_TYPES {UNKNOWN = 0, RANDOM, ABERRATION, BEAST, CELESTIAL, CONSTRUCT, DRAGON, ELEMENTAL, FEY, FIEND, GIANT, HUMANOID, MONSTROSITY, OOZE, PLANT, UNDEAD}
+
+#Skills
+enum DMG_TYPES {FLAT, BLUNT, PIERCE, SLASH, ENERGY}
+enum DMG_ELEMENTS {NORMAL, COLD, FIRE, FORCE, LIGHTNING, NECROTIC, POISON, PSYCHIC, RADIANT, NOISE, TRUE}
+
+enum SKILL_TYPES {MELEE, RANGED, MASS, INSTANT}
+
+enum DICE_TYPES {OFFENSE = 0, GUARD, EVADE, COUNTER};
+
+#World
+const LANGS:PackedStringArray = [
+	"common",
+	"dwarvish",
+	"elvish",
+	"giant",
+	"gnomish",
+	"goblin",
+	"halfling",
+	"orc",
+	"abyssal",
+	"celestial",
+	"draconic",
+	"deep speech",
+	"infernal",
+	"primordial",
+	"sylvan",
+	"undercommon"
+];
+
+const SENSES:PackedStringArray = [
+	"blindsight",
+	"darkvision",
+	"tremorsense",
+	"truesight"
+]
 
 #TRIGGERS
 enum TRIGGERS {
@@ -52,7 +80,7 @@ enum RESPONSE {
 	APPLY_STATUS_TARGET
 }
 
-var element_colors = {
+const element_colors = {
 	"NORMAL": "#8a8a8a", 
 	"COLD": "#29ffea", 
 	"FIRE": "#ff9900", 
@@ -66,14 +94,14 @@ var element_colors = {
 	"TRUE": "#ffffff"
 }
 
-var dice_colors = {
+const dice_colors = {
 	"OFFENSE": "#ff3d24",
 	"GUARD": "#1ba5fa",
 	"EVADE": "#1ba5fa",
 	"COUNTER": "#bb00ff"
 }
 
-var expertise = {
+const expertise = {
 	"str": ["athletics"],
 	"dex": ["acrobatics", "sleight of hand", "stealth"],
 	"con": [],

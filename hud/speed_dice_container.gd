@@ -16,7 +16,7 @@ func _ready():
 func regenerate_container():
 	for dice in get_children():
 		dice.queue_free();
-	if !pawn.combat_stats.is_staggered():
+	if !pawn.stats.is_staggered():
 		for dice in sd_count:
 			var new_dice = dice_res.instantiate();
 			add_child(new_dice);

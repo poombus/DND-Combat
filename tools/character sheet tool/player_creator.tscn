@@ -1,0 +1,341 @@
+[gd_scene load_steps=4 format=3 uid="uid://nbauy2om5qqr"]
+
+[ext_resource type="Script" path="res://tools/character sheet tool/player_creator.gd" id="1_k8qid"]
+[ext_resource type="Script" path="res://hud/Classes/NumberInput/NumberInput.gd" id="1_neikq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uuffm"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="PlayerCreator" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k8qid")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uuffm")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Display Name" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Display Name"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Name:"
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/Display Name"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+placeholder_text = "Name Here"
+
+[node name="Level" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Level"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Level:"
+
+[node name="LineEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/Level"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+text = "1"
+scroll_fit_content_height = true
+script = ExtResource("1_neikq")
+is_integer = true
+
+[node name="Race" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Race"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Race:"
+
+[node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/Race"]
+layout_mode = 2
+
+[node name="Class" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Class"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Class:"
+
+[node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/Class"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Ethics" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Ethics"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Ethics:"
+
+[node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/Ethics"]
+layout_mode = 2
+
+[node name="Morals" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Morals"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Morals:"
+
+[node name="OptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/Morals"]
+layout_mode = 2
+
+[node name="HSeparator4" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Languages" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Languages"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Languages:"
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/Languages"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+placeholder_text = "Languages"
+
+[node name="Senses" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Senses"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Senses:"
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/Senses"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+placeholder_text = "Senses"
+
+[node name="HSeparator5" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Strength" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Strength"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Strength:"
+
+[node name="LineEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/Strength"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+text = "1"
+scroll_fit_content_height = true
+script = ExtResource("1_neikq")
+is_integer = true
+
+[node name="Dexterity" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Dexterity"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Dexterity:"
+
+[node name="LineEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/Dexterity"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+text = "1"
+scroll_fit_content_height = true
+script = ExtResource("1_neikq")
+is_integer = true
+
+[node name="Constitution" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Constitution"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Constitution:"
+
+[node name="LineEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/Constitution"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+text = "1"
+scroll_fit_content_height = true
+script = ExtResource("1_neikq")
+is_integer = true
+
+[node name="Intelligence" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Intelligence"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Intelligence:"
+
+[node name="LineEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/Intelligence"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+text = "1"
+scroll_fit_content_height = true
+script = ExtResource("1_neikq")
+is_integer = true
+
+[node name="Wisdom" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Wisdom"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Wisdom:"
+
+[node name="LineEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/Wisdom"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+text = "1"
+scroll_fit_content_height = true
+script = ExtResource("1_neikq")
+is_integer = true
+
+[node name="Charisma" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Charisma"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Charisma:"
+
+[node name="LineEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/Charisma"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+text = "1"
+scroll_fit_content_height = true
+script = ExtResource("1_neikq")
+is_integer = true
+
+[node name="HSeparator6" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HPOverride" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HPOverride"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "HP Override:"
+
+[node name="LineEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/HPOverride"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+text = "-1"
+scroll_fit_content_height = true
+script = ExtResource("1_neikq")
+is_integer = true
+
+[node name="SROverride" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/SROverride"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "SR Override:"
+
+[node name="LineEdit" type="TextEdit" parent="ScrollContainer/VBoxContainer/SROverride"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+text = "-1"
+scroll_fit_content_height = true
+script = ExtResource("1_neikq")
+is_integer = true
+
+[node name="HSeparator7" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Skills" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Skills"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Skills (IDs):"
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/Skills"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+placeholder_text = "base:id, base:id"
+
+[node name="Spells" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Spells"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Spells (IDs):"
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/Spells"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+placeholder_text = "base:id, base:id"
+
+[node name="Feats" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/Feats"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Feats  (IDs):"
+
+[node name="LineEdit" type="LineEdit" parent="ScrollContainer/VBoxContainer/Feats"]
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+placeholder_text = "base:id, base:id"
+
+[node name="HSeparator8" type="HSeparator" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Create"
+
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

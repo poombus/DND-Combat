@@ -21,10 +21,12 @@ func create_script(sd_list:Array[SpeedDice]) -> Array[Dictionary]:
 	sd_list = order_sd_list(sd_list);
 	skirmishes = [];
 	
+	for pawn in _CM.pawns: 
+		pawn.setup_virtual_cs();
+		#pawn.combat_stats.virtual = true;
+	
 	for sd in sd_list:
 		if sd.skill && sd.target is SpeedDice: add_skirmish(sd);
-	
-	for pawn in _CM.pawns: pawn.setup_virtual_cs();
 	
 	for sk in skirmishes: calculate_skirmish(sk);
 	
@@ -51,8 +53,7 @@ func add_skirmish(sd:SpeedDice):
 		"clash_count": 0,
 		"a": {
 			"sd_ref": sd,
-			"pawn": sd.pawn,
-			"stats": sd.pawn.get_cs(),
+			"stats": sd.pawn.stats.virtual_stats,
 			"dice_chain": sd.get_skill_dice(),
 			"skill": sd.skill,
 			"counter": false,
@@ -67,8 +68,7 @@ func add_skirmish(sd:SpeedDice):
 		},
 		"t": {
 			"sd_ref": sd.target,
-			"pawn": sd.target.pawn,
-			"stats": sd.target.pawn.get_cs(),
+			"stats": sd.target.pawn.stats.virtual_stats,
 			"dice_chain": sd.target.get_skill_dice(),
 			"skill": sd.target.skill,
 			"counter": false,
@@ -112,7 +112,7 @@ func calculate_skirmish(sk):
 	if sk.playback:
 		var ci = _CM.clash_info_res.instantiate();
 		_CM.clash_list.add_child(ci);
-		ci.setup(a.pawn, t.pawn);
+		ci.setup(a.stats.pawn, t.stats.pawn);
 		sk.clash_info = ci;
 		
 		ci.toggle_dice(true, true);
@@ -198,15 +198,15 @@ func calc_clash(sk):
 func calc_onesided(sk, winner, loser):
 	var di = DamageInstance.new(0);
 	di.source_type = DamageInstance.SOURCES.SKILL;
-	di.source = winner.pawn;
+	di.source = winner.stats;
 	
 	roll_dice(winner, sk.playback);
 	
 	di.multiplier *= (1+sk.clash_count*0.03); #clash count bonus
 	di.apply_types(winner.cur_dice.skill);
-	di.apply_resistances(loser.pawn);
-	di.apply_modifiers(winner.cur_dice.skill, winner.pawn, loser.pawn);
-	
+	di.apply_resistances(loser.stats);
+	di.apply_modifiers(winner.cur_dice.skill, winner.stats, loser.stats);
+	#BUG: STAGGER ISN't GETTING RESET AFTER SIMULATION
 	winner.roll_sum += winner.val;
 	
 	di.value = winner.roll_sum;
@@ -216,13 +216,13 @@ func calc_onesided(sk, winner, loser):
 
 	if !sk.playback:
 		winner.final_damage += total;
-		print(winner.pawn.char_sheet.display_name, " dealt ", total, "(", winner.final_damage,") damage! ", loser.stats.hp, "(+", loser.stats.shield,")//", loser.stats.sr);
+		print(winner.stats.pawn.char_sheet.display_name, " dealt ", total, "(", winner.final_damage,") damage! ", loser.stats.hp, "(+", loser.stats.shield,")//", loser.stats.sr);
 	else:
 		sk.clash_info.set_clash(sk.a.cur_dice, sk.a.val, sk.t.cur_dice, sk.t.val);
 	
 	remove_current_dice(winner);
-	winner.pawn.update_nameplate();
-	loser.pawn.update_nameplate();
+	winner.stats.pawn.update_nameplate();
+	loser.stats.pawn.update_nameplate();
 
 func dice_interaction(a, t, calculating:bool = true):
 	if a.val == t.val: #tie
@@ -300,8 +300,8 @@ func prepare_skirmish(x:Dictionary, playback:=false):
 			x.dice_chain = x.stats.reserve_dice;
 			x.counter = true;
 	else:
-		x.pawn.virtual = false;
-		x.stats = x.pawn.get_cs();
+		#x.stats.pawn.get_cs().virtual = false;
+		#x.stats = x.stats.pawn.get_cs();
 		x.dice_chain = x.sd_ref.get_skill_dice();
 		x.roll_sum = 0;
 		add_counter_dice(x.sd_ref);
@@ -316,7 +316,7 @@ func roll_dice(x:Dictionary, playback:bool):
 		x.cur_dice = current_dice(x);
 		var adv:int = int(x.stats.sp/40);
 		if randi_range(0,39) < x.stats.sp%40: adv += 1;
-		x.val = x.cur_dice.roll(adv);
+		x.val = x.cur_dice.roll(adv, x.stats);
 		x.rolls.push_back(x.val);
 		event_call("on_dice_rolled", x.stats);
 	else:

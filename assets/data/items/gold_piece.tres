@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://b4tmjy07jvwui"]
+
+[ext_resource type="Script" path="res://classes/Resources/Item/Item.gd" id="1_mocd2"]
+
+[resource]
+script = ExtResource("1_mocd2")
+id = "gold_piece"
+display_name = "Gold Piece"
+display_color = Color(1, 1, 0, 1)
+use_display_color = true
+description = "The highest demonination of currency recognized by almost all civilizations."
+rarity = 2
+value = 1.0
+size = 0.1

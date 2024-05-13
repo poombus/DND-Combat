@@ -52,7 +52,7 @@ func seperate_counter_dice():
 		counter_dice.push_front(dice[i].deep_copy());
 		dice.remove_at(i);
 
-func get_modifier(pawn:Pawn2D, stat:=_Enums.AS.STR) -> int:
+func get_modifier(pawn:CombatStats, stat:=_Enums.AS.STR) -> int:
 	var final = modifier+pawn.get_cs().get_offense_level(stat);
 	return final;
 

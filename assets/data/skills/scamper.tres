@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=4 format=3 uid="uid://iua6vnuttrw5"]
+
+[ext_resource type="Script" path="res://classes/Resources/Skill/Skill.gd" id="1_2nmed"]
+[ext_resource type="Script" path="res://classes/Resources/Skill/Dice.gd" id="1_633d5"]
+
+[sub_resource type="Resource" id="Resource_n6rnt"]
+script = ExtResource("1_633d5")
+dice_type = 2
+low = 6
+high = 2
+events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
+
+[resource]
+script = ExtResource("1_2nmed")
+id = "scamper"
+display_name = "Scamper"
+description = ""
+flavor_text = "A frantic attempt to escape harm."
+modifier = 5
+energy_cost = 5
+weight = 1
+type = 0
+damage_type = 0
+element_type = 10
+dice = Array[ExtResource("1_633d5")]([SubResource("Resource_n6rnt")])

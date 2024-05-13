@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=6 format=3 uid="uid://2x0fkbynj6up"]
+
+[ext_resource type="Script" path="res://classes/Global/Events/EventAction.gd" id="1_lsm8h"]
+[ext_resource type="Script" path="res://classes/Resources/StatusEffect/StatusEffect.gd" id="1_tap4w"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="2_7qtws"]
+
+[sub_resource type="Resource" id="Resource_koeom"]
+script = ExtResource("1_lsm8h")
+description = ""
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = 7
+params = "{potency}"
+
+[sub_resource type="Resource" id="Resource_2e5oa"]
+script = ExtResource("2_7qtws")
+event_signal = "on_apply"
+is_global = false
+actions = Array[ExtResource("1_lsm8h")]([SubResource("Resource_koeom")])
+
+[resource]
+script = ExtResource("1_tap4w")
+id = "dice_power_up"
+display_name = "Dice Power Up"
+max_potency = 999
+max_count = 1
+decrease_on_turn_end = 1
+events = Array[ExtResource("2_7qtws")]([SubResource("Resource_2e5oa")])

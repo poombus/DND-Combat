@@ -14,7 +14,7 @@ var combat_stats;
 func init(p_pawn):
 	pawn = p_pawn;
 	char_sheet = pawn.char_sheet;
-	combat_stats = pawn.combat_stats;
+	combat_stats = pawn.stats;
 	
 	display_name.text = str(char_sheet.display_name);
 	
@@ -26,6 +26,6 @@ func update_display():
 	hpbar.health = combat_stats.hp;
 	hpbar.stagger = combat_stats.sr;
 	hpbar.shield = combat_stats.shield;
-	sanity_value.text = str("[center]", pawn.combat_stats.sp);
+	sanity_value.text = str("[center]", combat_stats.sp);
 	hpbar.update_bar();
 	status_effect_display.update_display(combat_stats.status_effects);

@@ -10,38 +10,18 @@
 		"Common"
 	],
 	"senses": [],
-	"maxhp": 60,
-	"hp": 60,
-	"maxsr": 20,
-	"sr": 20,
+	"maxhp": 10000,
+	"hp": 10000,
+	"maxsr": 10000,
+	"sr": 10000,
 	"profBonus": 2,
 	"skillProfs": [],
-	"ability_scores": {
-		"STR": {
-			"value": 20,
-			"prof": false
-		},
-		"DEX": {
-			"value": 10,
-			"prof": true
-		},
-		"CON": {
-			"value": 20,
-			"prof": false
-		},
-		"INT": {
-			"value": 10,
-			"prof": true
-		},
-		"WIS": {
-			"value": 10,
-			"prof": false
-		},
-		"CHA": {
-			"value": 10,
-			"prof": false
-		}
-	},
+	"strength": 20,
+	"dexterity": 10,
+	"constitution": 20,
+	"intelligence": 10,
+	"wisdom": 10,
+	"charisma": 10,
 	"resistances": {
 		"PIERCE": 2
 	},

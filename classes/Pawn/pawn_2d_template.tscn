@@ -1,10 +1,36 @@
-[gd_scene load_steps=7 format=3 uid="uid://drmpldifjxf23"]
+[gd_scene load_steps=9 format=3 uid="uid://drmpldifjxf23"]
 
 [ext_resource type="Script" path="res://classes/Pawn/pawn_2d_template.gd" id="1_mvf50"]
+[ext_resource type="Script" path="res://classes/Resources/CharacterSheet/PlayerSheet.gd" id="2_34x0v"]
 [ext_resource type="Texture2D" uid="uid://bwg3nldqnww6k" path="res://assets/textures/entites/test_player/test-sprite.png" id="2_xfvkp"]
 [ext_resource type="PackedScene" uid="uid://i8l87fbarclc" path="res://hud/speed_dice_container.tscn" id="3_vnihn"]
 [ext_resource type="PackedScene" uid="uid://c2ex0nwa2yslp" path="res://hud/Pawn/nameplate.tscn" id="4_2sl1b"]
 [ext_resource type="Script" path="res://classes/Pawn/PawnAnimations.gd" id="5_58qao"]
+
+[sub_resource type="Resource" id="Resource_k2xw0"]
+script = ExtResource("2_34x0v")
+pclass = 0
+display_name = ""
+level = 1
+race = 8
+ethics = 0
+morals = 0
+languages = PackedStringArray()
+senses = PackedStringArray()
+maxhp = 20
+hp = 20
+maxsr = 20
+sr = 20
+sp = 0
+strength = 0
+dexterity = 0
+constitution = 0
+intelligence = 0
+wisdom = 0
+charisma = 0
+skill_ids = PackedStringArray()
+spell_ids = PackedStringArray()
+feat_ids = PackedStringArray()
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1cig"]
 size = Vector2(146, 165)
@@ -12,6 +38,7 @@ size = Vector2(146, 165)
 [node name="Pawn2D" type="CharacterBody2D"]
 input_pickable = true
 script = ExtResource("1_mvf50")
+char_sheet = SubResource("Resource_k2xw0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(7, -3.5)

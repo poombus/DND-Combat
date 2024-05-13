@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxfd4cyrl01np"]
+
+[ext_resource type="Script" path="res://tools/item tool/inventory_test.gd" id="1_isjlw"]
+[ext_resource type="Resource" uid="uid://db5ixjxxt0is4" path="res://tools/character sheet tool/generated_data/bob.res" id="2_f7lo2"]
+
+[node name="InventoryTest" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_isjlw")
+character = ExtResource("2_f7lo2")
+
+[node name="ItemList" type="ItemList" parent="."]
+layout_mode = 0
+offset_right = 413.0
+offset_bottom = 450.0

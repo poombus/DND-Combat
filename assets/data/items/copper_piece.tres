@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://ct8mhetg4l3vu"]
+
+[ext_resource type="Script" path="res://classes/Resources/Item/Item.gd" id="1_cs7s6"]
+
+[resource]
+script = ExtResource("1_cs7s6")
+id = "copper_piece"
+display_name = "Copper Piece"
+display_color = Color(1, 0.768627, 0.301961, 1)
+use_display_color = true
+description = "The smallest demonination of currency recognized by almost all civilizations."
+rarity = 1
+value = 0.01
+size = 0.1
