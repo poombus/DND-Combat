@@ -5,18 +5,20 @@
 
 [sub_resource type="Resource" id="Resource_8vgqr"]
 script = ExtResource("2_5en54")
-dice_power = 0
-min_power = 0
-max_power = 0
-clash_power = 0
+dice_power = 0.0
+min_power = 0.0
+max_power = 0.0
+clash_power = 0.0
 strength = 3
 dexterity = 3
-constitution = 0
-intelligence = 0
-wisdom = 0
-charisma = 0
-offense_level = 0
-defense_level = 0
+constitution = 0.0
+intelligence = 0.0
+wisdom = 0.0
+charisma = 0.0
+offense_level = 0.0
+defense_level = 0.0
+crit_chance = 0.0
+crit_damage = 0.0
 
 [resource]
 script = ExtResource("1_5xq0e")

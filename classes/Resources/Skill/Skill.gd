@@ -4,7 +4,7 @@ class_name Skill
 #Combat Actions that aren't spells
 
 @export_category("Registry")
-@export var id:String;
+var id:String;
 @export var display_name:String = "Unnamed Skill";
 @export var description:String = "";
 @export var flavor_text:String = "";
@@ -16,8 +16,8 @@ class_name Skill
 
 @export_category("Dice")
 @export var type:_Enums.SKILL_TYPES = _Enums.SKILL_TYPES.MELEE;
-@export var damage_type:_Enums.DMG_TYPES = _Enums.DMG_TYPES.FLAT;
-@export var element_type:_Enums.DMG_ELEMENTS = _Enums.DMG_ELEMENTS.TRUE;
+@export var damage_type:DamageInstance.DMG_TYPES = DamageInstance.DMG_TYPES.FLAT;
+@export var element_type:DamageInstance.DMG_ELEMENTS = DamageInstance.DMG_ELEMENTS.NORMAL;
 @export var dice:Array[Dice];
 var counter_dice:Array[Dice];
 
@@ -60,3 +60,10 @@ func has_offensive_dice() -> bool:
 	for d in dice: if d.is_offensive(): return true;
 	for d in counter_dice: if d.is_offensive(): return true;
 	return false;
+
+func get_clash_roll() -> PackedInt32Array:
+	var c_range:PackedInt32Array = [0, 0];
+	for d in dice: 
+		c_range[0] += d.low;
+		c_range[1] += d.high;
+	return c_range;

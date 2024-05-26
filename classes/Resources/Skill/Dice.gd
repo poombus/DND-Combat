@@ -11,8 +11,8 @@ var skill_name:String = "";
 @export_range(0,999) var high:int = 20;
 
 #Damage Types
-var damage_type:_Enums.DMG_TYPES = _Enums.DMG_TYPES.FLAT;
-var element_type:_Enums.DMG_ELEMENTS = _Enums.DMG_ELEMENTS.TRUE;
+var damage_type:DamageInstance.DMG_TYPES = DamageInstance.DMG_TYPES.FLAT;
+var element_type:DamageInstance.DMG_ELEMENTS = DamageInstance.DMG_ELEMENTS.NORMAL;
 
 @export_category("Effects")
 @export var events:Array[EventListener];
@@ -29,7 +29,7 @@ func impose_skill(_skill:Skill):
 	damage_type = skill.damage_type;
 	element_type = skill.element_type;
 
-func roll(advantage:int = 0, pawn:CombatStats = null) -> int:
+func roll(advantage:float = 0, pawn:CombatStats = null) -> int:
 	var r = apply_dice_power();
 	
 	if pawn: r = apply_dice_power(
@@ -40,14 +40,15 @@ func roll(advantage:int = 0, pawn:CombatStats = null) -> int:
 	r[0] = max(0, r[0]);
 	r[1] = max(0, r[1]);
 	
-	var val = randi_range(0,r[1]-r[0]);
-	var disadvantage = advantage < 0;
-	for i in absi(advantage):
-		var new_val = randi_range(0,r[1]-r[0]);
-		if disadvantage: val = mini(val, new_val);
-		else: val = maxi(val, new_val);
-		if val == r[1]-r[0]: break;
+	#var val = randi_range(0,r[1]-r[0]);
+	#var disadvantage = advantage < 0;
+	#for i in absi(advantage):
+	#	var new_val = randi_range(0,r[1]-r[0]);
+	#	if disadvantage: val = mini(val, new_val);
+	#	else: val = maxi(val, new_val);
+	#	if val == r[1]-r[0]: break;
 	
+	var val = skewed_roll(r[0], r[1], advantage);
 	if r[0] > r[1]: return r[1]-val;
 	return val+r[0];
 
@@ -66,7 +67,7 @@ func custom_roll(low:int = 1, high:int = 20, advantage:int = 0) -> int:
 	return val+low;
 
 func skewed_roll(low:int = 1, high:int = 20, skew:float = 0) -> int:
-	return roundi(custom_roll(low, high)*(1+randf()*skew));
+	return clampi(roundi(custom_roll(low, high)*(1+randf()*skew)), low, high);
 	#More controlled advantage. (For combat perhaps?)
 
 func get_average() -> float: return (float(low)+float(high))/2;
@@ -103,9 +104,9 @@ func is_guard() -> bool: return dice_type == _Enums.DICE_TYPES.GUARD;
 
 func is_evade() -> bool: return dice_type == _Enums.DICE_TYPES.EVADE;
 
-func get_damage_type() -> _Enums.DMG_TYPES: return skill.damage_type;
+func get_damage_type() -> DamageInstance.DMG_TYPES: return skill.damage_type;
 
-func get_element_type() -> _Enums.DMG_ELEMENTS: return skill.element_type;
+func get_element_type() -> DamageInstance.DMG_ELEMENTS: return skill.element_type;
 
 func event_triggered(_signal:String, source, data = {}):
 	for e in events: if e.event_signal == _signal: e.event(self, self, data);

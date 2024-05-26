@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=8 format=3 uid="uid://rs5r8py8sh4c"]
+
+[ext_resource type="Script" path="res://classes/Global/Events/EventAction.gd" id="1_bnrds"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="2_wvxtk"]
+[ext_resource type="Texture2D" uid="uid://cdmg7c5aaxv0m" path="res://assets/textures/icons/sinking.png" id="3_yqa3y"]
+[ext_resource type="Script" path="res://classes/Resources/StatusEffect/StatusEffect.gd" id="4_ml5er"]
+
+[sub_resource type="Resource" id="Resource_vted3"]
+script = ExtResource("1_bnrds")
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = "sanity self remove potency"
+
+[sub_resource type="Resource" id="Resource_p1nna"]
+script = ExtResource("1_bnrds")
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = "inflict self sinking 0 -1"
+
+[sub_resource type="Resource" id="Resource_q6ltb"]
+script = ExtResource("2_wvxtk")
+event_signal = "on_damaged"
+actions = Array[ExtResource("1_bnrds")]([SubResource("Resource_vted3"), SubResource("Resource_p1nna")])
+
+[resource]
+script = ExtResource("4_ml5er")
+id = "sinking"
+display_name = "Sinking"
+max_potency = 99
+max_count = 99
+decrease_on_turn_end = 1
+icon = ExtResource("3_yqa3y")
+events = Array[ExtResource("2_wvxtk")]([SubResource("Resource_q6ltb")])

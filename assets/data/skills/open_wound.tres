@@ -1,25 +1,46 @@
-[gd_resource type="Resource" script_class="Skill" load_steps=5 format=3 uid="uid://b0xy2mjt5f3pd"]
+[gd_resource type="Resource" script_class="Skill" load_steps=11 format=3 uid="uid://b0xy2mjt5f3pd"]
 
 [ext_resource type="Script" path="res://classes/Resources/Skill/Dice.gd" id="1_a6iif"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventAction.gd" id="1_u7fax"]
 [ext_resource type="Script" path="res://classes/Resources/Skill/Skill.gd" id="1_wydtv"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="2_7plhg"]
+
+[sub_resource type="Resource" id="Resource_aig6w"]
+script = ExtResource("1_u7fax")
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = "inflict main_target bleed 0 2"
+
+[sub_resource type="Resource" id="Resource_ikjha"]
+script = ExtResource("2_7plhg")
+event_signal = "on_hit"
+actions = Array[ExtResource("1_u7fax")]([SubResource("Resource_aig6w")])
 
 [sub_resource type="Resource" id="Resource_s1ntr"]
 script = ExtResource("1_a6iif")
 dice_type = 0
 low = 3
 high = 5
-events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
+events = Array[ExtResource("2_7plhg")]([SubResource("Resource_ikjha")])
+
+[sub_resource type="Resource" id="Resource_tgwua"]
+script = ExtResource("1_u7fax")
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = "inflict main_target bleed 1 0"
+
+[sub_resource type="Resource" id="Resource_f3m3a"]
+script = ExtResource("2_7plhg")
+event_signal = "on_hit"
+actions = Array[ExtResource("1_u7fax")]([SubResource("Resource_tgwua")])
 
 [sub_resource type="Resource" id="Resource_hglj2"]
 script = ExtResource("1_a6iif")
 dice_type = 0
 low = 2
 high = 4
-events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
+events = Array[ExtResource("2_7plhg")]([SubResource("Resource_f3m3a")])
 
 [resource]
 script = ExtResource("1_wydtv")
-id = "open_wound"
 display_name = "Open Wound"
 description = ""
 flavor_text = ""

@@ -1,0 +1,33 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=5 format=3 uid="uid://y8fojrlbxaxm"]
+
+[ext_resource type="Texture2D" uid="uid://djjlgsmwf4te5" path="res://assets/textures/icons/poise.png" id="1_ggite"]
+[ext_resource type="Script" path="res://classes/Resources/StatusEffect/StatusEffect.gd" id="2_mxi23"]
+[ext_resource type="Script" path="res://classes/Combat/StatModifiers.gd" id="3_4fxj3"]
+
+[sub_resource type="Resource" id="Resource_s5h15"]
+script = ExtResource("3_4fxj3")
+dice_power = 0.0
+min_power = 0.0
+max_power = 0.0
+clash_power = 0.0
+strength = 0.0
+dexterity = 0.0
+constitution = 0.0
+intelligence = 0.0
+wisdom = 0.0
+charisma = 0.0
+offense_level = 0.0
+defense_level = 0.0
+crit_chance = 5.0
+crit_damage = 0.0
+
+[resource]
+script = ExtResource("2_mxi23")
+id = "poise"
+display_name = "Poise"
+max_potency = 99
+max_count = 99
+decrease_on_turn_end = 1
+icon = ExtResource("1_ggite")
+events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
+stat_mods = SubResource("Resource_s5h15")

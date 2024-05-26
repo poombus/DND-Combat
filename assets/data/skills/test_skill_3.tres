@@ -12,8 +12,9 @@ events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
 
 [resource]
 script = ExtResource("1_rwayv")
-id = "test_skill_3"
 display_name = "Test Guard"
+description = ""
+flavor_text = ""
 modifier = 0
 energy_cost = 5
 weight = 1

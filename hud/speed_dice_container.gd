@@ -11,7 +11,7 @@ func init(i_pawn:Pawn2D):
 	#update_container(); #it.... breaks it...
 
 func _ready():
-	regenerate_container();
+	if pawn: regenerate_container();
 
 func regenerate_container():
 	for dice in get_children():

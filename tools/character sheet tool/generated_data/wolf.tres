@@ -1,0 +1,60 @@
+[gd_resource type="Resource" script_class="NPCSheet" load_steps=6 format=3 uid="uid://d1qofg36lfgu"]
+
+[ext_resource type="Script" path="res://classes/Resources/CharacterSheet/ChildClasses/Resistances.gd" id="1_hbxaj"]
+[ext_resource type="Script" path="res://classes/Resources/CharacterSheet/NPCSheet.gd" id="1_syt2s"]
+[ext_resource type="Script" path="res://classes/Resources/CharacterSheet/ChildClasses/StatVariations.gd" id="3_2c2jb"]
+
+[sub_resource type="Resource" id="Resource_50up4"]
+script = ExtResource("1_hbxaj")
+slash = 1.0
+blunt = 1.0
+pierce = 1.0
+normal = 1.0
+cold = 1.0
+fire = 1.0
+force = 1.0
+lightning = 1.0
+necrotic = 1.0
+poison = 1.0
+psychic = 1.0
+radiant = 1.0
+thunder = 1.0
+
+[sub_resource type="Resource" id="Resource_kmh5o"]
+script = ExtResource("3_2c2jb")
+hp_max = 50.0
+sr_max = 5.0
+str_max = 10.0
+dex_max = 3.0
+con_max = 5.0
+int_max = 2.0
+wis_max = 5.0
+cha_max = 3.0
+
+[resource]
+script = ExtResource("1_syt2s")
+type = 3
+loot_table = []
+stat_variations = SubResource("Resource_kmh5o")
+display_name = "Wolf"
+level = 1
+race = 0
+ethics = 1
+morals = 1
+languages = PackedStringArray()
+senses = PackedStringArray()
+maxhp = 50
+hp = 50
+maxsr = 20.0
+sr = 20
+sp = 0
+strength = 14
+dexterity = 16
+constitution = 8
+intelligence = 4
+wisdom = 12
+charisma = 2
+resistances = SubResource("Resource_50up4")
+skill_ids = PackedStringArray("base:beast_bite")
+spell_ids = PackedStringArray()
+feat_ids = PackedStringArray()

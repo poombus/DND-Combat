@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=8 format=3 uid="uid://du0kx4qif0lwd"]
+
+[ext_resource type="Script" path="res://classes/Global/Events/EventAction.gd" id="1_jbpsk"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="2_h4icn"]
+[ext_resource type="Texture2D" uid="uid://c5s2p44g1dbwh" path="res://assets/textures/icons/rupture.png" id="3_j5371"]
+[ext_resource type="Script" path="res://classes/Resources/StatusEffect/StatusEffect.gd" id="4_gamii"]
+
+[sub_resource type="Resource" id="Resource_4oehn"]
+script = ExtResource("1_jbpsk")
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = "damage self potency necrotic flat hp true"
+
+[sub_resource type="Resource" id="Resource_ijms8"]
+script = ExtResource("1_jbpsk")
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = "inflict self rupture 0 -1"
+
+[sub_resource type="Resource" id="Resource_l71ad"]
+script = ExtResource("2_h4icn")
+event_signal = "on_damaged"
+actions = Array[ExtResource("1_jbpsk")]([SubResource("Resource_4oehn"), SubResource("Resource_ijms8")])
+
+[resource]
+script = ExtResource("4_gamii")
+id = "rupture"
+display_name = "Rupture"
+max_potency = 99
+max_count = 99
+decrease_on_turn_end = 1
+icon = ExtResource("3_j5371")
+events = Array[ExtResource("2_h4icn")]([SubResource("Resource_l71ad")])

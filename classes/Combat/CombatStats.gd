@@ -4,6 +4,7 @@ class_name CombatStats
 var virtual:bool = false;
 var virtual_stats:CombatStats;
 
+#	var pawn:Pawn2D; #removed typing for Pawn so i can use Pawn2D
 var pawn:Pawn2D; #removed typing for Pawn so i can use Pawn2D
 var char_sheet:CharacterSheet;
 var team:int = 0;
@@ -65,6 +66,15 @@ func setup(_char_sheet:CharacterSheet):
 	othActions = []; #predefined (usually)
 	
 	energy = 3;
+	
+	if not char_sheet is NPCSheet: return;
+	var sv = char_sheet.stat_variations;
+	if sv: sv.roll_boosts(char_sheet.level);
+	maxhp += sv.hp_boost;
+	hp += sv.hp_boost;
+	maxsr += sv.sr_boost;
+	sr += sv.sr_boost;
+	print(maxhp);
 
 func add_skill(skill) -> void:
 	skills.push_back(Registry.get_skill(skill));
@@ -157,15 +167,18 @@ func is_staggered() -> bool: return staggered;
 
 func test(): print(pawn.char_sheet.display_name, ": ", hp, "/", maxhp, " -- ", sr, "/", maxsr);
 
-func apply_status_effect(_id:String, _potency:int, _count:int = 0):
+func apply_status_effect(_id:String, _potency:int = 0, _count:int = 0):
 	var se := get_status_effect(_id);
 	if se != null: 
-		se.potency = clamp(se.potency+_potency, 0, se.max_potency);
+		se.potency = clamp(se.potency+_potency, 1, se.max_potency);
 		se.count = clamp(se.count+_count, 0, se.max_count);
+		if se.potency <= 0 || se.count <= 0: se.remove_effect();
 		return;
 	
+	if _count < 0 || _potency < 0: return;
+	
 	se = Registry.get_status_effect(_id).deep_copy();
-	se.pawn = pawn.combat_stats;
+	se.pawn = pawn.get_cs();
 	
 	#Effect Stuff
 	se.potency = clamp(_potency, 1, se.max_potency);
@@ -174,6 +187,7 @@ func apply_status_effect(_id:String, _potency:int, _count:int = 0):
 	status_effects.push_back(se);
 
 func get_status_effect(_id:String) -> StatusEffect:
+	if _id.split(":", false).size() == 1: _id = "base:"+_id;
 	for s in status_effects: if s.fullid == _id: return s;
 	return null;
 
@@ -239,19 +253,20 @@ func get_stat_modi(mod:String) -> float:
 	for t in temp_stat_mods: result += t[mod];
 	
 	#Status Effect Modifiers
-	for s in status_effects: result += s.stat_mods[mod];
+	for s in status_effects: result += s.get_stat_mods(mod);
 	
 	#Feat Modifiers
 	for f in feats:
 		if f.stat_mods: result += f.stat_mods[mod];
 	
 	#Equipped Item Modifiers
-	var sheet = pawn.char_sheet;
-	var eq_i = [sheet.inventory.head, sheet.inventory.chest, sheet.inventory.legs, sheet.inventory.feet];
-	eq_i.append_array(sheet.inventory.hands);
-	eq_i.append_array(sheet.inventory.trinkets);
-	for i in eq_i: 
-		if not i is EquippableItem: continue;
-		if "stats" in i: result += i.stats[mod];
+	if pawn.char_sheet is PlayerSheet:
+		var sheet = pawn.char_sheet;
+		var eq_i = [sheet.inventory.head, sheet.inventory.chest, sheet.inventory.legs, sheet.inventory.feet];
+		eq_i.append_array(sheet.inventory.hands);
+		eq_i.append_array(sheet.inventory.trinkets);
+		for i in eq_i: 
+			if not i is EquippableItem: continue;
+			if "stats" in i: result += i.stats[mod];
 	
 	return result;

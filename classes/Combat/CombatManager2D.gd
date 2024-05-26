@@ -55,6 +55,8 @@ func new_turn(set_turn:int = -1):
 		if pawn.get_sdc(): pawn.get_sdc().regenerate_container();
 	
 	combat_gui.new_turn_display(turn+1);
+	
+	#TURN START
 
 func next_phase():
 	if phase == PHASES.SPEED: #ROLL SPEED DICE
@@ -85,6 +87,9 @@ func next_phase():
 	else:
 		phase = PHASES.SPEED;
 		clash_list.visible = false;
+		
+		for p in pawns: p.get_cs().event_triggered("on_turn_end", p.get_cs(), {"turn": turn});
+		
 		new_turn();
 
 func combat_phase() -> void:
@@ -110,3 +115,7 @@ func check_win() -> int:
 	for p in pawns: if p.stats.team != winning: return -1;
 	
 	return winning;
+
+func event_call(_signal:String, source:Variant, data:Dictionary = {}):
+	if source is Dice: source.event_triggered(_signal, source, data);
+	for p in _CM.pawns: p.get_cs().event_triggered(_signal, source, data);

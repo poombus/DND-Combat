@@ -16,10 +16,11 @@ class_name Resistances
 @export var poison:float = 1.0;
 @export var psychic:float = 1.0;
 @export var radiant:float = 1.0;
-@export var noise:float = 1.0;
+@export var thunder:float = 1.0;
 
 func get_mult(s:String):
-	return self[s.to_lower()] if self[s.to_lower()] else 1.0;
+	if s.to_lower() in self: return self[s.to_lower()];
+	else: return 1.0;
 
 func get_total_mult(pri:String = "slash", sec:String = "normal"):
 	var p_mult = self[pri] if self[pri] else 1.0;

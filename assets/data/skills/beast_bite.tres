@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="Skill" load_steps=8 format=3 uid="uid://bq53r7xgoey24"]
+
+[ext_resource type="Script" path="res://classes/Global/Events/EventAction.gd" id="1_1xvlr"]
+[ext_resource type="Script" path="res://classes/Resources/Skill/Skill.gd" id="1_r7eb2"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="2_ahsfc"]
+[ext_resource type="Script" path="res://classes/Resources/Skill/Dice.gd" id="3_58q7n"]
+
+[sub_resource type="Resource" id="Resource_w461m"]
+script = ExtResource("1_1xvlr")
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = "inflict main_target bleed 0 2"
+
+[sub_resource type="Resource" id="Resource_86pe8"]
+script = ExtResource("2_ahsfc")
+event_signal = "on_hit"
+actions = Array[ExtResource("1_1xvlr")]([SubResource("Resource_w461m")])
+
+[sub_resource type="Resource" id="Resource_v16y8"]
+script = ExtResource("3_58q7n")
+dice_type = 0
+low = 1
+high = 4
+events = Array[ExtResource("2_ahsfc")]([SubResource("Resource_86pe8")])
+
+[resource]
+script = ExtResource("1_r7eb2")
+display_name = "Bite"
+description = ""
+flavor_text = ""
+modifier = 0
+energy_cost = 5
+weight = 1
+type = 0
+damage_type = 2
+element_type = 0
+dice = Array[ExtResource("3_58q7n")]([SubResource("Resource_v16y8")])

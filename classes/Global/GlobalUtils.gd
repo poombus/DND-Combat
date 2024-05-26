@@ -22,60 +22,8 @@ func get_variable_list(object:Object) -> PackedStringArray:
 		list.push_back(p.name);
 	return list;
 
-func interp_params(params:Dictionary, data:Dictionary, _listener:EventListener):
-	var listener = _listener.listener;
-	for p in params:
-		var val = str(params[p]);
-		var pos:int = val.find("{", 0);
-		var end:int = val.find("}", pos+1);
-		while pos != -1 && end != -1:
-			var code:String = val.substr(pos+1, end-pos-1);
-			if listener is StatusEffect:
-				if code == "potency": params[p] = listener.potency;
-				elif code == "count": params[p] = listener.count;
-			else:
-				pass;
-				#params[p] = special_parse(code, data);
-			
-			if val is String:
-				pos = val.find("{", end+1);
-				end = val.find("}", pos+1);
-			else: break;
-	return params;
-
-func parse_params(params:String, data:Dictionary, _listener:EventListener) -> Dictionary:
-	if params == "" or params == null: return {};
-	
-	var json = JSON.parse_string(params);
-	if json == null: return {};
-	else: json = Dictionary(json);
-	for k in json.keys(): 
-		if not (json[k] is String): continue;
-		json[k] = json[k].format(data);
-		json[k] = special_parse(json[k], data);
-		var expr = Expression.new();
-		var err = expr.parse(json[k]);
-		if err != OK: print(expr.get_error_text()); continue;
-		var result = expr.execute();
-		if not expr.has_execute_failed(): json[k] = result;
-	return json;
-
-func special_parse(str:String, data:Dictionary) -> String:
-	var pos:int = str.find("{", 0);
-	var end:int = str.find("}", pos+1);
-	while pos != -1 && end != -1:
-		var code:String = str.substr(pos+1, end-pos-1);
-		var path:PackedStringArray = code.split(".", false);
-		var ind := -1;
-		var value;
-		for s in path:
-			ind += 1;
-			if !value: value = data[s];
-			if s == "status_effects":
-				var se = value.get_status_effect(path[ind+1]);
-				if !se: return str(str);
-				if path.size() >= ind+3: value = se[path[ind+2]];
-	return str(str);
+func event_action_parse(action:String):
+	pass;
 
 func round_to(num:float, digit:int = 0) -> float: return round(num*pow(10, digit)) / pow(10, digit);
 

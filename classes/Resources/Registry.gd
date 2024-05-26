@@ -7,8 +7,9 @@ var effects:Dictionary = {};
 
 func _ready(): manual_registration(); print("Registry is ready.");
 
-func register(i, _group:String = ""):
+func register(i, _id:String, _group:String = ""):
 	if _group == "": _group = "base";
+	i.id = _id;
 	
 	if i is Feat: add_feat(i, _group);
 	elif i is Item: add_item(i, _group);
@@ -44,7 +45,7 @@ func get_skill(id:String) -> Skill:
 
 func get_status_effect(id:String) -> StatusEffect:
 	var params = id.split(":");
-	if params.length == 1: params.insert(0, "base");
+	if params.size() == 1: params.insert(0, "base");
 	var se = effects[params[0]][params[1]];
 	if effects[params[0]].has(params[1]): se = effects[params[0]][params[1]];
 	else: 

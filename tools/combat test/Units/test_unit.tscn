@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbv81t4klquyj"]
+
+[ext_resource type="Script" path="res://classes/Pawn/pawn_2d_template.gd" id="1_yie5h"]
+[ext_resource type="Script" path="res://hud/speed_dice_container.gd" id="2_25wjp"]
+[ext_resource type="PackedScene" uid="uid://c2ex0nwa2yslp" path="res://hud/Pawn/nameplate.tscn" id="3_oiw17"]
+[ext_resource type="Script" path="res://classes/Pawn/PawnAnimations.gd" id="4_ccnfe"]
+
+[node name="Test Unit" type="CharacterBody2D"]
+script = ExtResource("1_yie5h")
+
+[node name="Speed Dice Container" type="HBoxContainer" parent="."]
+offset_left = 20.0
+offset_top = 18.0
+offset_right = 20.0
+offset_bottom = 18.0
+scale = Vector2(0.4, 0.4)
+size_flags_horizontal = 3
+alignment = 1
+script = ExtResource("2_25wjp")
+
+[node name="Nameplate" parent="." instance=ExtResource("3_oiw17")]
+offset_left = 82.0
+offset_top = 106.0
+offset_right = 82.0
+offset_bottom = 106.0
+scale = Vector2(0.4, 0.4)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+script = ExtResource("4_ccnfe")

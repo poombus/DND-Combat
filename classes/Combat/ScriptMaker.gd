@@ -173,12 +173,12 @@ func calc_clash(sk):
 		if sk.clash_count <= 0: return;
 		event_call("on_clash_win", x[0].stats, {
 			"source": x[0].stats, 
-			"target": x[1].stats, 
+			"main_target": x[1].stats, 
 			"clash_count": sk.clash_count
 		});
 		event_call("on_clash_lose", x[1].stats, {
 			"source": x[1].stats, 
-			"target": x[0].stats, 
+			"main_target": x[0].stats, 
 			"clash_count": sk.clash_count
 		});
 		x[0].stats.heal_sp(int(10+(sk.clash_count*1.2)));
@@ -192,13 +192,15 @@ func calc_clash(sk):
 	if sk.playback: sk.clash_info.set_clash(a.cur_dice, a.val, t.cur_dice, t.val);
 	else: print(a.cur_dice.get_type_string(), " ", a.val, " // ", t.cur_dice.get_type_string(), " ", t.val);
 	dice_interaction(a, t);
-	a.pawn.update_nameplate();
-	t.pawn.update_nameplate();
+	a.stats.pawn.update_nameplate();
+	t.stats.pawn.update_nameplate();
 
 func calc_onesided(sk, winner, loser):
 	var di = DamageInstance.new(0);
 	di.source_type = DamageInstance.SOURCES.SKILL;
 	di.source = winner.stats;
+	
+	if sk.playback: di.was_crit = winner.crit;
 	
 	roll_dice(winner, sk.playback);
 	
@@ -212,8 +214,11 @@ func calc_onesided(sk, winner, loser):
 	di.value = winner.roll_sum;
 	var total = loser.stats.apply_damage(di);
 	loser.stats.dmg_sp(int(total*0.1)+1);
-	event_call("on_hit", winner.cur_dice, {"target":loser.stats, "source":winner.stats});
-
+	loser.stats.event_triggered("on_damaged", loser.stats, {});
+	event_call("on_hit", winner.cur_dice, {"main_target":loser.stats, "source":winner.stats});
+	
+	winner.crit = di.was_crit;
+	
 	if !sk.playback:
 		winner.final_damage += total;
 		print(winner.stats.pawn.char_sheet.display_name, " dealt ", total, "(", winner.final_damage,") damage! ", loser.stats.hp, "(+", loser.stats.shield,")//", loser.stats.sr);
@@ -314,9 +319,7 @@ func add_counter_dice(dice:SpeedDice):
 func roll_dice(x:Dictionary, playback:bool):
 	if !playback:
 		x.cur_dice = current_dice(x);
-		var adv:int = int(x.stats.sp/40);
-		if randi_range(0,39) < x.stats.sp%40: adv += 1;
-		x.val = x.cur_dice.roll(adv, x.stats);
+		x.val = x.cur_dice.roll(x.stats.sp*0.01, x.stats);
 		x.rolls.push_back(x.val);
 		event_call("on_dice_rolled", x.stats);
 	else:

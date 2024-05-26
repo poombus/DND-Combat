@@ -16,7 +16,7 @@ func skillBuilder(path:String):
 		if dir.current_is_dir(): file_name = dir.get_next(); continue;
 		if file_name.split(".")[-1] != "tres": file_name = dir.get_next(); continue;
 		var tres := ResourceLoader.load(path+file_name) as Skill;
-		Registry.register(tres);
+		Registry.register(tres, file_name.split(".")[0]);
 		file_name = dir.get_next();
 
 func featBuilder(path:String):
@@ -28,7 +28,7 @@ func featBuilder(path:String):
 		if dir.current_is_dir(): file_name = dir.get_next(); continue;
 		if file_name.split(".")[-1] != "tres": file_name = dir.get_next(); continue;
 		var tres := ResourceLoader.load(path+file_name) as Feat;
-		Registry.register(tres);
+		Registry.register(tres, file_name.split(".")[0]);
 		file_name = dir.get_next();
 
 func diceBuilder(dice, skill_name:String = ""):
@@ -56,7 +56,7 @@ func itemBuilder(path:String):
 		if dir.current_is_dir(): file_name = dir.get_next(); continue;
 		if file_name.split(".")[-1] != "tres": file_name = dir.get_next(); continue;
 		var tres := ResourceLoader.load(path+file_name) as Item;
-		Registry.register(tres);
+		Registry.register(tres, file_name.split(".")[0]);
 		file_name = dir.get_next();
 
 func effectBuilder(path:String):
@@ -68,7 +68,7 @@ func effectBuilder(path:String):
 		if dir.current_is_dir(): file_name = dir.get_next(); continue;
 		if file_name.split(".")[-1] != "tres": file_name = dir.get_next(); continue;
 		var tres := ResourceLoader.load(path+file_name) as StatusEffect;
-		Registry.register(tres);
+		Registry.register(tres, file_name.split(".")[0]);
 		file_name = dir.get_next();
 
 func json_parser(file_path:String) -> Dictionary:

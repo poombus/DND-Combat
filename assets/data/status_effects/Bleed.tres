@@ -1,27 +1,31 @@
-[gd_resource type="Resource" script_class="StatusEffect" load_steps=6 format=3 uid="uid://bewrs5wjkbu5q"]
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=8 format=3 uid="uid://bewrs5wjkbu5q"]
 
-[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="1_2lvay"]
-[ext_resource type="Script" path="res://classes/Global/Events/EventAction.gd" id="1_8hgya"]
-[ext_resource type="Script" path="res://classes/Resources/StatusEffect/StatusEffect.gd" id="1_m623s"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventAction.gd" id="1_jl3tc"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="2_2k3c7"]
+[ext_resource type="Script" path="res://classes/Resources/StatusEffect/StatusEffect.gd" id="3_4hq0y"]
+[ext_resource type="Texture2D" uid="uid://buihxvbnpf6rl" path="res://assets/textures/icons/bleed.png" id="3_uvcg3"]
 
 [sub_resource type="Resource" id="Resource_t4pcu"]
-script = ExtResource("1_8hgya")
-description = ""
+script = ExtResource("1_jl3tc")
 conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
-action = 2
-params = ""
+action = "damage self potency normal flat hp true"
+
+[sub_resource type="Resource" id="Resource_meyoh"]
+script = ExtResource("1_jl3tc")
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = "inflict self bleed 0 -1"
 
 [sub_resource type="Resource" id="Resource_lmb2t"]
-script = ExtResource("1_2lvay")
+script = ExtResource("2_2k3c7")
 event_signal = "on_dice_rolled"
-is_global = false
-actions = Array[ExtResource("1_8hgya")]([SubResource("Resource_t4pcu")])
+actions = Array[ExtResource("1_jl3tc")]([SubResource("Resource_t4pcu"), SubResource("Resource_meyoh")])
 
 [resource]
-script = ExtResource("1_m623s")
+script = ExtResource("3_4hq0y")
 id = "bleed"
 display_name = "Bleed"
 max_potency = 99
 max_count = 99
 decrease_on_turn_end = 0
-events = Array[ExtResource("1_2lvay")]([SubResource("Resource_lmb2t")])
+icon = ExtResource("3_uvcg3")
+events = Array[ExtResource("2_2k3c7")]([SubResource("Resource_lmb2t")])

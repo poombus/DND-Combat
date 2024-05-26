@@ -1,12 +1,26 @@
-[gd_resource type="Resource" script_class="StatusEffect" load_steps=2 format=3 uid="uid://dr10gsbswuuet"]
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=7 format=3 uid="uid://dr10gsbswuuet"]
 
-[ext_resource type="Script" path="res://classes/Resources/StatusEffect/StatusEffect.gd" id="1_1mvfa"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventAction.gd" id="1_vll27"]
+[ext_resource type="Script" path="res://classes/Global/Events/EventListener.gd" id="2_bs8yf"]
+[ext_resource type="Texture2D" uid="uid://dvgvhkydj8dkt" path="res://assets/textures/icons/fire.png" id="3_lh8bl"]
+[ext_resource type="Script" path="res://classes/Resources/StatusEffect/StatusEffect.gd" id="4_jtcof"]
+
+[sub_resource type="Resource" id="Resource_jwnm3"]
+script = ExtResource("1_vll27")
+conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
+action = "damage self potency fire flat hp true"
+
+[sub_resource type="Resource" id="Resource_uknri"]
+script = ExtResource("2_bs8yf")
+event_signal = "on_turn_end"
+actions = Array[ExtResource("1_vll27")]([SubResource("Resource_jwnm3")])
 
 [resource]
-script = ExtResource("1_1mvfa")
+script = ExtResource("4_jtcof")
 id = "burn"
 display_name = "Burn"
 max_potency = 99
 max_count = 99
 decrease_on_turn_end = 1
-events = Array[Resource("res://classes/Global/Events/EventListener.gd")]([])
+icon = ExtResource("3_lh8bl")
+events = Array[ExtResource("2_bs8yf")]([SubResource("Resource_uknri")])

@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Pawn2D
 
+const test_unit:PackedScene = preload("res://tools/combat test/Units/test_unit.tscn");
+
 var starting_pos:Vector2;
 
 @export var char_sheet:CharacterSheet;
@@ -15,13 +17,19 @@ var virtual:bool = false;
 @onready var sdc := $"Speed Dice Container";
 @onready var anim = $AnimationPlayer;
 
+static func new_test_unit(_char_sheet:CharacterSheet) -> Pawn2D:
+	var new_test_unit = test_unit.instantiate();
+	new_test_unit.char_sheet = _char_sheet;
+	return new_test_unit;
+
 func _ready():
 	#await get_tree().create_timer(1).timeout;
-	char_sheet = char_sheet.duplicate();
-	char_sheet.setup();
-	stats.setup(char_sheet);
-	nameplate.init(self);
-	sdc.init(self);
+	if char_sheet:
+		char_sheet = char_sheet.duplicate();
+		char_sheet.setup();
+		stats.setup(char_sheet);
+		nameplate.init(self);
+		sdc.init(self);
 
 func apply_friction(delta:float):
 	pass;

@@ -8,17 +8,11 @@
 [sub_resource type="Resource" id="Resource_eun8c"]
 script = ExtResource("1_d4vno")
 conditions = Array[Resource("res://classes/Global/Events/EventConditional.gd")]([])
-action = 3
-params = {
-"count": 99,
-"id": "base:bleed",
-"potency": 10
-}
+action = "inflict self poise 5 5"
 
 [sub_resource type="Resource" id="Resource_ljjl3"]
 script = ExtResource("2_xhjdt")
 event_signal = "on_hit"
-is_global = false
 actions = Array[ExtResource("1_d4vno")]([SubResource("Resource_eun8c")])
 
 [sub_resource type="Resource" id="Resource_tuaoj"]
@@ -30,8 +24,9 @@ events = Array[ExtResource("2_xhjdt")]([SubResource("Resource_ljjl3")])
 
 [resource]
 script = ExtResource("4_ekpkq")
-id = "test_skill"
-display_name = "Bleed Test"
+display_name = "Burn Test"
+description = ""
+flavor_text = ""
 modifier = 0
 energy_cost = 5
 weight = 1

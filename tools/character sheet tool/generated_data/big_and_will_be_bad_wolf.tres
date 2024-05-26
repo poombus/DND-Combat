@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="NPCSheet" load_steps=2 format=3 uid="uid://48h0e1mq00v8"]
+
+[ext_resource type="Script" path="res://classes/Resources/CharacterSheet/NPCSheet.gd" id="1_x6rus"]
+
+[resource]
+script = ExtResource("1_x6rus")
+type = 0
+loot_table = []
+display_name = "Big and Will Be Bad Wolf"
+level = 1
+race = 8
+ethics = 0
+morals = 0
+languages = PackedStringArray()
+senses = PackedStringArray()
+maxhp = 400
+hp = 400
+maxsr = 20.0
+sr = 20
+sp = 0
+strength = 0
+dexterity = 0
+constitution = 0
+intelligence = 0
+wisdom = 0
+charisma = 0
+skill_ids = PackedStringArray()
+spell_ids = PackedStringArray()
+feat_ids = PackedStringArray()

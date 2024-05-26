@@ -5,6 +5,6 @@ extends Control
 @onready var count := $Count;
 
 func update_display(se:StatusEffect):
-	#do something with icon
+	if se.icon: icon.texture = se.icon;
 	potency.text = str("[right]", se.potency);
 	count.text = str(se.count);

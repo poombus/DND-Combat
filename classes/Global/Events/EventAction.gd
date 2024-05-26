@@ -1,91 +1,72 @@
 extends Resource
 class_name EventAction
 
-@export var description:String;
+var description:String;
 @export var conditions:Array[EventConditional];
-@export var action:ACTS;
-@export var params:String;
-var parsed_params:Dictionary;
+@export var action:String;
 var listener:EventListener;
 var data:Dictionary;
-
-enum ACTS { #list of actions
-	TEST = 0,
-	SELF_HEAL,
-	SELF_DAMAGE,
-	DEAL_DAMAGE,
-	INFLICT_STATUS,
-	STAT_CHANGE,
-	APPLY_HIDDEN_STAT,
-	GAIN_DICE_POWER_SELF,
-	LOSE_DICE_POWER_SELF
-}
 
 func event_action(_listener:EventListener, _data := {}):
 	data = _data;
 	listener = _listener;
-	parsed_params = Utils.parse_params(params, data, listener);
 	for c in conditions:
 		if c.check_conditional(true, true) == false: return;
 	
-	var action_name = ACTS.keys()[action].to_lower();
-	self.call(action_name);
-	#print(listener.event_signal, ": ", listener.listener.pawn.pawn.char_sheet.display_name);
+	parse();
 
-func convert_params(p:Dictionary):
-	for param in parsed_params:
-		if !p.has(param): return null;
-		var type = typeof(p[param]);
-		p[param] = type_convert(parsed_params[param], type);
-	return p;
+func parse():
+	var split = Array(action.split(" ", false)); #action is 0, params is everything else
+	if split.size() == 0: return;
+	var a = split.pop_front();
+	
+	for s in split.size():
+		split[s] = data_ref(split[s]);
+	
+	if self.has_method(a.to_lower()): self.call(a.to_lower(), split);
+	else: print_rich("[color=red]Could not find action '%s'."%a);
+
+func data_ref(s:String):
+	match s:
+		"main_target": return data.main_target;
+		"self": return data.source;
+		"potency": if listener.listener is StatusEffect: return listener.listener.potency;
+	return s;
+
+func fill_parameters(params:Array, default_data:Array) -> Array:
+	while params.size() < default_data.size(): params[params.size()-1] = default_data[params.size()-1];
+	return params;
 
 func test(): print("test");
 
-func self_heal():
-	var p = convert_params({"amount": 0, "hp": true, "sr": false});
-	if !p: return;
-	data.source.heal_hp(p.amount);
-	print(parsed_params);
-	#if p.amount != 0: print("healed for ",p.amount);
+func inflict(p:Array):
+	#inflict target status potency count
+	p = fill_parameters(p, [null, null, 0, 0]);
+	if not p[0] is CombatStats: print_rich("[color=red] Could not inflict status on %s."%p[0]); return;
+	elif p[1] == null: print_rich("[color=red] No status provided."); return;
+	p[0].apply_status_effect(p[1], int(p[2]), int(p[3]));
 
-func self_damage():
-	var p = convert_params({"amount": 0, "hp": true, "sr": false});
-	if !p: return;
-	var di = DamageInstance.new(p.amount);
-	di.affect_hp = p.hp;
-	di.affect_sr = p.sr;
-	data.source.apply_damage(di);
-	#if p.amount != 0: print("damaged for ",p.amount);
-
-func deal_damage():
-	var p = convert_params({"amount": 0, "hp": true, "sr": false});
-	if !p: return;
-	var di = DamageInstance.new(p.amount);
-	di.affect_hp = p.hp;
-	di.affect_sr = p.sr;
-	data.target.apply_damage(di);
-
-func inflict_status():
-	var p = convert_params({"id": "group:id", "potency": 0, "count": 0});
-	if !p: return;
-	data.target.apply_status_effect(p.id, p.potency, p.count);
-
-func stat_change():
-	var p = convert_params({"stat": "", "amount": 0});
-	if !p: return;
-
-func apply_hidden_stat():
-	var p = convert_params({"name": "hidden_stat", "amount": 0, "target": 0});
-	if !p: return;
-	if p.target == 0: data.source.apply_hidden_stat(p.name, p.amount);
-	else: data.target.apply_hidden_stat(p.name, p.amount);
+func damage(p:Array):
+	#damage target amount element type [hp/sr/both] [bool:ignore stagger?]
+	p = fill_parameters(p, [null, 0, "normal", "flat", "both", false]);
+	if not p[0] is CombatStats: print_rich("[color=red] Could not damage %s."%p[0]); return;
+	var el = DamageInstance.DMG_ELEMENTS[p[2].to_upper()];
+	var ty = DamageInstance.DMG_TYPES[p[3].to_upper()];
+	var di = DamageInstance.new(int(p[1]), el, ty);
 	
-func gain_dice_power_self():
-	var p = convert_params({"amount": 0});
-	if !p: return;
-	data.source.apply_hidden_stat("dice_power", p.amount);
+	if p[4] == "hp": di.affect_sr = false;
+	elif p[4] == "sr": di.affect_hp = false;
+	
+	if p[5] == "true": di.ignore_stagger = true;
+	
+	p[0].apply_damage(di);
 
-func lose_dice_power_self():
-	var p = convert_params({"amount": 0});
-	if !p: return;
-	data.source.apply_hidden_stat("dice_power", -p.amount);
+func sanity(p:Array):
+	#sanity target [add/remove/set] amount
+	p = fill_parameters(p, [null, "add", 0]);
+	if not p[0] is CombatStats: print_rich("[color=red] Could not damage %s."%p[0]); return;
+	if not ["add","remove","set"].has(p[1]): print_rich("[color=red] No operation named '%s'. Must be 'add', 'remove', or 'set'."%p[1])
+	
+	if p[1] == "add": p[0].heal_sp(p[2]);
+	elif p[1] == "remove": p[0].dmg_sp(p[2]);
+	elif p[1] == "set": p[0].sp = p[2];

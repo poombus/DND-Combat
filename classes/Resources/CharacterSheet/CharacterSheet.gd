@@ -19,7 +19,7 @@ var description:String; #description (will be seen by players)
 @export_category("Health")
 @export var maxhp:int = 20;
 @export var hp:int = 20;
-@export var maxsr:int = 20;
+@export var maxsr:float = 20;
 @export var sr:int = 20;
 @export var sp:int = 0;
 

@@ -1,11 +1,68 @@
-[gd_scene load_steps=7 format=3 uid="uid://75qh06hl51ym"]
+[gd_scene load_steps=12 format=3 uid="uid://75qh06hl51ym"]
 
 [ext_resource type="PackedScene" uid="uid://drmpldifjxf23" path="res://classes/Pawn/pawn_2d_template.tscn" id="1_f57vx"]
 [ext_resource type="Script" path="res://classes/Combat/BattleCamera.gd" id="1_q4gbj"]
 [ext_resource type="PackedScene" uid="uid://nljyb10vwo8g" path="res://hud/Combat GUI/combat_gui.tscn" id="2_0b67m"]
 [ext_resource type="Resource" uid="uid://cqsiexf0wnxei" path="res://tools/character sheet tool/generated_data/Klaus.res" id="3_acv3g"]
 [ext_resource type="PackedScene" uid="uid://cyi6m268p5frw" path="res://tools/basic_combat_visualizer/hud/clash_info.tscn" id="4_axrav"]
-[ext_resource type="Resource" path="res://tools/character sheet tool/generated_data/Test_NPC.res" id="4_nom8m"]
+[ext_resource type="Script" path="res://classes/Resources/CharacterSheet/ChildClasses/Resistances.gd" id="4_ddek7"]
+[ext_resource type="Script" path="res://classes/Resources/CharacterSheet/NPCSheet.gd" id="5_5g5u8"]
+[ext_resource type="Script" path="res://classes/Resources/CharacterSheet/ChildClasses/StatVariations.gd" id="6_6mc2t"]
+
+[sub_resource type="Resource" id="Resource_50up4"]
+script = ExtResource("4_ddek7")
+slash = 1.0
+blunt = 1.0
+pierce = 1.0
+normal = 1.0
+cold = 1.0
+fire = 1.0
+force = 1.0
+lightning = 1.0
+necrotic = 1.0
+poison = 1.0
+psychic = 1.0
+radiant = 1.0
+thunder = 1.0
+
+[sub_resource type="Resource" id="Resource_kmh5o"]
+script = ExtResource("6_6mc2t")
+hp_max = 50.0
+sr_max = 5.0
+str_max = 10.0
+dex_max = 3.0
+con_max = 5.0
+int_max = 2.0
+wis_max = 5.0
+cha_max = 3.0
+
+[sub_resource type="Resource" id="Resource_q3f37"]
+script = ExtResource("5_5g5u8")
+type = 3
+loot_table = []
+stat_variations = SubResource("Resource_kmh5o")
+display_name = "Wolf"
+level = 10
+race = 0
+ethics = 1
+morals = 1
+languages = PackedStringArray()
+senses = PackedStringArray()
+maxhp = 50
+hp = 50
+maxsr = 20.0
+sr = 20
+sp = 0
+strength = 14
+dexterity = 16
+constitution = 8
+intelligence = 4
+wisdom = 12
+charisma = 2
+resistances = SubResource("Resource_50up4")
+skill_ids = PackedStringArray("beast_bite")
+spell_ids = PackedStringArray()
+feat_ids = PackedStringArray()
 
 [node name="2D Test Stage" type="Node2D"]
 metadata/_edit_lock_ = true
@@ -21,7 +78,7 @@ char_sheet = ExtResource("3_acv3g")
 
 [node name="P2" parent="." instance=ExtResource("1_f57vx")]
 position = Vector2(921, 328)
-char_sheet = ExtResource("4_nom8m")
+char_sheet = SubResource("Resource_q3f37")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
